@@ -2,7 +2,7 @@
 
 Welcome to my first repo! 
 
-This repo holds the full experience I've gained during my SoftUni courses: 
+This repo holds the full experience I've gained during my courses at @ SoftUni: 
 - homeworks, 
 - exams, 
 - exercises, 
