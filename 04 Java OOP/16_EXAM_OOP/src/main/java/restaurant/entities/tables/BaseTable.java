@@ -4,12 +4,16 @@ import restaurant.entities.drinks.interfaces.Beverages;
 import restaurant.entities.healthyFoods.interfaces.HealthyFood;
 import restaurant.entities.tables.interfaces.Table;
 
-import java.util.Collection;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import static restaurant.common.ExceptionMessages.INVALID_NUMBER_OF_PEOPLE;
+import static restaurant.common.ExceptionMessages.INVALID_TABLE_SIZE;
+
 public abstract class BaseTable implements Table {
-    private Collection<HealthyFood> healthyFood;
-    private Collection<Beverages> beverages;
+    private List<HealthyFood> healthyFood;
+    private List<Beverages> beverages;
 
     private int number;
     private int size;
@@ -19,67 +23,111 @@ public abstract class BaseTable implements Table {
     private double allPeople;
 
     protected BaseTable(int number, int size, double pricePerPerson) {
-      // TODO add setters and validations
+    setNumber(number);
+    setSize(size);
+    setPricePerPerson(pricePerPerson);
+    this.healthyFood = new ArrayList<>();
+    this.beverages = new ArrayList<>();
+    }
 
+    private void setNumber(int number) {
+        this.number = number;
+    }
+
+    private void setSize(int size) {
+       if (size <= 0) {
+           throw new IllegalArgumentException(INVALID_TABLE_SIZE);
+       }
+
+
+        this.size = size;
+    }
+
+    private void setPricePerPerson(double pricePerPerson) {
+        this.pricePerPerson = pricePerPerson;
     }
 
     @Override
     public int getTableNumber() {
-        return 0;
+        return getTableNumber() ;
     }
 
     @Override
     public int getSize() {
-        return 0;
+        return size;
     }
 
     @Override
     public int numberOfPeople() {
-        return 0;
+        return numberOfPeople;
     }
 
     @Override
     public double pricePerPerson() {
-        return 0;
+        return pricePerPerson;
     }
 
     @Override
     public boolean isReservedTable() {
-        return false;
+        return isReservedTable;
     }
 
     @Override
     public double allPeople() {
-        return 0;
+        return allPeople;
     }
 
     @Override
     public void reserve(int numberOfPeople) {
 
+        if (numberOfPeople <= 0) {
+            throw new IllegalArgumentException(INVALID_NUMBER_OF_PEOPLE);
+        }
+
+        this.numberOfPeople = numberOfPeople;
+        this.isReservedTable = true;
     }
 
     @Override
     public void orderHealthy(HealthyFood food) {
 
+        this.healthyFood.add(food);
+
     }
 
     @Override
     public void orderBeverages(Beverages beverages) {
-
+        this.beverages.add(beverages);
     }
 
     @Override
     public double bill() {
-        return 0;
+       double foodBill = this.healthyFood.stream()
+               .mapToDouble(HealthyFood :: getPrice)
+               .sum();
+
+       double beveragesBill = this.beverages.stream()
+               .mapToDouble(Beverages::getPrice)
+               .sum();
+
+        return foodBill + beveragesBill;
     }
 
     @Override
     public void clear() {
-
+        this.isReservedTable = false;
+        this.numberOfPeople = 0;
+        this.healthyFood.clear();
+        this.beverages.clear();
+        this.pricePerPerson = 0;
     }
 
     @Override
     public String tableInformation() {
-        return null;
+        return String.format("Table - %d %n" +
+                "Size - %d%n" +
+                "Type - %s%n" +
+                "All price - %.2f",
+                number,size, this.getClass().getSimpleName(), pricePerPerson);
     }
 }
