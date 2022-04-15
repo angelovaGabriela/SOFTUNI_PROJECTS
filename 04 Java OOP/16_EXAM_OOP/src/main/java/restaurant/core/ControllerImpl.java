@@ -14,7 +14,7 @@ import restaurant.entities.tables.Indoors;
 import restaurant.entities.tables.interfaces.Table;
 import restaurant.repositories.interfaces.*;
 
-import static restaurant.common.OutputMessages.FOOD_ADDED;
+import java.util.Collection;
 
 public class ControllerImpl implements Controller {
 
@@ -22,7 +22,7 @@ public class ControllerImpl implements Controller {
     private final HealthFoodRepository<HealthyFood> healthFoodRepository;
     private final BeverageRepository<Beverages> beverageRepository;
     private final TableRepository<Table> tableRepository;
-
+    private double totalIncome;
     public ControllerImpl(HealthFoodRepository<HealthyFood> healthFoodRepository,
                           BeverageRepository<Beverages> beverageRepository,
                           TableRepository<Table> tableRepository) {
@@ -36,6 +36,7 @@ public class ControllerImpl implements Controller {
         HealthyFood food = type.equals("Salad")
                 ? new Salad(name, price)
                 : new VeganBiscuits(name,price);
+
 
         HealthyFood previouslyAddedFood = this.healthFoodRepository.foodByName(name);
         if (previouslyAddedFood == null) { // if the repository doesn't contain this food == null
@@ -85,32 +86,82 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String reserve(int numberOfPeople) {
-        //TODO:
-        return null;
+        Collection<Table> tables = this.tableRepository.getAllEntities();
+
+            Table table = tables.stream()
+                    .filter(t -> !t.isReservedTable() && t.getSize() >= numberOfPeople)
+                    .findFirst()
+                    .orElse(null);
+
+            String message = String.format(OutputMessages.RESERVATION_NOT_POSSIBLE, numberOfPeople);
+
+            if (table != null) {
+            table.reserve(numberOfPeople);
+            message = String.format(OutputMessages.TABLE_RESERVED, table.getTableNumber(), numberOfPeople);
+
+        }
+            return message;
     }
 
     @Override
     public String orderHealthyFood(int tableNumber, String healthyFoodName) {
-        //TODO:
-        return null;
+
+        Table table = tableRepository.byNumber(tableNumber);
+
+        if (table == null) {
+           return String.format(OutputMessages.WRONG_TABLE_NUMBER, tableNumber);
+        }
+
+        HealthyFood food = healthFoodRepository.foodByName(healthyFoodName);
+
+        if (food == null) {
+            return String.format(OutputMessages.NONE_EXISTENT_FOOD, healthyFoodName);
+        }
+
+        // order
+        table.orderHealthy(food);
+
+
+
+        return String.format(OutputMessages.FOOD_ORDER_SUCCESSFUL, healthyFoodName, tableNumber);
+
     }
 
     @Override
     public String orderBeverage(int tableNumber, String name, String brand) {
-        //TODO:
-        return null;
+        Table table = tableRepository.byNumber(tableNumber);
+
+        if (table == null) {
+            return String.format(OutputMessages.WRONG_TABLE_NUMBER, tableNumber);
+        }
+
+        Beverages beverage = beverageRepository.beverageByName(name, brand);
+
+        if (beverage == null) {
+            return String.format(OutputMessages.NON_EXISTENT_DRINK, name, brand);
+        }
+
+        // order
+        table.orderBeverages(beverage);
+        return String.format(OutputMessages.BEVERAGE_ORDER_SUCCESSFUL, name, tableNumber);
     }
 
     @Override
     public String closedBill(int tableNumber) {
-        //TODO:
-        return null;
+
+        Table table = this.tableRepository.byNumber(tableNumber);
+
+        double bill = table.bill();
+        table.clear();
+
+        totalIncome += bill;
+        return String.format(OutputMessages.BILL, tableNumber, bill);
+
     }
 
 
     @Override
     public String totalMoney() {
-        //TODO:
-        return null;
+       return String.format(OutputMessages.TOTAL_MONEY, totalIncome);
     }
 }

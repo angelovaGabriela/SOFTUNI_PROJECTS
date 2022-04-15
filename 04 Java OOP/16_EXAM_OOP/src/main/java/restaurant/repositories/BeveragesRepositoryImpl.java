@@ -3,31 +3,31 @@ package restaurant.repositories;
 import restaurant.entities.drinks.interfaces.Beverages;
 import restaurant.repositories.interfaces.BeverageRepository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class BeveragesRepositoryImpl implements BeverageRepository<Beverages> {
-  private Map<String, Beverages> beverages;
+  private List<Beverages> beverages;
 
     public BeveragesRepositoryImpl() {
-        this.beverages = new LinkedHashMap<>();
+        this.beverages = new ArrayList<>();
     }
 
     @Override
     public Beverages beverageByName(String drinkName, String drinkBrand) {
-        return beverages.get(drinkName);
+        return beverages.stream()
+                .filter(b -> b.getName().equals(drinkName) && b.getBrand().equals(drinkBrand))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Collection<Beverages> getAllEntities() {
-        return beverages.values();
+        return beverages;
     }
 
     @Override
     public void add(Beverages entity) {
 
-        beverages.put(entity.getName(), entity);
+        beverages.add(entity);
     }
 }

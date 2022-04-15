@@ -49,7 +49,7 @@ public abstract class BaseTable implements Table {
 
     @Override
     public int getTableNumber() {
-        return getTableNumber() ;
+        return number;
     }
 
     @Override
@@ -110,7 +110,7 @@ public abstract class BaseTable implements Table {
                .mapToDouble(Beverages::getPrice)
                .sum();
 
-        return foodBill + beveragesBill;
+        return foodBill + beveragesBill + (numberOfPeople * pricePerPerson);
     }
 
     @Override
@@ -119,7 +119,6 @@ public abstract class BaseTable implements Table {
         this.numberOfPeople = 0;
         this.healthyFood.clear();
         this.beverages.clear();
-        this.pricePerPerson = 0;
     }
 
     @Override
