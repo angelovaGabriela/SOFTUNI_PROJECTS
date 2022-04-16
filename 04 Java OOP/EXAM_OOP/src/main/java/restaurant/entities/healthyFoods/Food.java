@@ -3,8 +3,9 @@ package restaurant.entities.healthyFoods;
 import restaurant.entities.healthyFoods.interfaces.HealthyFood;
 
 import static restaurant.common.ExceptionMessages.*;
+import static restaurant.utils.StringUtils.nullOrEmpty;
 
-public  class Food implements HealthyFood {
+public abstract class Food implements HealthyFood {
 private String name;
 private double portion;
 private double price;
@@ -34,10 +35,7 @@ private double price;
     }
 
     private void setName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-
-            throw new IllegalArgumentException(INVALID_NAME);
-        }
+        nullOrEmpty(name,INVALID_NAME);
 
         this.name = name;
     }

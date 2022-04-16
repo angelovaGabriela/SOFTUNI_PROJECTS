@@ -38,8 +38,6 @@ public abstract class BaseTable implements Table {
        if (size <= 0) {
            throw new IllegalArgumentException(INVALID_TABLE_SIZE);
        }
-
-
         this.size = size;
     }
 
@@ -83,7 +81,6 @@ public abstract class BaseTable implements Table {
         if (numberOfPeople <= 0) {
             throw new IllegalArgumentException(INVALID_NUMBER_OF_PEOPLE);
         }
-
         this.numberOfPeople = numberOfPeople;
         this.isReservedTable = true;
     }

@@ -3,6 +3,7 @@ package restaurant.entities.drinks;
 import restaurant.entities.drinks.interfaces.Beverages;
 
 import static restaurant.common.ExceptionMessages.*;
+import static restaurant.utils.StringUtils.nullOrEmpty;
 
 public abstract class BaseBeverage implements Beverages {
   private String name;
@@ -19,7 +20,7 @@ public abstract class BaseBeverage implements Beverages {
 
   private void setName(String name) {
       if (name == null || name.trim().isEmpty()) {
-        throw new IllegalArgumentException(INVALID_NAME);
+        nullOrEmpty(name, INVALID_NAME);
       }
 
       this.name = name;
@@ -29,8 +30,6 @@ public abstract class BaseBeverage implements Beverages {
     if (counter <= 0 ) {
       throw new IllegalArgumentException(INVALID_COUNTER);
     }
-
-
     this.counter = counter;
   }
 
@@ -39,16 +38,11 @@ public abstract class BaseBeverage implements Beverages {
       throw new IllegalArgumentException(INVALID_PRICE);
     }
 
-
       this.price = price;
   }
 
   private void setBrand(String brand) {
-    if (brand == null || brand.trim().isEmpty()) {
-      throw new IllegalArgumentException(INVALID_BRAND);
-
-    }
-
+    nullOrEmpty(brand, INVALID_BRAND);
     this.brand = brand;
   }
 
