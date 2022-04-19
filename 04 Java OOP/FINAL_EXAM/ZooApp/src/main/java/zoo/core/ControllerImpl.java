@@ -1,6 +1,10 @@
 package zoo.core;
 
 import zoo.common.ConstantMessages;
+import zoo.common.ExceptionMessages;
+import zoo.entities.animals.Animal;
+import zoo.entities.animals.AquaticAnimal;
+import zoo.entities.animals.TerrestrialAnimal;
 import zoo.entities.areas.Area;
 import zoo.entities.areas.LandArea;
 import zoo.entities.areas.WaterArea;
@@ -72,7 +76,31 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String addAnimal(String areaName, String animalType, String animalName, String kind, double price) {
-        return null;
+
+      if (animalType.equals("AquaticAnimal") || animalType.equals("TerrestrialAnimal")) {
+
+          Animal animal = animalType.equals("AquaticAnimal")
+                  ? new AquaticAnimal(animalName, kind, price)
+                  : new TerrestrialAnimal(animalName, kind, price);
+
+
+          Area area = areas.stream().filter(a -> a.getName().equals(areaName)).findFirst().get();
+
+          int animalsCountBefore = area.getAnimals().size();
+          area.addAnimal(animal); // if not added must throw the exception message "Not enough capacity."
+          int animalsCountAfter = area.getAnimals().size();
+
+          if (animalsCountBefore != animalsCountAfter) {
+              return String.format(ConstantMessages.SUCCESSFULLY_ADDED_ANIMAL_IN_AREA, animalType, areaName);
+          }
+          //AquaticAnimal - WaterArea // TerrestrialAnimal  - LandArea
+          if (!(animalType.equals("AquaticAnimal") && area.getClass().getSimpleName().equals("WaterArea")
+            || !(animalType.equals("TerrestrialAnimal") && area.getClass().getSimpleName().equals("LandArea")))) {
+              return ConstantMessages.AREA_NOT_SUITABLE;
+          }
+
+      }
+      throw new IllegalArgumentException(ExceptionMessages.INVALID_ANIMAL_TYPE);
     }
 
     @Override

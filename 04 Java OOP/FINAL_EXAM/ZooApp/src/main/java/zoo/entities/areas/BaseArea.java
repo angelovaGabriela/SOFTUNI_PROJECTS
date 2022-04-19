@@ -39,17 +39,17 @@ public abstract class BaseArea implements Area {
 
     @Override
     public String getName() {
-        return null;
+       return name;
     }
 
     @Override
-    public Collection<Animal> getAnimals() {
-        return null;
+    public List<Animal> getAnimals() {
+        return this.animals;
     }
 
     @Override
-    public Collection<Food> getFoods() {
-        return null;
+    public List<Food> getFoods() {
+       return this.foods;
     }
 
     @Override

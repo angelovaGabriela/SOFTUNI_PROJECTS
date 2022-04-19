@@ -1,7 +1,5 @@
 package zoo.entities.animals;
 
-import zoo.entities.areas.WaterArea;
-
 public class AquaticAnimal extends BaseAnimal {
 
     public AquaticAnimal(String name, String kind,double price) {
