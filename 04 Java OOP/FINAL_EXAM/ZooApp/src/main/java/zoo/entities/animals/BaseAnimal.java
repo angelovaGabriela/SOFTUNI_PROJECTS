@@ -46,17 +46,17 @@ public abstract class BaseAnimal implements Animal {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
     public double getKg() {
-        return 0;
+        return this.kg;
     }
 
     @Override
     public double getPrice() {
-        return 0;
+        return this.price;
     }
 
     @Override

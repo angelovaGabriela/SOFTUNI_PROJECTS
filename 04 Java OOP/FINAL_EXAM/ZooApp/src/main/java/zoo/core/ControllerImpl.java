@@ -14,6 +14,7 @@ import zoo.entities.foods.Vegetable;
 import zoo.repositories.FoodRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static zoo.common.ConstantMessages.SUCCESSFULLY_ADDED_AREA_TYPE;
 import static zoo.common.ConstantMessages.SUCCESSFULLY_ADDED_FOOD_TYPE;
@@ -105,16 +106,28 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String feedAnimal(String areaName) {
-        return null;
+
+        Area area = areas.stream().filter(a -> a.getName().equals(areaName)).findFirst().get();
+        int fedCount = area.getAnimals().size();
+        area.feed();
+
+        return String.format(ConstantMessages.ANIMALS_FED, fedCount);
+
     }
 
     @Override
     public String calculateKg(String areaName) {
-        return null;
+        Area area = areas.stream().filter(a -> a.getName().equals(areaName)).findFirst().get();
+        double kgSumOfAllAnimalsInTheArea = area.getAnimals().stream().mapToDouble(Animal::getKg).sum();
+
+        return String.format(ConstantMessages.KILOGRAMS_AREA, areaName, kgSumOfAllAnimalsInTheArea);
+
     }
 
     @Override
     public String getStatistics() {
         return null;
+
+        //TODO: IMPLEMENTATION
     }
 }

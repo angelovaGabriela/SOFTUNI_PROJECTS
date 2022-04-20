@@ -4,6 +4,7 @@ import zoo.entities.animals.Animal;
 import zoo.entities.foods.Food;
 import zoo.repositories.FoodRepository;
 
+
 import java.util.*;
 
 import static zoo.common.ExceptionMessages.AREA_NAME_NULL_OR_EMPTY;
@@ -87,13 +88,34 @@ public abstract class BaseArea implements Area {
 
     @Override
     public void feed() {
+      animals.stream().forEach(animal -> animal.eat());
 
-        // TODO: Implementation
     }
 
     @Override
     public String getInfo() {
-        return null;
-        //TODO: Print the info
+
+      StringBuilder info = new StringBuilder();
+       info.append(name).append(" ").append((this.getClass().getSimpleName())).append(":").append(System.lineSeparator())
+              .append("Animals: ");
+
+
+        if (animals.size() <= 0) {
+          info.append("none").append("Foods: ").append(foods.size()).append(System.lineSeparator())
+                    .append("Calories: ").append(this.sumCalories());
+        } else {
+          animals.stream().forEach(animal ->
+                info.append(animal + " ").append(System.lineSeparator())
+                            .append("Foods: ").append(foods.size()).append(System.lineSeparator())
+                            .append("Calories: ").append(this.sumCalories()));
+        }
+
+        //{areaName} ({areaType}):
+        //Animals: {animalName1} {animalName2} {animalName3} (…) / Animals: none
+        //Foods: {foodsCount}
+        //Calories: {sumCalories}"
+
+        return info.toString();
+
     }
 }

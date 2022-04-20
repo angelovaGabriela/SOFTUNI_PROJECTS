@@ -1,14 +1,13 @@
 package zoo.entities.animals;
 
 public class TerrestrialAnimal extends BaseAnimal {
-
+private static double KG = 5.50;
     public TerrestrialAnimal(String name, String kind, double price) {
-        super(name, kind, 5.50, price);
+        super(name, kind, KG, price);
     }
 
     @Override
     public void eat() {
-        double kilograms = this.getKg();
-        kilograms += 5.70;
+      KG += 5.70;
     }
 }
