@@ -6,6 +6,8 @@ import glacialExpedition.models.explorers.AnimalExplorer;
 import glacialExpedition.models.explorers.Explorer;
 import glacialExpedition.models.explorers.GlacierExplorer;
 import glacialExpedition.models.explorers.NaturalExplorer;
+import glacialExpedition.models.mission.Mission;
+import glacialExpedition.models.mission.MissionImpl;
 import glacialExpedition.models.states.State;
 import glacialExpedition.models.states.StateImpl;
 import glacialExpedition.repositories.ExplorerRepository;
@@ -14,11 +16,14 @@ import glacialExpedition.repositories.StateRepository;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ControllerImpl implements Controller {
 
     private Repository<Explorer> explorerRepository;
     private Repository<State> stateRepository;
+    private int exploredStates;
 
 
     public ControllerImpl () {
@@ -73,17 +78,47 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String exploreState(String stateName) {
-        // Дали имаме изследователи с повече от 50 енергия
+        // Взимаме изследователи с повече от 50 енергия
+        List<Explorer> explorers = this.explorerRepository.getCollection().stream()
+                .filter(explorer -> explorer.getEnergy() > 50)
+                .collect(Collectors.toList());
+
         // Ако нямаме - > Exception
-       return null;
-
+        if (explorers.isEmpty()) {
+            throw new IllegalArgumentException(ExceptionMessages.STATE_EXPLORERS_DOES_NOT_EXISTS);
+        }
         // Ако имаме, започваме мисията
-        // Да върнем, колко изследователи са се изтощили
+        State stateToExplore = this.stateRepository.byName(stateName);
+        Mission mission = new MissionImpl();
+        mission.explore(stateToExplore, explorers);
+        long retired = explorers.stream().filter(explorer -> explorer.getEnergy() == 0).count();
+        this.exploredStates++;
 
+        // Да върнем, колко изследователи са се изтощили
+        return String.format(ConstantMessages.STATE_EXPLORER, stateName, retired);
     }
 
     @Override
     public String finalResult() {
-        return null;
+        StringBuilder result = new StringBuilder();
+        result.append(String.format(ConstantMessages.FINAL_STATE_EXPLORED, this.exploredStates));
+        result.append(System.lineSeparator());
+        result.append(ConstantMessages.FINAL_EXPLORER_INFO);
+
+        Collection<Explorer> explorers = this.explorerRepository.getCollection();
+        for (Explorer explorer : explorers) {
+            result.append(System.lineSeparator());
+            result.append(String.format(ConstantMessages.FINAL_EXPLORER_NAME, explorer.getName()));
+            result.append(System.lineSeparator());
+            result.append(String.format(ConstantMessages.FINAL_EXPLORER_ENERGY, explorer.getEnergy()));
+            result.append(System.lineSeparator());
+            if (explorer.getSuitcase().getExhibits().isEmpty()) {
+                result.append(String.format(ConstantMessages.FINAL_EXPLORER_SUITCASE_EXHIBITS, "None"));
+            } else {
+                result.append(String.format(ConstantMessages.FINAL_EXPLORER_SUITCASE_EXHIBITS,
+                        String.join(ConstantMessages.FINAL_EXPLORER_SUITCASE_EXHIBITS_DELIMITER, explorer.getSuitcase().getExhibits())));
+            }
+        }
+        return result.toString();
     }
 }
