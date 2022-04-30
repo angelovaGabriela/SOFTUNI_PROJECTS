@@ -40,7 +40,7 @@ public abstract class BaseArea implements Area {
 
     @Override
     public String getName() {
-       return name;
+       return this.name;
     }
 
     @Override
@@ -96,19 +96,23 @@ public abstract class BaseArea implements Area {
     public String getInfo() {
 
       StringBuilder info = new StringBuilder();
-       info.append(name).append(" ").append((this.getClass().getSimpleName())).append(":").append(System.lineSeparator())
-              .append("Animals: ");
 
+        info.append(String.format("%s (%s):", this.getName(), this.getClass().getSimpleName()));
+        info.append(System.lineSeparator());
+        info.append("Animals: ");
 
-        if (animals.size() <= 0) {
-          info.append("none").append("Foods: ").append(foods.size()).append(System.lineSeparator())
-                    .append("Calories: ").append(this.sumCalories());
+        if (!animals.isEmpty()) {
+            for (Animal animal : animals) {
+                info.append(animal.getName());
+                info.append(" ");
+            }
         } else {
-          animals.stream().forEach(animal ->
-                info.append(animal + " ").append(System.lineSeparator())
-                            .append("Foods: ").append(foods.size()).append(System.lineSeparator())
-                            .append("Calories: ").append(this.sumCalories()));
+            info.append("none");
         }
+        info.append(System.lineSeparator());
+        info.append(String.format("Foods: %d", foods.size()));
+        info.append(System.lineSeparator());
+        info.append(String.format("Calories: %d", sumCalories()));
 
         //{areaName} ({areaType}):
         //Animals: {animalName1} {animalName2} {animalName3} (…) / Animals: none

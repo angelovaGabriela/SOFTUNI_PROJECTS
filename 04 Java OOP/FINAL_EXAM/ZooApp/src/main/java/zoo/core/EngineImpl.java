@@ -1,6 +1,7 @@
 package zoo.core;
 
 import zoo.common.Command;
+import zoo.entities.areas.Area;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -70,37 +71,55 @@ public class EngineImpl implements Engine {
         return result;
     }
     private String addArea(String[] data) {
-        //TODO
-        return null;
+
+        String areaType = data[0];
+        String areaName = data[1];
+
+        //•	AddArea {areaType} {areaName}
+
+        return controller.addArea(areaType, areaName);
     }
 
     private String buyFood(String[] data) {
-        //TODO
-        return null;
+       String foodType = data[0];
+
+        //•	BuyFood {foodType}
+        return controller.buyFood(foodType);
     }
 
     private String foodForArea(String[] data) {
-        //TODO
-        return null;
+        String areaName = data[0];
+        String foodType = data[1];
+
+        //•	FoodForArea {areaName} {foodType}
+        return controller.foodForArea(areaName, foodType);
     }
 
     private String addAnimal(String[] data) {
-        //TODO
-        return null;
+        String areaName = data[0];
+        String animalType = data[1];
+        String animalName = data[2];
+        String animalKind = data[3];
+        double price = Double.parseDouble(data[4]);
+
+        //•	AddAnimal {areaName} {animalType} {animalName} {animalKind} {price}
+        return controller.addAnimal(areaName, animalType, animalName, animalKind, price);
     }
 
     private String feedAnimal(String[] data) {
-        //TODO
-        return null;
+        String areaName = data[0];
+        //•	FeedAnimal {areaName}
+        return controller.feedAnimal(areaName);
     }
 
     private String calculateKg(String[] data) {
-        //TODO
-        return null;
+        String areaName = data[0];
+        //•	CalculateKg {areaName}
+        return controller.calculateKg(areaName);
     }
 
     private String getStatistics() {
-        //TODO
-        return null;
+
+        return controller.getStatistics();
     }
 }

@@ -9,7 +9,6 @@ public class AquaticAnimal extends BaseAnimal {
 
     @Override
     public void eat() {
-
         KG += 7.50;
 
     }

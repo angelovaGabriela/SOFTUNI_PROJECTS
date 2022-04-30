@@ -12,9 +12,12 @@ import zoo.entities.foods.Food;
 import zoo.entities.foods.Meat;
 import zoo.entities.foods.Vegetable;
 import zoo.repositories.FoodRepository;
+import zoo.repositories.FoodRepositoryImpl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 import static zoo.common.ConstantMessages.SUCCESSFULLY_ADDED_AREA_TYPE;
 import static zoo.common.ConstantMessages.SUCCESSFULLY_ADDED_FOOD_TYPE;
@@ -26,6 +29,8 @@ public class ControllerImpl implements Controller {
     private List<Area> areas;
 
     public ControllerImpl() {
+        this.foodRepository = new FoodRepositoryImpl(new ArrayList<>());
+        this.areas = new ArrayList<>();
     }
 
 
@@ -62,7 +67,7 @@ public class ControllerImpl implements Controller {
 
             Area area = areas.stream().filter(a -> a.getName().equals(areaName)).findFirst().get();
             area.addFood(food);
-            boolean remove = this.foodRepository.remove(food);
+            this.foodRepository.remove(food);
             return String.format(ConstantMessages.SUCCESSFULLY_ADDED_FOOD_IN_AREA, foodType, areaName);
 
 
@@ -117,17 +122,23 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String calculateKg(String areaName) {
-        Area area = areas.stream().filter(a -> a.getName().equals(areaName)).findFirst().get();
-        double kgSumOfAllAnimalsInTheArea = area.getAnimals().stream().mapToDouble(Animal::getKg).sum();
+        // TODO: improve! // expected result on TEST I -> 20 // my result -> 5 // how to reach the implementations for the kilograms of the AquaticAnimal ?
 
-        return String.format(ConstantMessages.KILOGRAMS_AREA, areaName, kgSumOfAllAnimalsInTheArea);
+       Area area = areas.stream().filter(a -> a.getName().equals(areaName)).findFirst().get();
+       double kgSumOfAllAnimalsInTheArea = area.getAnimals().stream().mapToDouble(Animal::getKg).sum();
+
+      return String.format(ConstantMessages.KILOGRAMS_AREA, areaName, kgSumOfAllAnimalsInTheArea);
 
     }
 
     @Override
-    public String getStatistics() {
-        return null;
+    public String getStatistics()  {
 
-        //TODO: IMPLEMENTATION
+        StringBuilder statistics = new StringBuilder();
+        for (Area area : areas) {
+            statistics.append(String.format("%s", area.getInfo()));
+            statistics.append(System.lineSeparator());
+        }
+        return statistics.toString();
     }
 }

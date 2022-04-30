@@ -2,12 +2,16 @@ package zoo.repositories;
 
 import zoo.entities.foods.Food;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodRepositoryImpl implements FoodRepository {
 
     private List<Food> foods;
+
+    public FoodRepositoryImpl(List<Food> foods) {
+        this.foods = new ArrayList<>();
+    }
 
     @Override
     public void add(Food food) {
