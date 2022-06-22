@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 @Table(name = "ships")
 @Entity
-public class Ships {
+public class Ship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,12 +21,12 @@ public class Ships {
 
 
     @ManyToOne
-    private User owner;
+    private User user;
 
     @ManyToOne
     private Category category;
 
-    public Ships(){}
+    public Ship(){}
 
     public long getId() {
         return id;
@@ -68,12 +68,12 @@ public class Ships {
         this.created = created;
     }
 
-    public User getOwner() {
-        return owner;
+    public User getUser() {
+        return user;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Category getCategory() {
