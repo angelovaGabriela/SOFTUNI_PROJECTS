@@ -2,7 +2,7 @@ package com.softuni.battleships.controllers;
 
 import com.softuni.battleships.models.dtos.LoginDTO;
 import com.softuni.battleships.models.dtos.UserRegistrationDTO;
-import com.softuni.battleships.models.services.AuthService;
+import com.softuni.battleships.services.AuthService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,11 +62,18 @@ public class AuthController {
     public String login(@Valid LoginDTO loginDTO,
                         BindingResult bindingResult,
                         RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors() || !this.authService.login(loginDTO)) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("loginDTO", loginDTO);
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.loginDTO",
                     bindingResult);
+
+            return "redirect:/login";
+        }
+
+        if(!this.authService.login(loginDTO)) {
+            redirectAttributes.addFlashAttribute("LoginDTO", loginDTO);
+            redirectAttributes.addFlashAttribute("badCredentials", true);
 
             return "redirect:/login";
         }
