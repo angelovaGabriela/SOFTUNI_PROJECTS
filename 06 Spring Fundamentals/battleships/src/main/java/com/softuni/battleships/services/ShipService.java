@@ -5,21 +5,24 @@ import com.softuni.battleships.models.Ship;
 import com.softuni.battleships.models.ShipType;
 import com.softuni.battleships.models.User;
 import com.softuni.battleships.models.dtos.CreateShipDTO;
+import com.softuni.battleships.models.dtos.ShipDTO;
 import com.softuni.battleships.repositories.CategoryRepository;
 import com.softuni.battleships.repositories.ShipRepository;
 import com.softuni.battleships.repositories.UserRepository;
 import com.softuni.battleships.session.LoggedUser;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ShipService {
-    private ShipRepository shipRepository;
-    private CategoryRepository categoryRepository;
-    private LoggedUser loggedUser;
+    private final ShipRepository shipRepository;
+    private final CategoryRepository categoryRepository;
+    private final LoggedUser loggedUser;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public ShipService(ShipRepository shipRepository,
                        CategoryRepository categoryRepository,
@@ -61,4 +64,18 @@ public class ShipService {
         return true;
 
   }
+
+
+    public List<ShipDTO> getShipsOwnedBy(long ownerId) {
+        return
+                this.shipRepository.findByUserId(ownerId)
+                        .stream()
+                        .map(ShipDTO::new)
+                        .collect(Collectors.toList());
+    }
+
+
+    public List<ShipDTO> getShipsNotOwnedBy(long id) {
+        return null;
+    }
 }
