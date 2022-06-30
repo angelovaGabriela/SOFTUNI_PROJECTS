@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserLoginController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserLoginController(UserService userService) {
         this.userService = userService;
@@ -20,10 +20,15 @@ public class UserLoginController {
         return "auth-login";
     }
 
+    @GetMapping("users/logout")
+    public String logout() {
+        userService.logout();
+        return "redirect:/";
+    }
+
     @PostMapping("/user/login")
     public String login(UserLoginDTO userLoginDTO) {
-
-        System.out.println("User is logged: " + userService.login(userLoginDTO));
+        userService.login(userLoginDTO);
         return "redirect:/";
     }
 
