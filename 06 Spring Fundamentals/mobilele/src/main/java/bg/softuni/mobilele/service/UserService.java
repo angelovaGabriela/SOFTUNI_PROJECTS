@@ -1,6 +1,7 @@
 package bg.softuni.mobilele.service;
 
 import bg.softuni.mobilele.model.DTO.UserLoginDTO;
+import bg.softuni.mobilele.model.DTO.UserRegisterDTO;
 import bg.softuni.mobilele.model.UserEntity;
 import bg.softuni.mobilele.repository.UserRepository;
 import bg.softuni.mobilele.user.CurrentUser;
@@ -16,7 +17,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final CurrentUser currentUser;
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     private final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
@@ -29,6 +30,22 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    //TODO: validations !
+    public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
+
+
+        UserEntity newUser =
+                new UserEntity()
+                        .setActive(true)
+                        .setEmail(userRegisterDTO.getEmail())
+                        .setFirstName(userRegisterDTO.getFirstName())
+                        .setLastName(userRegisterDTO.getLastName())
+                        .setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
+
+         newUser = userRepository.save(newUser);
+         login(newUser);
+
+    }
 
     public boolean login(UserLoginDTO loginDTO) {
 
@@ -42,14 +59,14 @@ public class UserService {
             return false;
         }
 
-       var rawPassword = loginDTO.getPassword();
-        var encodedPassword= userOptional.get().getPassword();
+       String rawPassword = loginDTO.getPassword();
+        String encodedPassword= userOptional.get().getPassword();
 
 
         boolean success = passwordEncoder
-                .matches(rawPassword, encodedPassword);
+                .matches(rawPassword,encodedPassword);
         if (success) {
-            login(userOptional.get());
+             login(userOptional.get());
 
         } else {
             logout();

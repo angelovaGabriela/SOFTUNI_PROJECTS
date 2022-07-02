@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
       <meta charset="UTF-8">
@@ -67,7 +67,8 @@
 
 <div class="container">
     <h2 class="text-center text-white">Register User</h2>
-    <form method="POST" 
+    <form   th:action="@{/users/register}"
+            th:method="post"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="row">
             <div class="form-group col-md-6 mb-3">
@@ -89,11 +90,11 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6 mb-3">
-                <label for="username" class="text-white font-weight-bold">Username</label>
-                <input id="username" name="username" type="text" min="2" max="20" class="form-control"
-                       placeholder="Username"/>
+                <label for="email" class="text-white font-weight-bold">E-mail</label>
+                <input id="email" name="email" type="email" min="2" max="20" class="form-control"
+                       placeholder="E-mail"/>
                 <p class="errors alert alert-danger">
-                    Username is required.
+                    E-mail is required.
                 </p>
             </div>
             <div class="form-group col-md-6 mb-3">
@@ -110,16 +111,13 @@
             <div class="form-group col-md-6 mb-3">
                 <label for="confirmPassword" class="text-white font-weight-bold">Password</label>
                 <input id="confirmPassword" name="confirmPassword" type="confirmPassword" min="2" max="20" class="form-control"
-                       placeholder="confirmPassword"/>
+                       placeholder="ConfirmPassword"/>
                 <p class="errors alert alert-danger">
                    Passwords are not matching.
                 </p>
             </div>
 
 
-            <p class="errors alert alert-danger">
-                Selecting a role is required.
-            </p>
         </div>
 
         <div class="row">

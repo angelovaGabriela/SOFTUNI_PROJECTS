@@ -68,13 +68,13 @@ xmlns:th="http//www.thymeleaf.org">
 <div class="container">
     <h2 class="text-center text-white">Login</h2>
     <form   th:action="@{/users/login}"
-            th:method="POST"
+            th:method="post"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="form-group">
-            <label for="username" class="text-white font-weight-bold">Username</label>
-            <input value="username" id="username" name="username" type="text" min="2" max="50"
+            <label for="email" class="text-white font-weight-bold">E-mail</label>
+            <input value="email" id="email" name="email" type="email" min="2" max="50"
                    class="form-control"
-                   placeholder="Username"/>
+                   placeholder="E-mail"/>
         </div>
         <div class="form-group">
             <label for="password" class="text-white font-weight-bold">Password</label>
@@ -91,7 +91,7 @@ xmlns:th="http//www.thymeleaf.org">
         <div class="row">
             <div class="col col-md-4">
                 <div class="button-holder d-flex">
-                    <input type="submit" class="btn btn-info btn-lg" value="Sign in"/>
+                    <input type="submit" class="btn btn-info btn-lg" value="Login"/>
                 </div>
             </div>
         </div>
