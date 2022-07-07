@@ -1,15 +1,29 @@
 package bg.softuni.mobilele.model.DTO;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class UserRegisterDTO {
 
+    @NotBlank
+    @Size(min = 2, max = 20)
     private String firstName;
 
+    @NotBlank
+    @Size(min = 2, max = 20)
     private String lastName;
 
+    @NotBlank
+    @Size(min = 5)
     private String Password;
 
+    @NotBlank
+    @Size(min = 5)
     private String confirmPassword;
 
+    @NotBlank
+    @Email
     private String email;
 
     public String getEmail() {
