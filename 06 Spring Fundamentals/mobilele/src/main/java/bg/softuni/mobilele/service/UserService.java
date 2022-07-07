@@ -50,12 +50,12 @@ public class UserService {
     public boolean login(UserLoginDTO loginDTO) {
 
         Optional<UserEntity> userOptional = userRepository.
-                findByEmail(loginDTO.getUsername());
+                findByEmail(loginDTO.getEmail());
 
         if (userOptional.isEmpty()) {
 
             LOGGER.info("User with not found. User name: {}",
-                    loginDTO.getUsername());
+                    loginDTO.getEmail());
             return false;
         }
 
