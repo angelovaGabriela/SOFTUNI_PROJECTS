@@ -27,12 +27,12 @@
                 <label for="firstName" class="text-white font-weight-bold">First Name</label>
                 <input
                         id="firstName"
-                        name="firstName"
-
+                        th:field="*{firstName}"
+                        th:errorclass="is-invalid"
                         type="text"
                         class="form-control"
                         placeholder="First name"/>
-                <p class="errors alert alert-danger">
+                <p class="invalid-feedback errors alert alert-danger">
                     First name is required and should be between 2 and 20 symbols.
                 </p>
             </div>
