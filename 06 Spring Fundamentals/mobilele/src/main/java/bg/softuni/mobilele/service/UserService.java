@@ -3,10 +3,12 @@ package bg.softuni.mobilele.service;
 import bg.softuni.mobilele.model.DTO.UserLoginDTO;
 import bg.softuni.mobilele.model.DTO.UserRegisterDTO;
 import bg.softuni.mobilele.model.UserEntity;
+import bg.softuni.mobilele.model.mapper.UserMapper;
 import bg.softuni.mobilele.repository.UserRepository;
 import bg.softuni.mobilele.user.CurrentUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,32 +20,32 @@ public class UserService {
     private final UserRepository userRepository;
     private final CurrentUser currentUser;
     private final PasswordEncoder passwordEncoder;
+    private UserMapper userMapper;
 
     private final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
 
     public UserService(UserRepository userRepository,
                        CurrentUser currentUser,
-                       PasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder,
+                       UserMapper userMapper) {
         this.userRepository = userRepository;
         this.currentUser = currentUser;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     //TODO: validations !
     public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
 
 
-        UserEntity newUser =
-                new UserEntity()
-                        .setActive(true)
-                        .setEmail(userRegisterDTO.getEmail())
-                        .setFirstName(userRegisterDTO.getFirstName())
-                        .setLastName(userRegisterDTO.getLastName())
-                        .setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
+        UserEntity newUser = userMapper.userDtoToUserEntity(userRegisterDTO);
+        newUser.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
 
-         newUser = userRepository.save(newUser);
-         login(newUser);
+
+             this.userRepository.save(newUser);
+             login(newUser);
+
 
     }
 
