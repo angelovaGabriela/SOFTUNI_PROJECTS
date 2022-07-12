@@ -54,7 +54,7 @@
                         name="engine"
                         th:errorclass="is-invalid"
                         class="form-control">
-                    <option value="">- Select engine type -</option>
+                    <option value="0">- Select engine type -</option>
                     <option th:each="e : ${T(bg.softuni.mobilele.model.enums.EngineEnum).values()}"
                             th:text="${e}"
                             th:value="${e}"
@@ -62,18 +62,25 @@
                         Engine type
                     </option>
                 </select>
-                <p class="errors alert alert-danger">
+                <p class="invalid-feedback errors alert alert-danger">
                     Engine type is required.
                 </p>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="transmission">Transmission</label>
-                <select id="transmission" class="form-control">
-                    <option value="">- Select transmission type -</option>
-                    <option> Transmission type
+                <select id="transmission"
+                        name="transmission"
+                        th:errorclass="is-invalid"
+                        class="form-control">
+                    <option value="0">- Select transmission type -</option>
+                    <option th:each="e : ${T(bg.softuni.mobilele.model.enums.TransmissionEnum).values()}"
+                            th:text="${e}"
+                            th:value="${e}"
+                            th:selected="${e} == *{transmission}">
+                        Transmission type
                     </option>
                 </select>
-                <p class="errors alert alert-danger">
+                <p class="invalid-feedback errors alert alert-danger">
                     Transmission type is required.
                 </p>
             </div>
