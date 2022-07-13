@@ -6,6 +6,7 @@ import com.sun.istack.NotNull;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 
 public class AddOfferDTO {
 
@@ -15,6 +16,17 @@ public class AddOfferDTO {
 
     @NotNull
     private EngineEnum engine;
+
+    @Positive
+    @NotNull
+    private Integer price;
+
+    @Min(1900)
+    @NotNull
+    private Integer year;
+
+    @NotEmpty
+    private String description;
 
     @NotNull
     private TransmissionEnum transmission;
