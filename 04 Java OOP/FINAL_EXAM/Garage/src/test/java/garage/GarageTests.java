@@ -51,7 +51,7 @@ public class GarageTests {
    @Test
    public void getCarsTest() {
       List<Car> garageTest = new ArrayList<>();
-      Car testCar = new Car("Mercedes", 168, 130900);
+      Car testCar = new Car("Mercedes", 240, 130900);
 
       garageTest.add(car);
       garageTest.add(testCar);
@@ -65,4 +65,42 @@ public class GarageTests {
 
    }
 
+   // Start here
+   @Test
+   public void findAllCarsWithMaxSpeedAbove240hp() {
+      List<Car> expected = new ArrayList<>();
+      expected.add(car);
+      Car testCar = new Car("Mercedes", 240, 9990900);
+      garage.addCar(testCar);
+
+      List<Car> actual = garage.findAllCarsWithMaxSpeedAbove(240);
+
+      Assert.assertEquals(expected, actual);
+   }
+
+   @Test
+   public void getTheMostExpensiveCarTest() {
+      Car expected = new Car("Mercedes", 240, 9990900);
+      garage.addCar(expected);
+
+      Car actual = garage.getTheMostExpensiveCar();
+      Assert.assertEquals(expected, actual);
+   }
+
+   @Test
+   public void findAllCarsByBrandTest() {
+      List<Car> expected = new ArrayList<>();
+      Car testCar1 = new Car("Mercedes", 240, 9990900);
+      Car testCar2 = new Car("Mercedes", 240, 9990900);
+
+      expected.add(testCar1);
+      expected.add(testCar2);
+
+      garage.addCar(testCar1);
+      garage.addCar(testCar2);
+
+      List<Car> actual = garage.findAllCarsByBrand("Mercedes");
+
+      Assert.assertEquals(expected, actual);
+   }
 }
