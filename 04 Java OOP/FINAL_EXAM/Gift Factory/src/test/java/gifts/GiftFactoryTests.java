@@ -6,7 +6,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
+
 
 public class GiftFactoryTests {
 
@@ -65,7 +66,15 @@ public class GiftFactoryTests {
     }
 
     @Test
-    public void getAllGiftsMustBeEqualToExpectedList() {
-        //TODO
+    public void getAllGiftsMustBeEqualToExpectedCollection() {
+     Collection<Gift> expected = new ArrayList<>();
+     expected.add(gift);
+     Collection<Gift> gifts = Collections.unmodifiableCollection(expected);
+
+     giftFactory.createGift(gift);
+
+     Collection<Gift> actual = this.giftFactory.getPresents();
+
+     Assert.assertTrue(gifts.containsAll(actual));
     }
 }
