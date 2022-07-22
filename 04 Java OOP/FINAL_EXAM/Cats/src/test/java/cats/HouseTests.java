@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HouseTests {
     private Cat cat;
     private House house;
@@ -61,5 +64,63 @@ public class HouseTests {
         naughtyCats.addCat(cat);
         Cat extraCat = new Cat("Pongo");
         naughtyCats.addCat(extraCat);
+    }
+
+    @Test
+    public void removeCatTest() {
+        Cat extraCat = new Cat("Pongo");
+
+        house.addCat(cat);
+        house.addCat(extraCat);
+
+        house.removeCat("Pongo");
+
+        int expected = 1;
+        int actual = house.getCount();
+
+        Assert.assertEquals("Cat isn't removed.", expected, actual);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void removeCatWithNullNameMustThrowException() {
+        house.removeCat(null);
+    }
+
+    @Test
+    public void catForSaleMustReturnTheCorrectCat() {
+        house.addCat(cat);
+        Cat expected = cat;
+        Cat actual = house.catForSale("Vanesa");
+
+        Assert.assertEquals(
+                "There isn't a cat with name Vanesa",
+                expected, actual);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void sellingCatWithNullNameShouldThrowException() {
+        house.catForSale(null);
+    }
+
+    @Test
+    public void statisticsTestShouldReturnTheActualCats() {
+
+        house.addCat(cat);
+
+        String expected = "The cat Vanesa is in the house VanesaHouse!";
+        String actual = house.statistics();
+
+        Assert.assertEquals(
+                "Cats are not living in this house.",
+                expected, actual);
+    }
+
+    @Test
+    public void isHungryShouldReturnTrue() {
+      cat.setHungry(true);
+      boolean hungry = cat.isHungry();
+
+      Assert.assertTrue(hungry);
+
     }
 }
