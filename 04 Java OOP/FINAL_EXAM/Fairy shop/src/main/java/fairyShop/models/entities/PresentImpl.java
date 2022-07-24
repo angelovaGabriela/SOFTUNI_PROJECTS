@@ -1,5 +1,6 @@
 package fairyShop.models.entities;
 
+import fairyShop.common.ExceptionMessages;
 import fairyShop.models.Present;
 
 public class PresentImpl implements Present {
@@ -8,37 +9,45 @@ public class PresentImpl implements Present {
     private int energyRequired;
 
     public PresentImpl(String name, int energyRequired) {
-        this.name = name;
-        this.energyRequired = energyRequired;
+        setName(name);
+        setEnergyRequired(energyRequired);
     }
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
     public int getEnergyRequired() {
-        return 0;
+        return this.energyRequired;
     }
 
     @Override
     public boolean isDone() {
-        return false;
+        return energyRequired == 0;
     }
 
     @Override
     public void getCrafted() {
-
+        this.setEnergyRequired(getEnergyRequired() - 10);
+        if (energyRequired < 0){
+            energyRequired = 0;
+        }
     }
 
-    private PresentImpl setName(String name) {
+    private void setName(String name) {
+
+        if (name == null || name.trim().isEmpty()) {
+            throw new NullPointerException(ExceptionMessages.PRESENT_NAME_NULL_OR_EMPTY);
+        }
         this.name = name;
-        return this;
     }
 
-    private PresentImpl setEnergyRequired(int energyRequired) {
+    private void setEnergyRequired(int energyRequired) {
+        if (this.energyRequired < 0) {
+            throw new IllegalArgumentException(ExceptionMessages.PRESENT_ENERGY_LESS_THAN_ZERO);
+        }
         this.energyRequired = energyRequired;
-        return this;
     }
 }

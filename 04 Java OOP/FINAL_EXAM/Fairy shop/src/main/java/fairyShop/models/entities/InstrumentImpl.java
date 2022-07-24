@@ -1,5 +1,6 @@
 package fairyShop.models.entities;
 
+import fairyShop.common.ExceptionMessages;
 import fairyShop.models.Instrument;
 
 public class InstrumentImpl implements Instrument {
@@ -7,26 +8,31 @@ public class InstrumentImpl implements Instrument {
     private int power;
 
     public InstrumentImpl(int power) {
-        this.power = power;
+        setPower(power);
     }
 
     @Override
     public int getPower() {
-        return 0;
+        return this.power;
     }
 
     @Override
     public void use() {
-
+        this.setPower(this.getPower()-10);
+        if (power < 0) {
+            power = 0;
+        }
     }
 
     @Override
     public boolean isBroken() {
-        return false;
+        return this.power == 0;
     }
 
-    private InstrumentImpl setPower(int power) {
+    private void setPower(int power) {
+        if (this.power < 0) {
+            throw new IllegalArgumentException(ExceptionMessages.INSTRUMENT_POWER_LESS_THAN_ZERO);
+        }
         this.power = power;
-        return this;
     }
 }

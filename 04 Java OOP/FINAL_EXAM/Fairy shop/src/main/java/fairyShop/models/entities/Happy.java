@@ -12,18 +12,4 @@ public class Happy extends BaseHelper {
         super(name, ENERGY);
     }
 
-    @Override
-    public void work() {
-
-    }
-
-    @Override
-    public void addInstrument(Instrument instrument) {
-
-    }
-
-    @Override
-    public boolean canWork() {
-        return false;
-    }
 }
