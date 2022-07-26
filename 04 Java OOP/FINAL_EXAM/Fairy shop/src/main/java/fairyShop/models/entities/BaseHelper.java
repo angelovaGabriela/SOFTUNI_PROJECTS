@@ -13,7 +13,7 @@ public  abstract class BaseHelper implements Helper {
     private Collection<Instrument> instruments;
 
     protected BaseHelper(String name, int energy) {
-       setName(name);
+        this.setName(name);
         this.setEnergy(energy);
         this.instruments = new ArrayList<>();
     }
@@ -53,15 +53,13 @@ public  abstract class BaseHelper implements Helper {
     }
 
     protected void setEnergy(int energy) {
+        if(energy < 0){
+            throw new IllegalArgumentException("Helper energy cannot be less than zero.");
+        }
         this.energy = energy;
     }
 
     public Collection<Instrument> getInstruments() {
-        return instruments;
-    }
-
-    private BaseHelper setInstruments(Collection<Instrument> instruments) {
-        this.instruments = instruments;
-        return this;
+        return this.instruments;
     }
 }

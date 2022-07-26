@@ -9,8 +9,8 @@ public class PresentImpl implements Present {
     private int energyRequired;
 
     public PresentImpl(String name, int energyRequired) {
-        setName(name);
-        setEnergyRequired(energyRequired);
+        this.setName(name);
+        this.setEnergyRequired(energyRequired);
     }
 
     @Override
@@ -25,14 +25,14 @@ public class PresentImpl implements Present {
 
     @Override
     public boolean isDone() {
-        return energyRequired == 0;
+        return this.energyRequired == 0;
     }
 
     @Override
     public void getCrafted() {
-        this.setEnergyRequired(getEnergyRequired() - 10);
-        if (energyRequired < 0){
-            energyRequired = 0;
+        this.setEnergyRequired(this.getEnergyRequired() - 10);
+        if (this.energyRequired < 0){
+            this.energyRequired = 0;
         }
     }
 
@@ -45,7 +45,7 @@ public class PresentImpl implements Present {
     }
 
     private void setEnergyRequired(int energyRequired) {
-        if (this.energyRequired < 0) {
+        if (energyRequired < 0) {
             throw new IllegalArgumentException(ExceptionMessages.PRESENT_ENERGY_LESS_THAN_ZERO);
         }
         this.energyRequired = energyRequired;

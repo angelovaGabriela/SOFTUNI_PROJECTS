@@ -21,13 +21,14 @@ public class PresentRepository implements Repository<Present> {
 
     @Override
     public void add(Present model) {
-        presents.add(model);
+        this.presents.add(model);
     }
 
     @Override
     public boolean remove(Present model) {
-        return presents.remove(model);
+        return this.presents.remove(model);
     }
+
 
     @Override
     public Present findByName(String name) {
@@ -35,7 +36,7 @@ public class PresentRepository implements Repository<Present> {
         return this.presents
                 .stream()
                 .filter(p -> p.getName().equals(name))
-                .findAny()
+                .findFirst()
                 .orElse(null);
 
     }
