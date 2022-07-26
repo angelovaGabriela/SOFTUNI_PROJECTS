@@ -8,7 +8,7 @@ import java.util.Collections;
 
 public class PresentRepository implements Repository<Present> {
 
-    private Collection<Present> presents;
+    private final Collection<Present> presents;
 
     public PresentRepository() {
         this.presents = new ArrayList<>();

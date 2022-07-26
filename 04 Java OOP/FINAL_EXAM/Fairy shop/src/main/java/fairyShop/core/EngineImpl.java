@@ -8,11 +8,11 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class EngineImpl implements Engine {
-    private Controller controller;
-    private BufferedReader reader;
+    private final Controller controller;
+    private final BufferedReader reader;
 
     public EngineImpl() {
-        // this.controller = new ControllerImpl(); //TODO implement first
+        this.controller = new ControllerImpl();
         this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
@@ -66,27 +66,33 @@ public class EngineImpl implements Engine {
     }
 
     private String addHelper(String[] data) {
-        //TODO
-        return null;
+        String helperType = data[0];
+        String helperName = data[1];
+        return this.controller.addHelper(helperType, helperName);
+
     }
 
+
+
     private String addPresent(String[] data) {
-        //TODO
-        return null;
+        String presentName = data[0];
+        int energyRequired = Integer.parseInt(data[1]);
+        return this.controller.addPresent(presentName, energyRequired);
+
     }
 
     private String addInstrumentToHelper(String[] data) {
-        //TODO
-        return null;
+     String helperName = data[0];
+     int power = Integer.parseInt(data[1]);
+     return this.controller.addInstrumentToHelper(helperName, power);
     }
 
     private String report() {
-        //TODO
-        return null;
+       return this.controller.report();
     }
 
     private String craftPresent(String[] data) {
-        //TODO
-        return null;
+        String presentName = data[0];
+        return this.controller.craftPresent(presentName);
     }
 }

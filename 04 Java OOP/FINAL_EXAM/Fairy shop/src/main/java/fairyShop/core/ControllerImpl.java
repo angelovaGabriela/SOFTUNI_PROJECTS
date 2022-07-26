@@ -13,6 +13,7 @@ import fairyShop.repositories.PresentRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ControllerImpl implements Controller {
 
     private final HelperRepository helpers;
@@ -121,7 +122,36 @@ public class ControllerImpl implements Controller {
     }
         @Override
         public String report () {
-            return null;
+
+            StringBuilder stringBuilder = new StringBuilder();
+            int countPresents = 0;
+            int countInstruments = 0;
+
+            for (Present model : this.presents.getModels()) {
+                if(model.isDone()){
+                    countPresents++;
+                }
+            }
+            stringBuilder.append(String.format("%d presents are done!", countPresents)).append(System.lineSeparator())
+                    .append("Helpers info:").append(System.lineSeparator());
+
+            for (Helper model : this.helpers.getModels()) {
+
+                stringBuilder.append(String.format("Name: %s", model.getName())).append(System.lineSeparator())
+                        .append(String.format("Energy: %d", model.getEnergy())).append(System.lineSeparator());
+
+                for (Instrument instrument : model.getInstruments()) {
+                    if(!instrument.isBroken()){
+                        countInstruments++;
+                    }
+                }
+                stringBuilder.append(String.format("Instruments: %d not broken left", countInstruments))
+                        .append(System.lineSeparator());
+                countInstruments = 0;
+            }
+            return stringBuilder.toString().trim();
         }
     }
+
+
 
