@@ -16,21 +16,25 @@ public class DriverRepository implements Repository<Driver> {
 
     @Override
     public Driver getByName(String name) {
-        return null;
+
+        return this.models
+                .stream()
+                .filter(driver -> driver.getName().equals(name))
+                .findFirst().orElse(null);
     }
 
     @Override
     public Collection<Driver> getAll() {
-        return null;
+       return this.models;
     }
 
     @Override
     public void add(Driver model) {
-
+        this.models.add(model);
     }
 
     @Override
     public boolean remove(Driver model) {
-        return false;
+        return this.models.remove(model);
     }
 }

@@ -52,7 +52,7 @@ public class DriverImpl implements Driver {
 
     private void setName(String name) {
        if(name.trim().isEmpty() || name.length() < 5) {
-           throw new IllegalArgumentException(String.format(ExceptionMessages.INVALID_NAME,name));
+           throw new IllegalArgumentException(String.format(ExceptionMessages.INVALID_NAME, name, 5));
        }
        this.name = name;
     }

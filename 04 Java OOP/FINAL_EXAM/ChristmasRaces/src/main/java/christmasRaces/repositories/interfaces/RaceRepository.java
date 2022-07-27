@@ -14,21 +14,25 @@ private Collection<Race> models;
 
     @Override
     public Race getByName(String name) {
-        return null;
+        return this.models
+                .stream()
+                .filter(race -> race.getName().equals(name))
+                .findFirst().orElse(null);
+
     }
 
     @Override
     public Collection<Race> getAll() {
-        return null;
+       return this.models;
     }
 
     @Override
     public void add(Race model) {
-
+        this.models.add(model);
     }
 
     @Override
     public boolean remove(Race model) {
-        return false;
+        return this.models.remove(model);
     }
 }

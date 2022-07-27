@@ -16,21 +16,24 @@ public class CarRepository implements Repository<Car> {
 
     @Override
     public Car getByName(String name) {
-        return null;
+        return this.models
+                .stream()
+                .filter(car -> car.getModel().equals(name))
+                .findFirst().orElse(null);
     }
 
     @Override
     public Collection<Car> getAll() {
-        return null;
+        return this.models;
     }
 
     @Override
     public void add(Car model) {
-
+        this.models.add(model);
     }
 
     @Override
     public boolean remove(Car model) {
-        return false;
+        return this.models.remove(model);
     }
 }
