@@ -5,10 +5,11 @@ import christmasRaces.entities.drivers.Driver;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class DriverRepository implements Repository<Driver> {
 
-    private Collection<Driver> models;
+    private final Collection<Driver> models;
 
     public DriverRepository() {
         this.models = new ArrayList<>();
@@ -25,7 +26,7 @@ public class DriverRepository implements Repository<Driver> {
 
     @Override
     public Collection<Driver> getAll() {
-       return this.models;
+        return Collections.unmodifiableCollection(this.models);
     }
 
     @Override

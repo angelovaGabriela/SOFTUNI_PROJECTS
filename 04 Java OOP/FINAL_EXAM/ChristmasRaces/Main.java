@@ -8,9 +8,9 @@ import christmasRaces.entities.drivers.Driver;
 import christmasRaces.entities.races.Race;
 import christmasRaces.io.ConsoleReader;
 import christmasRaces.io.ConsoleWriter;
-import christmasRaces.repositories.interfaces.CarRepository;
-import christmasRaces.repositories.interfaces.DriverRepository;
-import christmasRaces.repositories.interfaces.RaceRepository;
+import christmasRaces.repositories.CarRepository;
+import christmasRaces.repositories.DriverRepository;
+import christmasRaces.repositories.RaceRepository;
 import christmasRaces.repositories.interfaces.Repository;
 
 public class Main {
@@ -19,7 +19,7 @@ public class Main {
         Repository<Race> raceRepository = new RaceRepository();
         Repository<Driver> driverRepository = new DriverRepository();
 
-        Controller controller = new ControllerImpl((DriverRepository) driverRepository, (CarRepository) carRepository, (RaceRepository) raceRepository);
+        Controller controller = new ControllerImpl(driverRepository, carRepository, raceRepository);
 
         ConsoleReader reader = new ConsoleReader();
         ConsoleWriter writer = new ConsoleWriter();

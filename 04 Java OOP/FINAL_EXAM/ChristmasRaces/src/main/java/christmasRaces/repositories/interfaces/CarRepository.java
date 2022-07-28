@@ -1,15 +1,16 @@
 package christmasRaces.repositories.interfaces;
 
-import christmasRaces.entities.cars.BaseCar;
+
 import christmasRaces.entities.cars.Car;
-import christmasRaces.repositories.interfaces.Repository;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class CarRepository implements Repository<Car> {
 
-    private Collection<Car> models;
+    private final Collection<Car> models;
 
     public CarRepository() {
         this.models = new ArrayList<>();
@@ -25,7 +26,7 @@ public class CarRepository implements Repository<Car> {
 
     @Override
     public Collection<Car> getAll() {
-        return this.models;
+        return Collections.unmodifiableCollection(this.models);
     }
 
     @Override

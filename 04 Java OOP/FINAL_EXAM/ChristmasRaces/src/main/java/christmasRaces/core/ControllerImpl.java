@@ -13,60 +13,59 @@ import christmasRaces.entities.races.RaceImpl;
 import christmasRaces.repositories.interfaces.CarRepository;
 import christmasRaces.repositories.interfaces.DriverRepository;
 import christmasRaces.repositories.interfaces.RaceRepository;
-import christmasRaces.repositories.interfaces.Repository;
+
 
 import java.util.*;
 
 
 public class ControllerImpl implements Controller {
-    Repository<Driver> driverRepository;
-    Repository<Car> carRepository;
-    Repository<Race> raceRepository;
+    private final DriverRepository driverRepository;
+    private final CarRepository carRepository;
+    private final RaceRepository raceRepository;
 
 
-    public ControllerImpl(Repository<Driver> driverRepository,
-                          Repository<Car> carRepository,
-                          Repository<Race> raceRepository) {
-        this.driverRepository = new DriverRepository();
-        this.carRepository = new CarRepository();
-        this.raceRepository = new RaceRepository();
+
+    public ControllerImpl(DriverRepository driverRepository, CarRepository carRepository, RaceRepository raceRepository) {
+        this.driverRepository = driverRepository;
+        this.carRepository = carRepository;
+        this.raceRepository = raceRepository;
     }
 
     @Override
     public String createDriver(String driverName) {
         Driver driver = new DriverImpl(driverName);
 
-        if (driverRepository.getAll().contains(driver)) {
+        if (this.driverRepository.getAll().contains(driver)) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.DRIVER_EXISTS, driverName));
         }
-        driverRepository.add(driver);
+        this.driverRepository.add(driver);
         return String.format(OutputMessages.DRIVER_CREATED, driverName);
 
     }
 
     @Override
     public String createCar(String type, String model, int horsePower) {
-        Car car = null;
-        if (type.equals("MuscleCar")) {
-            car = new MuscleCar(model, horsePower);
-        } else if (type.equals("SportsCar")) {
-            car = new SportsCar(model, horsePower);
-        }
 
-        if (carRepository.getAll().contains(car)) {
+        Car car = type.equals("MuscleCar")
+                ? new MuscleCar(model, horsePower)
+                : new SportsCar(model,horsePower);
+
+        if (this.carRepository.getAll().contains(car)) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.CAR_EXISTS, model));
         }
+
+        this.carRepository.add(car);
         return String.format(OutputMessages.CAR_CREATED, type, model);
     }
 
     @Override
     public String addCarToDriver(String driverName, String carModel) {
-        Driver driver = driverRepository.getByName(driverName);
-        Car car = carRepository.getByName(carModel);
+        Driver driver = this.driverRepository.getByName(driverName);
+        Car car = this.carRepository.getByName(carModel);
 
-        if (!driverRepository.getAll().contains(driver)) {
+        if (!this.driverRepository.getAll().contains(driver)) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.DRIVER_NOT_FOUND, driverName));
-        } else if (!carRepository.getAll().contains(car)) {
+        } else if (!this.carRepository.getAll().contains(car)) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.CAR_NOT_FOUND, carModel));
         }
 
@@ -80,10 +79,10 @@ public class ControllerImpl implements Controller {
         Race race = raceRepository.getByName(raceName);
         Driver driver = driverRepository.getByName(driverName);
 
-        if (!raceRepository.getAll().contains(race)) {
+        if (!this.raceRepository.getAll().contains(race)) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.RACE_NOT_FOUND, raceName));
         }
-        if (!driverRepository.getAll().contains(driver)) {
+        if (!this.driverRepository.getAll().contains(driver)) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.DRIVER_NOT_FOUND, driverName));
         }
 
@@ -95,10 +94,10 @@ public class ControllerImpl implements Controller {
     public String createRace(String name, int laps) {
         Race race = new RaceImpl(name, laps);
 
-        if (raceRepository.getAll().contains(race)) {
+        if (this.raceRepository.getAll().contains(race)) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.RACE_EXISTS, name));
         }
-        raceRepository.add(race);
+        this.raceRepository.add(race);
         return String.format(OutputMessages.RACE_CREATED, name);
     }
 
@@ -106,9 +105,9 @@ public class ControllerImpl implements Controller {
     public String startRace(String raceName) {
         Race race = raceRepository.getByName(raceName);
 
-        if (!raceRepository.getAll().contains(race)) {
+        if (!this.raceRepository.getAll().contains(race)) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.RACE_NOT_FOUND, raceName));
-        } else if (raceRepository.getAll().size() < 3) {
+        } else if (race.getDrivers().size() < 3) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.RACE_INVALID, raceName, 3));
         }
 
@@ -143,11 +142,11 @@ public class ControllerImpl implements Controller {
             // го взимам и го поставям на първа позиция в листа firstThree
             // така и за останалите двама
             if (best == bestPoints.get(0)) {
-                firstThree.set(0,winner);
+                firstThree.add(winner);
             } else if (best == bestPoints.get(1)) {
-                firstThree.set(1,winner);
+                firstThree.add(winner);
             }  else if (best == bestPoints.get(2)) {
-                firstThree.set(2, winner);
+                firstThree.add(winner);
             }
         }
 
@@ -160,7 +159,7 @@ public class ControllerImpl implements Controller {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(String.format(OutputMessages.DRIVER_FIRST_POSITION, nameOfFirst,raceName)).append(System.lineSeparator())
                         .append(String.format(OutputMessages.DRIVER_SECOND_POSITION, nameOfSecond,raceName)).append(System.lineSeparator())
-                .append(String.format(OutputMessages.DRIVER_SECOND_POSITION, nameOfThird,raceName));
+                .append(String.format(OutputMessages.DRIVER_THIRD_POSITION, nameOfThird,raceName));
 
         return stringBuilder.toString();
     }

@@ -1,7 +1,6 @@
 package christmasRaces.entities.cars;
 
 public interface Car {
-
     String getModel();
 
     int getHorsePower();

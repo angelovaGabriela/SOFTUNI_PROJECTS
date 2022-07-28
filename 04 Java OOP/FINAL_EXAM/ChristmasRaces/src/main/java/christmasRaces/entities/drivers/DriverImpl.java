@@ -2,6 +2,7 @@ package christmasRaces.entities.drivers;
 
 import christmasRaces.common.ExceptionMessages;
 import christmasRaces.entities.cars.Car;
+import christmasRaces.entities.cars.SportsCar;
 
 public class DriverImpl implements Driver {
 
@@ -37,7 +38,9 @@ public class DriverImpl implements Driver {
             throw new IllegalArgumentException(ExceptionMessages.CAR_INVALID);
         } else {
             this.car = car;
+            this.setCanParticipate(true);
         }
+
     }
 
     @Override
@@ -59,10 +62,6 @@ public class DriverImpl implements Driver {
 
 
     private void setCanParticipate(boolean canParticipate) {
-        if (this.car != null) {
-            this.canParticipate = true;
-        } else {
-            this.canParticipate = canParticipate;
-        }
+        this.canParticipate = canParticipate;
     }
 }

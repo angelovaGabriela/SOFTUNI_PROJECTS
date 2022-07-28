@@ -4,9 +4,10 @@ import christmasRaces.entities.races.Race;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class RaceRepository implements Repository<Race> {
-private Collection<Race> models;
+private final Collection<Race> models;
 
     public RaceRepository() {
         this.models = new ArrayList<>();
@@ -23,7 +24,8 @@ private Collection<Race> models;
 
     @Override
     public Collection<Race> getAll() {
-       return this.models;
+        return Collections.unmodifiableCollection(this.models);
+
     }
 
     @Override
