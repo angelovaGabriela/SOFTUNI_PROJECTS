@@ -1,5 +1,6 @@
 package christmasRaces.repositories.interfaces;
 
+import christmasRaces.entities.cars.BaseCar;
 import christmasRaces.entities.cars.Car;
 import christmasRaces.repositories.interfaces.Repository;
 

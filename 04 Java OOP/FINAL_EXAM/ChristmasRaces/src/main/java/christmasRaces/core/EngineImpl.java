@@ -3,6 +3,8 @@ package christmasRaces.core;
 import christmasRaces.common.Command;
 import christmasRaces.core.interfaces.Controller;
 import christmasRaces.core.interfaces.Engine;
+import christmasRaces.entities.cars.BaseCar;
+import christmasRaces.entities.cars.Car;
 import christmasRaces.io.interfaces.InputReader;
 import christmasRaces.io.interfaces.OutputWriter;
 
@@ -48,6 +50,7 @@ public class EngineImpl implements Engine {
 
         String result = null;
 
+
         switch (command) {
             case AddDriverToRace:
                 result = this.addDriver(data);
@@ -74,33 +77,43 @@ public class EngineImpl implements Engine {
         return result;
     }
 
+
+
     private String createRace(String[] data) {
-        // TODO
-        return null;
+        String name = data[0];
+        int laps = Integer.parseInt(data[1]);
+
+        return this.controller.createRace(name, laps);
     }
 
     private String addDriver(String[] data) {
-        // TODO
-        return null;
+        String raceName = data[0];
+        String driverName =  data[1];
+        return this.controller.addDriverToRace(raceName, driverName);
     }
 
     private String startRace(String[] data) {
-        // TODO
-        return null;
+     String raceName = data[0];
+        return this.controller.startRace(raceName);
     }
 
     private String addCar(String[] data) {
-        // TODO
-        return null;
+       String driverName = data[0];
+       String carName = data[1];
+
+        return this.controller.addCarToDriver(driverName, carName);
     }
 
     private String createCar(String[] data) {
-        // TODO
-        return null;
+        String carType = data[0];
+        String model = data[1];
+        int horsePower = Integer.parseInt(data[2]);
+
+        return this.controller.createCar(carType, model, horsePower);
     }
 
     private String createDriver(String[] data) {
-        // TODO
-        return null;
+        String driverName = data[0];
+        return this.controller.createDriver(driverName);
     }
 }

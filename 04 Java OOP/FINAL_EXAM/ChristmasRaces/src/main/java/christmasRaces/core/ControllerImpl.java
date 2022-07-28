@@ -15,10 +15,7 @@ import christmasRaces.repositories.interfaces.DriverRepository;
 import christmasRaces.repositories.interfaces.RaceRepository;
 import christmasRaces.repositories.interfaces.Repository;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 
 public class ControllerImpl implements Controller {
@@ -116,13 +113,56 @@ public class ControllerImpl implements Controller {
         }
 
 
+        // взимам всички шофьори от това състезание
+        Collection<Driver> allDrivers = race.getDrivers();
 
-        //TODO: arrange all Drivers and then return the three fastest Drivers.
-        // To do this you should sort all Drivers in descending
-        // order by the result of CalculateRacePoints method in the Car object. In the end, if everything is valid remove this Race from the race repository
+        // колекция за най-добри резултати
+        List<Double> bestPoints = new ArrayList<>();
 
-        return null;
-        //TODO: return message
+        // итерирам през шофьорите от състезанието
+        for (Driver driver : allDrivers) {
+         // взимам им спечелените точки
+         double points = driver.getCar().calculateRacePoints(race.getLaps());
+         // добавям ги в колекцията с най-добри резултати
+         bestPoints.add(points);
+        }
+
+        // сортирам ги в descending order -> highest to lowest
+        bestPoints.sort(Collections.reverseOrder());
+
+        // създавам колекция за първите трима
+        List<Driver> firstThree = new ArrayList<>();
+
+        // итерирам през съзтезателите в състезанието
+        for (Driver winner : race.getDrivers()) {
+
+            // взимам резултата на всеки състезател
+            double best = winner.getCar().calculateRacePoints(race.getLaps());
+
+            // ако резултата му е равен на първият от bestPoints,
+            // го взимам и го поставям на първа позиция в листа firstThree
+            // така и за останалите двама
+            if (best == bestPoints.get(0)) {
+                firstThree.set(0,winner);
+            } else if (best == bestPoints.get(1)) {
+                firstThree.set(1,winner);
+            }  else if (best == bestPoints.get(2)) {
+                firstThree.set(2, winner);
+            }
+        }
+
+        String nameOfFirst = firstThree.get(0).getName();
+        String nameOfSecond = firstThree.get(1).getName();
+        String nameOfThird = firstThree.get(2).getName();
+
+        this.raceRepository.remove(race);
+        //string builder
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format(OutputMessages.DRIVER_FIRST_POSITION, nameOfFirst,raceName)).append(System.lineSeparator())
+                        .append(String.format(OutputMessages.DRIVER_SECOND_POSITION, nameOfSecond,raceName)).append(System.lineSeparator())
+                .append(String.format(OutputMessages.DRIVER_SECOND_POSITION, nameOfThird,raceName));
+
+        return stringBuilder.toString();
     }
 }
 

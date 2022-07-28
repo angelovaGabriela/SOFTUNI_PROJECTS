@@ -37,7 +37,6 @@ public abstract class BaseCar implements Car {
     @Override
     public double calculateRacePoints(int laps) {
         double points = this.cubicCentimeters / this.horsePower;
-
         return points * laps;
     }
 
