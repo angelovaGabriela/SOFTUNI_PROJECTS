@@ -34,10 +34,14 @@ public class ControllerImpl implements Controller {
     @Override
     public String createDriver(String driverName) {
         Driver driver = new DriverImpl(driverName);
+        Driver byName = this.driverRepository.getByName(driverName);
 
-        if (this.driverRepository.getAll().contains(driver)) {
+
+
+        if (this.driverRepository.getAll().contains(byName)) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.DRIVER_EXISTS, driverName));
         }
+
         this.driverRepository.add(driver);
         return String.format(OutputMessages.DRIVER_CREATED, driverName);
 
@@ -46,16 +50,16 @@ public class ControllerImpl implements Controller {
     @Override
     public String createCar(String type, String model, int horsePower) {
 
-        Car car = type.equals("MuscleCar")
-                ? new MuscleCar(model, horsePower)
-                : new SportsCar(model,horsePower);
-
-        if (this.carRepository.getAll().contains(car)) {
+        if (this.carRepository.getAll().contains(this.carRepository.getByName(model))) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.CAR_EXISTS, model));
+        } else {
+            Car car = type.equals("Muscle")
+                    ? new MuscleCar(model, horsePower)
+                    : new SportsCar(model,horsePower);
+            this.carRepository.add(car);
+            return String.format(OutputMessages.CAR_CREATED, type, model);
         }
 
-        this.carRepository.add(car);
-        return String.format(OutputMessages.CAR_CREATED, type, model);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package christmasRaces.common;
 
 public class OutputMessages {
-    public static final String CAR_CREATED = "%s %s is created.";
+    public static final String CAR_CREATED = "%sCar %s is created.";
     public static final String CAR_ADDED = "Driver %s received car %s.";
     public static final String DRIVER_CREATED = "Driver %s is created.";
     public static final String DRIVER_ADDED = "Driver %s added in %s race.";

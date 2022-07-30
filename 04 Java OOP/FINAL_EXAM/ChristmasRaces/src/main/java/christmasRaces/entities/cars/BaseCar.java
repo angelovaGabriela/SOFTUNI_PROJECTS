@@ -14,8 +14,8 @@ public abstract class BaseCar implements Car {
 
     protected BaseCar(String model, int horsePower, double cubicCentimeters) {
        this.setModel(model);
-       this.setHorsePower(horsePower);
        this.setCubicCentimeters(cubicCentimeters);
+       this.horsePower = horsePower;
     }
 
     @Override
@@ -41,21 +41,7 @@ public abstract class BaseCar implements Car {
         return points * laps;
     }
 
-    private void setHorsePower(int horsePower) {
-      if (Objects.equals(BaseCar.class.getSimpleName(), "MuscleCar")) {
-          if (horsePower < 400 || horsePower > 600) {
-              throw new IllegalArgumentException(String.format(ExceptionMessages.INVALID_HORSE_POWER,horsePower));
-          } else {
-              this.horsePower = horsePower;
-          }
-      } else if (Objects.equals(BaseCar.class.getSimpleName(), "SportsCar")) {
-          if (horsePower < 250 || horsePower > 450) {
-              throw new IllegalArgumentException(String.format(ExceptionMessages.INVALID_HORSE_POWER,horsePower));
-          } else {
-              this.horsePower = horsePower;
-          }
-      }
-    }
+
 
     private void setCubicCentimeters(double cubicCentimeters) {
         this.cubicCentimeters = cubicCentimeters;
