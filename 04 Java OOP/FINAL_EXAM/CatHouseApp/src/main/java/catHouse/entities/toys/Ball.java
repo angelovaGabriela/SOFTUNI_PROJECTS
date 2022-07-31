@@ -11,11 +11,11 @@ public class Ball extends BaseToy {
 
     @Override
     public int getSoftness() {
-        return 0;
+        return SOFTNESS;
     }
 
     @Override
     public double getPrice() {
-        return 0;
+        return PRICE;
     }
 }

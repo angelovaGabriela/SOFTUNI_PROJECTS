@@ -1,35 +1,26 @@
 package catHouse.entities.cat;
 
+import catHouse.entities.houses.ShortHouse;
+
 public class ShorthairCat extends BaseCat {
 
-    private static final int  INITIAL_KILOGRAMS = 7;
+    private ShortHouse house;
+    private static int  INITIAL_KILOGRAMS = 7;
 
     public ShorthairCat(String name, String breed, double price) {
         super(name, breed, price);
-    }
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public void setName(String name) {
 
     }
+
 
     @Override
     public int getKilograms() {
-        return 0;
+        return INITIAL_KILOGRAMS;
     }
 
-    @Override
-    public double getPrice() {
-        return 0;
-    }
 
     @Override
     public void eating() {
-
+        INITIAL_KILOGRAMS += 3;
     }
 }

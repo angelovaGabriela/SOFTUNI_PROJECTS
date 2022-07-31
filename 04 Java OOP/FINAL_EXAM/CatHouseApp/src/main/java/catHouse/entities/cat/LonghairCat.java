@@ -1,26 +1,19 @@
 package catHouse.entities.cat;
 
-public class LonghairCat extends BaseCat {
+import catHouse.entities.houses.LongHouse;
 
-    private static final int  INITIAL_KILOGRAMS = 9;
+public class LonghairCat extends BaseCat {
+    private LongHouse house;
+
+    private static int  INITIAL_KILOGRAMS = 9;
 
     public LonghairCat(String name, String breed, double price) {
         super(name, breed, price);
     }
 
     @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public void setName(String name) {
-
-    }
-
-    @Override
     public int getKilograms() {
-        return 0;
+        return INITIAL_KILOGRAMS;
     }
 
     @Override
@@ -30,6 +23,6 @@ public class LonghairCat extends BaseCat {
 
     @Override
     public void eating() {
-
+        INITIAL_KILOGRAMS ++;
     }
 }

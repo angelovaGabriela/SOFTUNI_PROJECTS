@@ -11,11 +11,11 @@ private static final double PRICE = 15;
 
     @Override
     public int getSoftness() {
-        return 0;
+        return SOFTNESS;
     }
 
     @Override
     public double getPrice() {
-        return 0;
+        return PRICE;
     }
 }
