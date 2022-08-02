@@ -76,9 +76,9 @@ public abstract class BaseHouse implements House {
         }
 
         builder.append(System.lineSeparator());
-        builder.append("Toys: %d Softness: %d", this.toys.size(), sumSoftness());
+        builder.append(String.format("Toys: %d Softness: %d", this.toys.size(), sumSoftness()));
 
-        return builder.toString();
+        return builder.toString().trim();
 
 
         //  StringBuilder builder = new StringBuilder();

@@ -4,7 +4,6 @@ import catHouse.entities.houses.ShortHouse;
 
 public class ShorthairCat extends BaseCat {
 
-    private ShortHouse house;
     private static int  INITIAL_KILOGRAMS = 7;
 
     public ShorthairCat(String name, String breed, double price) {

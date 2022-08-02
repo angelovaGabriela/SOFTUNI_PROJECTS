@@ -22,7 +22,7 @@ import java.util.Collection;
 
 public class ControllerImpl implements Controller {
 
-    private ToyRepository toys;
+    private final ToyRepository toys;
     private final Collection<House> houses;
 
     public ControllerImpl() {
@@ -72,9 +72,11 @@ public class ControllerImpl implements Controller {
         if (toy == null){
             throw new IllegalArgumentException(String.format(ExceptionMessages.NO_TOY_FOUND, toyType));
         } else {
-             House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().get();
-             house.buyToy(toy);
-             this.toys.removeToy(toy);
+             House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().orElse(null);
+            assert house != null;
+
+            house.buyToy(toy);
+            this.toys.removeToy(toy);
 
              return String.format(ConstantMessages.SUCCESSFULLY_ADDED_TOY_IN_HOUSE, toyType, houseName);
         }
@@ -83,11 +85,13 @@ public class ControllerImpl implements Controller {
     @Override
     public String addCat(String houseName, String catType, String catName, String catBreed, double price) {
 
-        House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().get();
+        House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().orElse(null);
         Cat cat;
 
         if (catType.equals("ShorthairCat")) {
             cat = new ShorthairCat(catName, catBreed, price);
+
+            assert house != null;
 
             if (house.getClass().getSimpleName().equals("ShortHouse")) {
                 house.addCat(cat);
@@ -97,6 +101,8 @@ public class ControllerImpl implements Controller {
             }
         } else if (catType.equals("LonghairCat")) {
             cat = new LonghairCat(catName, catBreed, price);
+
+            assert house != null;
 
             if (house.getClass().getSimpleName().equals("LongHouse")) {
                 house.addCat(cat);
@@ -118,7 +124,8 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String feedingCat(String houseName) {
-        House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().get();
+        House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().orElse(null);
+        assert house != null;
         house.feeding();
 
         int fedCount = house.getCats().size();
@@ -130,8 +137,11 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String sumOfAll(String houseName) {
-        House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().get();
+        House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().orElse(null);
        double sumOfAll = 0;
+
+       assert house != null;
+
         for (Toy toy : house.getToys()) {
             double currentToyPrice = toy.getPrice();
             sumOfAll += currentToyPrice;
@@ -148,14 +158,16 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String getStatistics() {
-        String stats = null;
-    for (House house : this.houses) {
-          stats = house.getStatistics();
+
+        StringBuilder buildingStats = new StringBuilder();
+
+        for (House house : this.houses) {
+            String houseStatistic = house.getStatistics();
+            buildingStats.append(houseStatistic).append(System.lineSeparator());
         }
-      return stats;
+
+        return buildingStats.toString().trim();
+
     }
 
-    private void setToys(ToyRepository toys) {
-        this.toys = toys;
-    }
 }
