@@ -34,7 +34,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String addHouse(String type, String name) {
-        if (type.equals("ShortHouse")){
+        if (type.equals("ShortHouse")) {
             House shortHouse = new ShortHouse(name);
             this.houses.add(shortHouse);
         } else if (type.equals("LongHouse")) {
@@ -51,36 +51,42 @@ public class ControllerImpl implements Controller {
     @Override
     public String buyToy(String type) {
 
-      if (type.equals("Ball")) {
-          Toy ball = new Ball();
-          this.toys.buyToy(ball);
-      } else if (type.equals("Mouse")) {
-          Toy mouse = new Mouse();
-          this.toys.buyToy(mouse);
-      } else {
-          throw new IllegalArgumentException(ExceptionMessages.INVALID_TOY_TYPE);
-      }
+        if (type.equals("Ball")) {
+            Toy ball = new Ball();
+            this.toys.buyToy(ball);
+        } else if (type.equals("Mouse")) {
+            Toy mouse = new Mouse();
+            this.toys.buyToy(mouse);
+        } else {
+            throw new IllegalArgumentException(ExceptionMessages.INVALID_TOY_TYPE);
+        }
 
-      return String.format(ConstantMessages.SUCCESSFULLY_ADDED_TOY_TYPE, type);
+        return String.format(ConstantMessages.SUCCESSFULLY_ADDED_TOY_TYPE, type);
     }
 
     @Override
     public String toyForHouse(String houseName, String toyType) {
 
+        String result = null;
         Toy toy = this.toys.findFirst(toyType);
 
-        if (toy == null){
+        if (toy == null) {
             throw new IllegalArgumentException(String.format(ExceptionMessages.NO_TOY_FOUND, toyType));
         } else {
-             House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().orElse(null);
+            House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().orElse(null);
             assert house != null;
 
             house.buyToy(toy);
-            this.toys.removeToy(toy);
 
-             return String.format(ConstantMessages.SUCCESSFULLY_ADDED_TOY_IN_HOUSE, toyType, houseName);
+            boolean success = this.toys.removeToy(toy);
+
+            if (success) {
+                result = String.format(ConstantMessages.SUCCESSFULLY_ADDED_TOY_IN_HOUSE, toyType, houseName);
+            }
         }
+        return result;
     }
+
 
     @Override
     public String addCat(String houseName, String catType, String catName, String catBreed, double price) {
@@ -108,6 +114,7 @@ public class ControllerImpl implements Controller {
                 house.addCat(cat);
                 return String.format(ConstantMessages.SUCCESSFULLY_ADDED_CAT_IN_HOUSE, catType, houseName);
             } else {
+
                 return ConstantMessages.UNSUITABLE_HOUSE;
             }
         } else {

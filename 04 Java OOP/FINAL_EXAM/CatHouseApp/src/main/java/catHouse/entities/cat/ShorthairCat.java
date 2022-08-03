@@ -1,6 +1,5 @@
 package catHouse.entities.cat;
 
-import catHouse.entities.houses.ShortHouse;
 
 public class ShorthairCat extends BaseCat {
 

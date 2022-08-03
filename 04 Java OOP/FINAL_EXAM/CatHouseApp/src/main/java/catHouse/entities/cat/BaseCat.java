@@ -13,6 +13,7 @@ public abstract class BaseCat implements Cat {
         this.setName(name);
         this.setBreed(breed);
         this.setPrice(price);
+        this.setKilograms(kilograms);
     }
 
 
@@ -30,10 +31,20 @@ public abstract class BaseCat implements Cat {
         this.name = name;
     }
 
+    @Override
+    public int getKilograms() {
+        return this.kilograms;
+    }
+
 
     @Override
     public double getPrice() {
         return this.price;
+    }
+
+    @Override
+    public void eating() {
+        this.getKilograms();
     }
 
 
@@ -57,6 +68,8 @@ public abstract class BaseCat implements Cat {
     }
 
 
+    private void setKilograms(int kilograms) {
+        this.kilograms = kilograms;
 
-
+    }
 }

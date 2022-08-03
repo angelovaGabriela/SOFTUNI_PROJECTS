@@ -80,13 +80,6 @@ public abstract class BaseHouse implements House {
 
         return builder.toString().trim();
 
-
-        //  StringBuilder builder = new StringBuilder();
-        //        builder.append("The grooming salon has the following clients:").append(System.lineSeparator());
-        //        data.forEach(pet -> builder.append(pet.getName()).append(" ").append(pet.getOwner()).append(System.lineSeparator()));
-        //
-        //        return builder.toString();
-        //    }
     }
 
     @Override
