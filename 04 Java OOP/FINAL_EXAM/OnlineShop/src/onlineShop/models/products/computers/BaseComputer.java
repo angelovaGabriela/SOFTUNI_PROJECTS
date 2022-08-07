@@ -50,18 +50,64 @@ public abstract class BaseComputer extends BaseProduct implements Computer {
         return null;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 
     @Override
     public double getOverallPerformance() {
-        return super.getOverallPerformance();
+        if (this.components.isEmpty()) {
+            return super.getOverallPerformance();
+        } else {
+
+            double computerOverallPerformance = super.getOverallPerformance();
+
+            double performance = 0;
+            double averageOverallPerformance;
+            int countOfComponents = this.components.size();
+
+            for (Component component : this.components) {
+
+                double current = component.getOverallPerformance();
+                performance += current;
+            }
+
+            averageOverallPerformance = performance / countOfComponents;
+
+            return averageOverallPerformance + computerOverallPerformance;
+        }
     }
 
     @Override
     public double getPrice() {
         return super.getPrice();
     }
+
+    @Override
+    public String toString() {
+
+      StringBuilder builder = new StringBuilder();
+
+      double overallPerformance = 0;
+
+        for (Peripheral peripheral : this.peripherals) {
+            double current = peripheral.getOverallPerformance();
+            overallPerformance += current;
+        }
+
+        int count = this.peripherals.size();
+        double averageOverallPerformance = overallPerformance / count;
+
+      builder.append(super.toString()).append(System.lineSeparator());
+
+      builder.append(String.format(" Components (%d):", this.components.size())).append(System.lineSeparator());
+      this.components.stream().forEach(component -> builder.append("  ").append(component).append(System.lineSeparator()));
+
+      builder.append(String.format(" Peripherals (%d); Average Overall Performance (%f):",
+              this.peripherals.size(), averageOverallPerformance)).append(System.lineSeparator());
+      this.peripherals.forEach(peripheral -> builder.append("  ").append(peripheral).append(System.lineSeparator()));
+
+      return builder.toString();
+
+    }
+
+
+
 }

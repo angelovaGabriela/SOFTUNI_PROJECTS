@@ -23,6 +23,12 @@ public abstract class BasePeripheral extends BaseProduct implements Peripheral {
 
     @Override
     public String toString() {
-        return super.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder
+                .append(super.toString())
+                .append(" ")
+                .append(String.format("Connection Type: %s", this.connectionType));
+
+        return stringBuilder.toString();
     }
 }
