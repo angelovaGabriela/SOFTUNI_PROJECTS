@@ -1,5 +1,6 @@
 package onlineShop.models.products.computers;
 
+import onlineShop.common.constants.ExceptionMessages;
 import onlineShop.models.products.BaseProduct;
 import onlineShop.models.products.components.Component;
 import onlineShop.models.products.peripherals.Peripheral;
@@ -32,6 +33,25 @@ public abstract class BaseComputer extends BaseProduct implements Computer {
 
     @Override
     public void addComponent(Component component) {
+        // ако го намериш вземи първото - има го в колекцията != null
+        // ако НЕ го намериш върни null - няма го в колекцията == null
+        Component foundComponent =
+                this.components.stream().
+                        filter(c -> c.getClass().getSimpleName()
+                                .equals(component.getClass().getSimpleName()))
+                        .findFirst().orElse(null);
+
+        if (foundComponent != null) {
+            String componentType = component.getClass().getSimpleName();
+            String computerType = this.getClass().getSimpleName();
+            int id = super.getId();
+            throw new IllegalArgumentException(String.format(ExceptionMessages.EXISTING_COMPONENT, componentType, computerType, id));
+        } else {
+            this.components.add(component);
+        }
+
+        //else add
+
 
     }
 
@@ -77,7 +97,21 @@ public abstract class BaseComputer extends BaseProduct implements Computer {
 
     @Override
     public double getPrice() {
-        return super.getPrice();
+        double computerPrice = super.getPrice();
+
+        double totalComponentsPrice = 0;
+        for (Component component : this.components) {
+            double currentPrice = component.getPrice();
+            totalComponentsPrice += currentPrice;
+        }
+
+        double totalPeripheralPrice = 0;
+        for (Peripheral peripheral : this.peripherals) {
+            double currentPrice = peripheral.getPrice();
+            totalPeripheralPrice += currentPrice;
+        }
+
+        return computerPrice + totalComponentsPrice + totalPeripheralPrice;
     }
 
     @Override
