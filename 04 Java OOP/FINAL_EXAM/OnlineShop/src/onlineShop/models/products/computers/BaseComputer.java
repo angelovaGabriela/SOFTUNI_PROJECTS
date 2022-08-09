@@ -6,6 +6,7 @@ import onlineShop.models.products.components.Component;
 import onlineShop.models.products.peripherals.Peripheral;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class BaseComputer extends BaseProduct implements Computer {
@@ -23,12 +24,12 @@ public abstract class BaseComputer extends BaseProduct implements Computer {
 
     @Override
     public List<Component> getComponents() {
-        return null;
+         return Collections.unmodifiableList(this.components);
     }
 
     @Override
     public List<Peripheral> getPeripherals() {
-        return null;
+        return Collections.unmodifiableList(this.peripherals);
     }
 
     @Override
@@ -57,17 +58,52 @@ public abstract class BaseComputer extends BaseProduct implements Computer {
 
     @Override
     public Component removeComponent(String componentType) {
-        return null;
+        Component foundComponent =
+                this.components.stream().
+                        filter(c -> c.getClass().getSimpleName()
+                                .equals(componentType))
+                        .findFirst().orElse(null);
+        if (this.components.isEmpty() || foundComponent == null) {
+            throw new IllegalArgumentException(String.format(ExceptionMessages.NOT_EXISTING_COMPONENT, componentType, this.getClass().getSimpleName(), super.getId()));
+        } else {
+            this.components.remove(foundComponent);
+            return foundComponent;
+        }
     }
 
     @Override
     public void addPeripheral(Peripheral peripheral) {
 
+        Peripheral foundPeripheral =
+                this.peripherals.stream().
+                        filter(c -> c.getClass().getSimpleName()
+                                .equals(peripheral.getClass().getSimpleName()))
+                        .findFirst().orElse(null);
+
+        if (foundPeripheral != null) {
+            String peripheralType = peripheral.getClass().getSimpleName();
+            String computerType = this.getClass().getSimpleName();
+
+            int id = super.getId();
+            throw new IllegalArgumentException(String.format(ExceptionMessages.EXISTING_PERIPHERAL, peripheralType, computerType, id));
+        } else {
+            this.peripherals.add(peripheral);
+        }
     }
 
     @Override
     public Peripheral removePeripheral(String peripheralType) {
-        return null;
+        Peripheral foundPeripheral =
+                this.peripherals.stream().
+                        filter(c -> c.getClass().getSimpleName()
+                                .equals(peripheralType))
+                        .findFirst().orElse(null);
+        if (this.peripherals.isEmpty() || foundPeripheral == null) {
+            throw new IllegalArgumentException(String.format(ExceptionMessages.NOT_EXISTING_PERIPHERAL, peripheralType, this.getClass().getSimpleName(), super.getId()));
+        } else {
+            this.peripherals.remove(foundPeripheral);
+            return foundPeripheral;
+        }
     }
 
 
