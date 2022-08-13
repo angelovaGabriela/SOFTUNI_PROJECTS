@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class EngineImpl implements Engine {
-    private InputReader reader;
-    private OutputWriter writer;
-    private Controller controller;
+    private final InputReader reader;
+    private final OutputWriter writer;
+    private final Controller controller;
 
     public EngineImpl() {
-        // this.controller = new ControllerImpl();   //TODO Implement first
+        this.controller = new ControllerImpl();
         this.reader = new ConsoleReader();
         this.writer = new ConsoleWriter();
     }
@@ -49,7 +49,7 @@ public class EngineImpl implements Engine {
         CommandType command = CommandType.valueOf(tokens[0]);
         String[] data = Arrays.stream(tokens).skip(1).toArray(String[]::new);
 
-        /* switch (command) { // TODO Implement first
+         switch (command) {
             case AddComputer:
                 return this.controller.addComputer(data[0], Integer.parseInt(data[1]), data[2], data[3], Double.parseDouble(data[4]));
             case AddPeripheral:
@@ -69,7 +69,7 @@ public class EngineImpl implements Engine {
             case Close:
                 return "Close";
         }
-         */
+
         return null;
     }
 

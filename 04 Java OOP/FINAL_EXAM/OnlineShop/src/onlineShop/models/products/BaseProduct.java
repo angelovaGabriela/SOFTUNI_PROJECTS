@@ -24,7 +24,7 @@ public abstract class BaseProduct implements Product {
     }
 
     private void setId(int id) {
-       if (this.id <= 0) {
+       if (this.id < 0) {
            throw new IllegalArgumentException(ExceptionMessages.INVALID_PRODUCT_ID);
        }
        this.id = id;

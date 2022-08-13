@@ -20,6 +20,7 @@ public abstract class BaseComputer extends BaseProduct implements Computer {
         super(id, manufacturer, model, price, overallPerformance);
         this.components = new ArrayList<>();
         this.peripherals = new ArrayList<>();
+
     }
 
     @Override
@@ -50,9 +51,6 @@ public abstract class BaseComputer extends BaseProduct implements Computer {
         } else {
             this.components.add(component);
         }
-
-        //else add
-
 
     }
 
