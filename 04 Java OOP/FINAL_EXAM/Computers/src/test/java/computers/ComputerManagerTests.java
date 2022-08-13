@@ -5,9 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ComputerManagerTests {
     private Computer computer;
@@ -57,6 +57,10 @@ public class ComputerManagerTests {
         computerManager.getComputer(null, null);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void computerDoesNotExist() {
+       this.computerManager.getComputer("GABI", "GABI");
+    }
 
     @Test
     public void priceMustBe123040 () {
@@ -64,4 +68,19 @@ public class ComputerManagerTests {
         Assert.assertEquals("Invalid price!", 1230.40, price, 0.0);
     }
 
+
+    @Test
+    public void collectionOfComputersByManufacturer() {
+        Computer newPC = new Computer("ASUS", "ZenBook2", 3537.78);
+        List<Computer> list = new ArrayList<>();
+        list.add(this.computer);
+        list.add(newPC);
+
+        this.computerManager.addComputer(newPC);
+
+        List<Computer> expected = list.stream().filter(c -> c.getManufacturer().equals("ASUS")).collect(Collectors.toList());
+        List<Computer> actual = this.computerManager.getComputersByManufacturer("ASUS");
+
+        Assert.assertEquals("Invalid collection!", expected, actual);
+    }
 }
