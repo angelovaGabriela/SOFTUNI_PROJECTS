@@ -129,12 +129,12 @@ public class ControllerImpl implements Controller {
          // добавям ги в колекцията с най-добри резултати
          bestPoints.add(points);
         }
-
+        Collections.sort(bestPoints);
         // сортирам ги в descending order -> highest to lowest
         bestPoints.sort(Collections.reverseOrder());
 
         // създавам колекция за първите трима
-        List<Driver> firstThree = new ArrayList<>();
+        List<Driver> firstThree = new ArrayList<>(race.getDrivers());
 
         // итерирам през съзтезателите в състезанието
         for (Driver winner : race.getDrivers()) {
@@ -146,11 +146,11 @@ public class ControllerImpl implements Controller {
             // го взимам и го поставям на първа позиция в листа firstThree
             // така и за останалите двама
             if (best == bestPoints.get(0)) {
-                firstThree.add(winner);
+                firstThree.set(0,winner);
             } else if (best == bestPoints.get(1)) {
-                firstThree.add(winner);
+                firstThree.set(1,winner);
             }  else if (best == bestPoints.get(2)) {
-                firstThree.add(winner);
+                firstThree.set(2,winner);
             }
         }
 
