@@ -1,5 +1,6 @@
 package onlineShop.models.products.components;
 
+import onlineShop.common.constants.OutputMessages;
 import onlineShop.models.products.BaseProduct;
 
 public abstract class BaseComponent extends BaseProduct implements Component {
@@ -28,7 +29,7 @@ public abstract class BaseComponent extends BaseProduct implements Component {
         stringBuilder
                 .append(super.toString())
                 .append(" ")
-                .append(String.format("Generation: %d", this.generation));
+                .append(String.format(OutputMessages.COMPONENT_TO_STRING, this.generation));
 
         return stringBuilder.toString();
 

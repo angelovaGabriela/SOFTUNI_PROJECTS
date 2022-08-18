@@ -1,6 +1,7 @@
 package onlineShop.models.products;
 
 import onlineShop.common.constants.ExceptionMessages;
+import onlineShop.common.constants.OutputMessages;
 
 public abstract class BaseProduct implements Product {
 
@@ -80,7 +81,7 @@ public abstract class BaseProduct implements Product {
 
     @Override
     public String toString() {
-        return String.format("Overall Performance: %f. Price: %f - %s: %s %s (Id: %d)",
+        return String.format(OutputMessages.PRODUCT_TO_STRING,
                 this.overallPerformance, this.price,
                 this.getClass().getSimpleName(),
                 this.manufacturer, this.model, this.id);

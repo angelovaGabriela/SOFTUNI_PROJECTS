@@ -30,7 +30,6 @@ public class ControllerImpl implements Controller {
     public String addComputer(String computerType, int id, String manufacturer, String model, double price) {
 
         Computer computer;
-
         if (computerType.equals("DesktopComputer")) {
 
            computer = new DesktopComputer(id, manufacturer, model, price);
@@ -63,30 +62,34 @@ public class ControllerImpl implements Controller {
                                 String model, double price, double
                                 overallPerformance, String connectionType) {
 
+
+
+
         Peripheral peripheral;
 
         switch (peripheralType) {
-            case "Headset" -> {
+            case "Headset":
                 peripheral = new Headset(id, manufacturer, model, price,
                         overallPerformance, connectionType);
                 peripheralAlreadyExist(id);
-            }
-            case "Keyboard" -> {
+            break;
+            case "Keyboard":
                 peripheral = new Keyboard(id, manufacturer, model, price,
                         overallPerformance, connectionType);
                 peripheralAlreadyExist(id);
-            }
-            case "Monitor" -> {
+            break;
+            case "Monitor":
                 peripheral = new Monitor(id, manufacturer, model, price,
                         overallPerformance, connectionType);
                 peripheralAlreadyExist(id);
-            }
-            case "Mouse" -> {
+            break;
+            case "Mouse":
                 peripheral = new Mouse(id, manufacturer, model, price,
                         overallPerformance, connectionType);
                 peripheralAlreadyExist(id);
-            }
-            default -> throw new IllegalArgumentException(ExceptionMessages.INVALID_PERIPHERAL_TYPE);
+            break;
+            default:
+                throw new IllegalArgumentException(ExceptionMessages.INVALID_PERIPHERAL_TYPE);
         }
         Computer computer = this.computers
                 .stream()
@@ -94,7 +97,9 @@ public class ControllerImpl implements Controller {
                 .findFirst()
                 .orElse(null);
 
-        assert computer != null;
+        if (computer == null) {
+            throw new IllegalArgumentException(ExceptionMessages.NOT_EXISTING_COMPUTER_ID);
+        }
 
         this.peripherals.add(peripheral);
         computer.getPeripherals().add(peripheral);
@@ -129,7 +134,9 @@ public class ControllerImpl implements Controller {
                 .findFirst()
                 .orElse(null);
 
-        assert computer != null;
+        if (computer == null) {
+            throw new IllegalArgumentException(ExceptionMessages.NOT_EXISTING_COMPUTER_ID);
+        }
         computer.getPeripherals().remove(peripheral);
 
         this.peripherals.remove(peripheral);
@@ -152,35 +159,38 @@ public class ControllerImpl implements Controller {
         Component component;
 
         switch (componentType) {
-            case "Motherboard" -> {
+            case "Motherboard":
                 component = new Motherboard(id, manufacturer, model, price, overallPerformance, generation);
                 componentAlreadyExist(id);
-            }
-            case "PowerSupply" -> {
+                break;
+            case "PowerSupply":
                 component = new PowerSupply(id, manufacturer, model, price, overallPerformance, generation);
                 componentAlreadyExist(id);
-            }
-            case "RandomAccessMemory" -> {
+                break;
+            case "RandomAccessMemory":
                 component = new RandomAccessMemory(id, manufacturer, model, price, overallPerformance, generation);
                 componentAlreadyExist(id);
-            }
-            case "SolidStateDrive" -> {
+                break;
+            case "SolidStateDrive":
                 component = new SolidStateDrive(id, manufacturer, model, price, overallPerformance, generation);
                 componentAlreadyExist(id);
-            }
-            case "VideoCard" -> {
+                break;
+            case "VideoCard":
                 component = new VideoCard(id, manufacturer, model, price, overallPerformance, generation);
                 componentAlreadyExist(id);
-            }
-            case "CentralProcessingUnit" -> {
+                break;
+            case "CentralProcessingUnit":
                 component = new CentralProcessingUnit(id, manufacturer, model, price, overallPerformance, generation);
                 componentAlreadyExist(id);
-            }
-            default -> throw new IllegalArgumentException(ExceptionMessages.INVALID_COMPONENT_TYPE);
+                break;
+            default:
+                throw new IllegalArgumentException(ExceptionMessages.INVALID_COMPONENT_TYPE);
         }
 
         Computer computer = this.computers.stream().filter(c -> c.getId() == computerId).findFirst().orElse(null);
-        assert computer != null;
+        if (computer == null) {
+            throw new IllegalArgumentException(ExceptionMessages.NOT_EXISTING_COMPUTER_ID);
+        }
         computer.addComponent(component);
 
         this.components.add(component);
@@ -205,7 +215,9 @@ public class ControllerImpl implements Controller {
                 .filter(c -> c.getId() == computerId)
                 .findFirst().orElse(null);
 
-        assert computer != null;
+        if (computer == null) {
+            throw new IllegalArgumentException(ExceptionMessages.NOT_EXISTING_COMPUTER_ID);
+        }
 
         Component component = computer.getComponents()
                 .stream()
@@ -230,7 +242,9 @@ public class ControllerImpl implements Controller {
                         .orElse(null);
 
         this.computers.remove(computer);
-        assert computer != null;
+        if (computer == null) {
+            throw new IllegalArgumentException(ExceptionMessages.NOT_EXISTING_COMPUTER_ID);
+        }
 
         return computer.toString();
 
@@ -267,7 +281,9 @@ public class ControllerImpl implements Controller {
                        .filter(c -> c.getId() == id)
                        .findFirst().orElse(null);
 
-        assert computer != null;
+        if (computer == null) {
+            throw new IllegalArgumentException(ExceptionMessages.NOT_EXISTING_COMPUTER_ID);
+        }
         return computer.toString();
     }
 }
