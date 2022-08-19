@@ -36,7 +36,7 @@ public abstract class BaseHouse implements House {
     @Override
     public void addCat(Cat cat) {
 
-        if(this.cats.size() < this.capacity) {
+        if(!(this.cats.size() >= this.capacity)) {
             this.cats.add(cat);
         } else {
             throw new IllegalStateException(ConstantMessages.NOT_ENOUGH_CAPACITY_FOR_CAT);

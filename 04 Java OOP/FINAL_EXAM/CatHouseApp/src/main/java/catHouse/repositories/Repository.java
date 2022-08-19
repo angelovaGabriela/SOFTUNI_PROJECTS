@@ -1,12 +1,10 @@
 package catHouse.repositories;
 
-import catHouse.entities.toys.Toy;
-
 public interface Repository<T> {
 
-    void buyToy(Toy toy);
+    void buyToy(T toy);
 
-    boolean removeToy(Toy toy);
+    boolean removeToy(T toy);
 
-    Toy findFirst(String type);
+    T findFirst(String type);
 }

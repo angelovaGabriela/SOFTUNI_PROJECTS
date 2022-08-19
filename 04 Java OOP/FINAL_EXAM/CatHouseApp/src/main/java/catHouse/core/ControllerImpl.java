@@ -43,9 +43,7 @@ public class ControllerImpl implements Controller {
         } else {
             throw new NullPointerException(ExceptionMessages.INVALID_HOUSE_TYPE);
         }
-
         return String.format(ConstantMessages.SUCCESSFULLY_ADDED_HOUSE_TYPE, type);
-
     }
 
     @Override
@@ -91,7 +89,12 @@ public class ControllerImpl implements Controller {
     @Override
     public String addCat(String houseName, String catType, String catName, String catBreed, double price) {
 
-        House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().orElse(null);
+        House house =
+                this.houses
+                        .stream()
+                        .filter(h -> h.getName().equals(houseName))
+                        .findAny()
+                        .orElse(null);
         Cat cat;
 
         if (catType.equals("ShorthairCat")) {
@@ -120,18 +123,16 @@ public class ControllerImpl implements Controller {
         } else {
             throw new IllegalArgumentException(ExceptionMessages.INVALID_CAT_TYPE);
         }
-
-
-
-
-
-
-
     }
 
     @Override
     public String feedingCat(String houseName) {
-        House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().orElse(null);
+        House house =
+                this.houses
+                        .stream()
+                        .filter(h -> h.getName().equals(houseName))
+                        .findAny()
+                        .orElse(null);
         assert house != null;
         house.feeding();
 
@@ -144,7 +145,12 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String sumOfAll(String houseName) {
-        House house = this.houses.stream().filter(h -> h.getName().equals(houseName)).findAny().orElse(null);
+        House house =
+                this.houses
+                        .stream()
+                        .filter(h -> h.getName().equals(houseName))
+                        .findAny()
+                        .orElse(null);
        double sumOfAll = 0;
 
        assert house != null;

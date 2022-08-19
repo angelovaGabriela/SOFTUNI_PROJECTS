@@ -18,6 +18,6 @@ public class LonghairCat extends BaseCat {
 
     @Override
     public void eating() {
-        INITIAL_KILOGRAMS ++;
+        INITIAL_KILOGRAMS += 1;
     }
 }
