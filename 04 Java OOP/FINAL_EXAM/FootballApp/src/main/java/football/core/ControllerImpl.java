@@ -1,12 +1,23 @@
 package football.core;
 
 
+import football.common.ConstantMessages;
+import football.common.ExceptionMessages;
+import football.entities.field.ArtificialTurf;
 import football.entities.field.Field;
+import football.entities.field.NaturalGrass;
+import football.entities.player.Men;
+import football.entities.player.Player;
+import football.entities.player.Women;
+import football.entities.supplement.Liquid;
+import football.entities.supplement.Powdered;
+import football.entities.supplement.Supplement;
 import football.repositories.SupplementRepository;
 import football.repositories.SupplementRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 public class ControllerImpl implements Controller {
 
@@ -20,29 +31,96 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String addField(String fieldType, String fieldName) {
-        return null;
+        switch (fieldType) {
+            case "ArtificialTurf":
+                Field newField = new ArtificialTurf(fieldName);
+                this.fields.add(newField);
+                break;
+            case "NaturalGrass":
+                Field field = new NaturalGrass(fieldName);
+                this.fields.add(field);
+                break;
+            default:
+                throw new NullPointerException(ExceptionMessages.INVALID_FIELD_TYPE);
+        }
+
+        return String.format(ConstantMessages.SUCCESSFULLY_ADDED_FIELD_TYPE, fieldType);
     }
 
     @Override
     public String deliverySupplement(String type) {
-        return null;
+        switch (type) {
+            case "Powdered":
+                Supplement powdered = new Powdered();
+                this.supplement.add(powdered);
+                break;
+            case "Liquid":
+                Supplement liquid = new Liquid();
+                this.supplement.add(liquid);
+                break;
+            default:
+                throw new IllegalArgumentException(ExceptionMessages.INVALID_SUPPLEMENT_TYPE);
+        }
+
+        return String.format(ConstantMessages.SUCCESSFULLY_ADDED_SUPPLEMENT_TYPE, type);
     }
 
     @Override
     public String supplementForField(String fieldName, String supplementType) {
-        return null;
+        Supplement supplementToAdd = supplement.findByType(supplementType);
+
+        if (supplementToAdd == null) {
+            throw new IllegalArgumentException(String.format(ExceptionMessages.NO_SUPPLEMENT_FOUND, supplementType));
+        } else {
+            Field field = this.fields.stream().filter(f -> f.getName().equals(fieldName)).findFirst().orElse(null);
+            assert field != null;
+            field.getSupplements().add(supplementToAdd);
+            this.supplement.remove(supplementToAdd);
+        }
+
+        return String.format(ConstantMessages.SUCCESSFULLY_ADDED_SUPPLEMENT_IN_FIELD,supplementType, fieldName);
     }
 
     @Override
     public String addPlayer(String fieldName, String playerType, String playerName, String nationality, int strength) {
-        return null;
+        Field field = this.fields.stream().filter(f -> f.getName().equals(fieldName)).findFirst().orElse(null);
+        assert field != null;
+        Player player;
+        switch (playerType){
+            case "Woman":
+                player = new Women(playerName, nationality, strength);
+                if (field.getClass().getSimpleName().equals("ArtificialTurf")) {
+                    field.addPlayer(player);
+                } else {
+                    return String.format(ConstantMessages.FIELD_NOT_SUITABLE);
+                }
+                break;
+            case "Man":
+                player = new Men(playerName, nationality, strength);
+                if (field.getClass().getSimpleName().equals("NaturalGrass")) {
+                    field.addPlayer(player);
+                } else {
+                    return String.format(ConstantMessages.FIELD_NOT_SUITABLE);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException(ExceptionMessages.INVALID_PLAYER_TYPE);
+        }
+
+        return String.format(ConstantMessages.SUCCESSFULLY_ADDED_PLAYER_IN_FIELD, playerType, fieldName);
     }
 
     @Override
     public String dragPlayer(String fieldName) {
-        return null;
+        Field field = this.fields.stream().filter(f -> f.getName().equals(fieldName)).findFirst().orElse(null);
+        assert field != null;
+        field.drag();
+        int draggedPlayers = field.getPlayers().size();
+
+        return String.format(ConstantMessages.PLAYER_DRAG, draggedPlayers);
     }
 
+    //TODO: HERE I AM
     @Override
     public String calculateStrength(String fieldName) {
         return null;

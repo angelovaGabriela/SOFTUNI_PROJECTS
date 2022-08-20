@@ -14,17 +14,22 @@ public class SupplementRepositoryImpl implements SupplementRepository {
 
     @Override
     public void add(Supplement supplement) {
-
+        this.supplements.add(supplement);
     }
 
     @Override
     public boolean remove(Supplement supplement) {
-        return false;
+        return this.supplements.remove(supplement);
     }
 
     @Override
     public Supplement findByType(String type) {
-        return null;
+        return this.supplements
+                .stream()
+                .filter(s -> s.getClass().getSimpleName().equals(type))
+                .findFirst()
+                .orElse(null);
     }
+
 
 }
