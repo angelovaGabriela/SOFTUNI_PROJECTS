@@ -12,5 +12,4 @@ public class Men extends BasePlayer {
         this.setStrength(this.getStrength() + 145);
     }
 
-    //TODO: I can only play on NaturalGrass!
 }

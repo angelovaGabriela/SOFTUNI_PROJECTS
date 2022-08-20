@@ -12,7 +12,7 @@ public class EngineImpl implements Engine{
     private BufferedReader reader;
 
     public EngineImpl() {
-        this.controller = new ControllerImpl();//TODO implement first
+        this.controller = new ControllerImpl();
         this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
@@ -69,38 +69,47 @@ public class EngineImpl implements Engine{
         }
         return result;
     }
+
     private String addField(String[] data) {
-        //TODO
-        return null;
+        String fieldType = data[0];
+        String fieldName = data[1];
+
+        return this.controller.addField(fieldType, fieldName);
     }
 
     private String deliverySupplement(String[] data) {
-        //TODO
-        return null;
+        String supplementType = data[0];
+        return this.controller.deliverySupplement(supplementType);
     }
 
     private String supplementForField(String[] data) {
-         //TODO
-        return null;
+         String fieldName = data[0];
+         String supplementType = data[1];
+         return this.controller.supplementForField(fieldName, supplementType);
     }
 
     private String addPlayer(String[] data) {
-        //TODO
-        return null;
+        String fieldName = data[0];
+        String playerType = data[1];
+        String playerName = data[2];
+        String playerNationality = data[3];
+        int playerStrength = Integer.parseInt(data[4]);
+
+        return this.controller.addPlayer(fieldName, playerType, playerName, playerNationality, playerStrength);
     }
 
     private String dragPlayer(String[] data) {
-        //TODO
-        return null;
+        String fieldName = data[0];
+        return this.controller.dragPlayer(fieldName);
     }
 
     private String calculateStrength(String[] data) {
-        //TODO
-        return null;
+        //• CalculateStrength {fieldName}
+        String fieldName = data[0];
+        return this.controller.calculateStrength(fieldName);
     }
 
     private String getStatistics() {
-        //TODO
-        return null;
+        return this.controller.getStatistics();
     }
 }

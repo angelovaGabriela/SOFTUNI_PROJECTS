@@ -98,12 +98,12 @@ public abstract class BaseField implements Field {
 
     @Override
     public Collection<Player> getPlayers() {
-        return Collections.unmodifiableCollection(this.players);
+        return this.players;
     }
 
     @Override
     public Collection<Supplement> getSupplements() {
-        return Collections.unmodifiableCollection(this.supplements);
+        return this.supplements;
     }
 
     @Override

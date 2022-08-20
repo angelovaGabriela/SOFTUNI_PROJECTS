@@ -17,7 +17,6 @@ import football.repositories.SupplementRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 
 public class ControllerImpl implements Controller {
 
@@ -87,7 +86,7 @@ public class ControllerImpl implements Controller {
         assert field != null;
         Player player;
         switch (playerType){
-            case "Woman":
+            case "Women":
                 player = new Women(playerName, nationality, strength);
                 if (field.getClass().getSimpleName().equals("ArtificialTurf")) {
                     field.addPlayer(player);
@@ -95,7 +94,7 @@ public class ControllerImpl implements Controller {
                     return String.format(ConstantMessages.FIELD_NOT_SUITABLE);
                 }
                 break;
-            case "Man":
+            case "Men":
                 player = new Men(playerName, nationality, strength);
                 if (field.getClass().getSimpleName().equals("NaturalGrass")) {
                     field.addPlayer(player);
@@ -120,14 +119,27 @@ public class ControllerImpl implements Controller {
         return String.format(ConstantMessages.PLAYER_DRAG, draggedPlayers);
     }
 
-    //TODO: HERE I AM
     @Override
     public String calculateStrength(String fieldName) {
-        return null;
+        Field field = this.fields.stream().filter(f -> f.getName().equals(fieldName))
+                .findFirst().orElse(null);
+        assert field != null;
+
+        int sumOfStrength = 0;
+        for (Player player : field.getPlayers()) {
+            int currentStrength = player.getStrength();
+            sumOfStrength += currentStrength;
+        }
+        return String.format(ConstantMessages.STRENGTH_FIELD, fieldName, sumOfStrength);
     }
 
     @Override
     public String getStatistics() {
-        return null;
+        StringBuilder statistics = new StringBuilder();
+        for (Field field : this.fields) {
+            statistics.append(field.getInfo())
+                    .append(System.lineSeparator());
+        }
+        return statistics.toString();
     }
 }

@@ -6,7 +6,6 @@ public class Women extends BasePlayer {
     public Women(String name, String nationality, int strength) {
         super(name, nationality, KG, strength);
     }
-    //TODO: I can only play on ArtificialTurf!
 
     @Override
     public void stimulation() {
