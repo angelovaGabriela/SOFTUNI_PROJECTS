@@ -1,7 +1,5 @@
 package com.example.eprep.model.entity;
 
-import com.example.eprep.model.CategoryNameEnum;
-
 import javax.persistence.*;
 
 @Entity

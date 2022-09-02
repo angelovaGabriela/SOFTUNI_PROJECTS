@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private  final CurrentUser currentUser;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, UserService userService, CurrentUser currentUser) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, CurrentUser currentUser) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.currentUser = currentUser;

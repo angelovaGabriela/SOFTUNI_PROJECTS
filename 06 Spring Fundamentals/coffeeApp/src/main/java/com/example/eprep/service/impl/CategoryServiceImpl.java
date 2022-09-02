@@ -1,6 +1,6 @@
 package com.example.eprep.service.impl;
 
-import com.example.eprep.model.CategoryNameEnum;
+import com.example.eprep.model.entity.CategoryNameEnum;
 import com.example.eprep.model.entity.Category;
 import com.example.eprep.repository.CategoryRepository;
 import com.example.eprep.service.CategoryService;
