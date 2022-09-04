@@ -1,5 +1,6 @@
 package com.example.eprep.service;
 
+import com.example.eprep.model.entity.User;
 import com.example.eprep.model.service.UserServiceModel;
 
 public interface UserService {
@@ -8,5 +9,8 @@ public interface UserService {
     UserServiceModel findByUsernameAndPassword(String username, String password);
 
     void loginUser(Long id, String username);
+
+    User findById(Long id);
+
 }
 

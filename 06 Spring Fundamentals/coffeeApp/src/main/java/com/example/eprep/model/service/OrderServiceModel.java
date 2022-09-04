@@ -1,28 +1,30 @@
-package com.example.eprep.model.binding;
+package com.example.eprep.model.service;
 
+import com.example.eprep.model.entity.Category;
 import com.example.eprep.model.entity.CategoryNameEnum;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.example.eprep.model.entity.User;
 
-import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class OrderAddBindingModel {
-    @Size(min = 3, max = 20)
+public class OrderServiceModel {
+
+    private Long id;
     private String name;
-    @Positive
     private BigDecimal price;
-
-    //TODO: validation isn't working properly
-    @PastOrPresent
-    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
     private LocalDateTime orderTime;
-    @NotNull
     private CategoryNameEnum category;
-    @Size(min = 5)
-    private String description;
+    private User employee;
 
-    public OrderAddBindingModel() {
+    public OrderServiceModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -57,11 +59,11 @@ public class OrderAddBindingModel {
         this.category = category;
     }
 
-    public String getDescription() {
-        return description;
+    public User getEmployee() {
+        return employee;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEmployee(User employee) {
+        this.employee = employee;
     }
 }
