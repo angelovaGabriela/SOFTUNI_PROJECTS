@@ -12,13 +12,13 @@ public class OrderAddBindingModel {
     private String name;
     @Positive
     private BigDecimal price;
-
-    //TODO: validation isn't working properly
     @PastOrPresent
-    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime orderTime;
     @NotNull
     private CategoryNameEnum category;
+
     @Size(min = 5)
     private String description;
 

@@ -2,6 +2,7 @@ package com.example.eprep.service.impl;
 
 import com.example.eprep.model.entity.Order;
 import com.example.eprep.model.service.OrderServiceModel;
+import com.example.eprep.model.view.OrderViewModel;
 import com.example.eprep.repository.OrderRepository;
 import com.example.eprep.securityUtils.CurrentUser;
 import com.example.eprep.service.CategoryService;
@@ -9,6 +10,9 @@ import com.example.eprep.service.OrderService;
 import com.example.eprep.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -35,5 +39,14 @@ public class OrderServiceImpl implements OrderService {
         order.setCategory(categoryService.findByCategoryNameEnum(orderServiceModel.getCategory()));
 
         orderRepository.save(order);
+    }
+
+    @Override
+    public List<OrderViewModel> findAllOrdersOrderByPriceDesc() {
+        return orderRepository
+                .findAllByOrderByPriceDesc()
+                .stream()
+                .map(order -> modelMapper.map(order, OrderViewModel.class))
+                .collect(Collectors.toList());
     }
 }

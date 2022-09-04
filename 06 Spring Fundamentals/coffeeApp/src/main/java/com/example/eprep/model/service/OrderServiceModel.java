@@ -11,6 +11,8 @@ public class OrderServiceModel {
 
     private Long id;
     private String name;
+
+    private String description;
     private BigDecimal price;
     private LocalDateTime orderTime;
     private CategoryNameEnum category;
@@ -65,5 +67,13 @@ public class OrderServiceModel {
 
     public void setEmployee(User employee) {
         this.employee = employee;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
