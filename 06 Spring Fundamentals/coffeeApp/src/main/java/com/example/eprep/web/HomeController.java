@@ -3,6 +3,7 @@ package com.example.eprep.web;
 import com.example.eprep.model.view.OrderViewModel;
 import com.example.eprep.securityUtils.CurrentUser;
 import com.example.eprep.service.OrderService;
+import com.example.eprep.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +15,12 @@ public class HomeController {
 
     private final CurrentUser currentUser;
     private final OrderService orderService;
-    public HomeController(CurrentUser currentUser, OrderService orderService) {
+    private final UserService userService;
+
+    public HomeController(CurrentUser currentUser, OrderService orderService, UserService userService) {
         this.currentUser = currentUser;
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     @GetMapping()
@@ -31,6 +35,9 @@ public class HomeController {
                         .map(orderViewModel ->  orderViewModel.getCategory().getNeededTime())
                         .reduce(Integer::sum)//.reduce((a, b) -> a + b)
                         .orElse(0));
+       model.addAttribute("users", userService.findAllUserAndCountOfOrdersOrderByCountDesc());
+
+
         return "home";
     }
 }

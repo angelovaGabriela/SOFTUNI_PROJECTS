@@ -2,6 +2,9 @@ package com.example.eprep.service;
 
 import com.example.eprep.model.entity.User;
 import com.example.eprep.model.service.UserServiceModel;
+import com.example.eprep.model.view.UserViewModel;
+
+import java.util.List;
 
 public interface UserService {
     UserServiceModel registerUser(UserServiceModel userServiceModel);
@@ -12,5 +15,6 @@ public interface UserService {
 
     User findById(Long id);
 
+    List<UserViewModel> findAllUserAndCountOfOrdersOrderByCountDesc();
 }
 
