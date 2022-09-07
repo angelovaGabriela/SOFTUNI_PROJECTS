@@ -1,5 +1,8 @@
 package com.example.jsonexe.productshop.entities;
 
+import com.example.jsonexe.productshop.entities.categoties.Category;
+import com.example.jsonexe.productshop.entities.users.User;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
