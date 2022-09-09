@@ -36,4 +36,24 @@ public class UserServiceImpl implements UserService {
                 .map(user -> this.modelMapper.map(user, UserWithSoldProductsDTO.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional
+    public List<User> getUsersWithSoldProductsOrderByCount() {
+        List<User> all = this.userRepository.findAllWithSoldProductsOderByCount();
+
+        all.get(0).getSellingItems().size();
+
+
+        //TODO: Select only their first and last name, age and for each product - name and price.
+        // Export the results to JSON.
+
+        //TODO: // DONE:
+        // Get all users who have at least 1 product sold.
+        // Order them by the number of products sold (from highest to lowest),
+        // then by last name (ascending).
+
+        return null;
+
+    }
 }

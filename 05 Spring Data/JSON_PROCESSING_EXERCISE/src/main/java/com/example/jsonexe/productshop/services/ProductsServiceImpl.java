@@ -1,5 +1,7 @@
 package com.example.jsonexe.productshop.services;
 
+import com.example.jsonexe.productshop.entities.categoties.Category;
+import com.example.jsonexe.productshop.entities.categoties.CategoryStats;
 import com.example.jsonexe.productshop.entities.products.ProductWithoutBuyerDTO;
 import com.example.jsonexe.productshop.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +26,12 @@ public class ProductsServiceImpl implements ProductsService {
         return this.productRepository.findAllByPriceBetweenAndBuyerIsNullOrderByPriceAsc(rangeStart, rangeEnd);
 
     }
+
+    @Override
+    public List<CategoryStats> getCategoryStatistics() {
+        return this.productRepository.getCategoryStats();
+
+    }
+
+
 }

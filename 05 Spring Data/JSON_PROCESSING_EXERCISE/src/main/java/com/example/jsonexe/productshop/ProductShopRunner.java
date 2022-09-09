@@ -1,5 +1,6 @@
 package com.example.jsonexe.productshop;
 
+import com.example.jsonexe.productshop.entities.categoties.CategoryStats;
 import com.example.jsonexe.productshop.entities.products.ProductWithoutBuyerDTO;
 import com.example.jsonexe.productshop.entities.users.UserWithSoldProductsDTO;
 import com.example.jsonexe.productshop.services.ProductsService;
@@ -35,13 +36,27 @@ public class ProductShopRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         //this.seedService.seedAll();
         //productsBetweenPriceWithoutBuyer();
+        //getUsersWithSoldProducts();
+        //getCategoryStatistics();
 
+        this.userService.getUsersWithSoldProductsOrderByCount();
+
+    }
+
+    private void getCategoryStatistics() {
+        List<CategoryStats> categoryStatistics = this.productsService.getCategoryStatistics();
+
+        String json = this.gson.toJson(categoryStatistics);
+
+        System.out.println(json);
+    }
+
+    private void getUsersWithSoldProducts() {
         List<UserWithSoldProductsDTO> usersWithSoldProducts = this.userService.getUsersWithSoldProducts();
 
         String json = this.gson.toJson(usersWithSoldProducts);
 
         System.out.println(json);
-
     }
 
     private void productsBetweenPriceWithoutBuyer() {
