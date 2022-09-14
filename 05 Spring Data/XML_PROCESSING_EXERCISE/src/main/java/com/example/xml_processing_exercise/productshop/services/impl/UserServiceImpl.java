@@ -1,7 +1,5 @@
 package com.example.xml_processing_exercise.productshop.services.impl;
-import com.example.xml_processing_exercise.productshop.entities.users.ExportSellersDTO;
-import com.example.xml_processing_exercise.productshop.entities.users.ExportUserWithSoldProductsDTO;
-import com.example.xml_processing_exercise.productshop.entities.users.User;
+import com.example.xml_processing_exercise.productshop.entities.users.*;
 import com.example.xml_processing_exercise.productshop.repositories.UserRepository;
 import com.example.xml_processing_exercise.productshop.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -35,5 +33,19 @@ public class UserServiceImpl implements UserService {
 
 
         return new ExportSellersDTO(dtos);
+    }
+
+    @Override
+
+    public ExportSellersWithCountsDTO findAllWithSoldProductsAndCounts() {
+
+       List<User> users = this.userRepository.findAllWithSoldProductsOrderByCount();
+
+        List<ExportUserWithSoldCountDTO> dtos =
+                users.stream()
+                        .map(u -> this.modelMapper.map(u, ExportUserWithSoldCountDTO.class))
+                        .collect(Collectors.toList());
+
+        return new ExportSellersWithCountsDTO(dtos);
     }
 }

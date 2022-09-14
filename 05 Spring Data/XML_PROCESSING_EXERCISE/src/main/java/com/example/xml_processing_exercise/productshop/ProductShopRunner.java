@@ -2,6 +2,7 @@ package com.example.xml_processing_exercise.productshop;
 
 import com.example.xml_processing_exercise.productshop.entities.products.ExportProductsInRangeDTO;
 import com.example.xml_processing_exercise.productshop.entities.users.ExportSellersDTO;
+import com.example.xml_processing_exercise.productshop.entities.users.ExportSellersWithCountsDTO;
 import com.example.xml_processing_exercise.productshop.services.ProductsService;
 import com.example.xml_processing_exercise.productshop.services.SeedService;
 import com.example.xml_processing_exercise.productshop.services.UserService;
@@ -30,9 +31,21 @@ public class ProductShopRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
        // this.seedService.seedAll();
-        this.productInRange();
-
+       // this.productInRange();
         //this.findUsersWithSoldProducts();
+
+        this.findUsersWithSoldProductsAndCounts();
+
+    }
+
+    private void findUsersWithSoldProductsAndCounts() throws JAXBException {
+        ExportSellersWithCountsDTO dtoData = this.userService.findAllWithSoldProductsAndCounts();
+
+        JAXBContext context = JAXBContext.newInstance(ExportSellersWithCountsDTO.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        marshaller.marshal(dtoData, System.out);
 
     }
 
