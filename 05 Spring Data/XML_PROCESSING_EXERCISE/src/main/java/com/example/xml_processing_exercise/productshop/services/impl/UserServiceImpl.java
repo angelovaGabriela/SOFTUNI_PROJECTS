@@ -36,16 +36,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-
     public ExportSellersWithCountsDTO findAllWithSoldProductsAndCounts() {
+        List<User> users = this.userRepository.findAllWithSoldProductsOrderByCount();
 
-       List<User> users = this.userRepository.findAllWithSoldProductsOrderByCount();
 
-        List<ExportUserWithSoldCountDTO> dtos =
-                users.stream()
-                        .map(u -> this.modelMapper.map(u, ExportUserWithSoldCountDTO.class))
-                        .collect(Collectors.toList());
+        List<ExportUserWithSoldCountDTO> dtos
+                = users.stream()
+                .map(u -> this.modelMapper.map(u, ExportUserWithSoldCountDTO.class))
+                .collect(Collectors.toList());
+
 
         return new ExportSellersWithCountsDTO(dtos);
+
     }
 }

@@ -6,6 +6,8 @@ import com.example.xml_processing_exercise.productshop.entities.users.ExportSell
 import com.example.xml_processing_exercise.productshop.services.ProductsService;
 import com.example.xml_processing_exercise.productshop.services.SeedService;
 import com.example.xml_processing_exercise.productshop.services.UserService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -39,13 +41,17 @@ public class ProductShopRunner implements CommandLineRunner {
     }
 
     private void findUsersWithSoldProductsAndCounts() throws JAXBException {
-        ExportSellersWithCountsDTO dtoData = this.userService.findAllWithSoldProductsAndCounts();
 
-        JAXBContext context = JAXBContext.newInstance(ExportSellersWithCountsDTO.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        ExportSellersWithCountsDTO dto = this.userService.findAllWithSoldProductsAndCounts();
 
-        marshaller.marshal(dtoData, System.out);
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+
+        String result = gson.toJson(dto);
+
+        System.out.println(result);
+
 
     }
 
