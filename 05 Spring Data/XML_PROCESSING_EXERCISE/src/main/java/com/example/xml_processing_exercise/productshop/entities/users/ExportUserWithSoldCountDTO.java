@@ -1,10 +1,7 @@
 package com.example.xml_processing_exercise.productshop.entities.users;
 
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-
+import com.example.xml_processing_exercise.productshop.entities.products.ExportSoldProductsDTO;
 
 public class ExportUserWithSoldCountDTO {
 
@@ -14,7 +11,13 @@ public class ExportUserWithSoldCountDTO {
     private int age;
 
 
+    private ExportSoldProductsDTO soldProducts;
+
     public ExportUserWithSoldCountDTO() {}
+
+    public void setSoldProducts(ExportSoldProductsDTO soldProducts) {
+        this.soldProducts = soldProducts;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

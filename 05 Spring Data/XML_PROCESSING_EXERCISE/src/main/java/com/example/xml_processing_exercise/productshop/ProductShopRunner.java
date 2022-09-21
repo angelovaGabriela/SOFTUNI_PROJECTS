@@ -46,6 +46,7 @@ public class ProductShopRunner implements CommandLineRunner {
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
+                .serializeNulls()
                 .create();
 
         String result = gson.toJson(dto);

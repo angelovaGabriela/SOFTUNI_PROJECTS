@@ -1,41 +1,25 @@
 package com.example.xml_processing_exercise.productshop.entities.products;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import java.math.BigDecimal;
 
+import java.util.List;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ExportSoldProductsDTO {
 
-    @XmlElement
-    private String name;
+    private int count;
 
-    @XmlElement
-    private BigDecimal price;
+    private List<ExportNamePriceProductDTO> products;
 
-    @XmlElement(name = "buyer-first-name")
-    private String buyerFirstName;
+    public ExportSoldProductsDTO(List<ExportNamePriceProductDTO> products) {
+        this.products = products;
 
-    @XmlElement(name = "buyer-last-name")
-    private String buyerLastName;
-
-    public ExportSoldProductsDTO() {}
-
-    public void setName(String name) {
-        this.name = name;
+        this.count = products.size();
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public int getCount() {
+        return count;
     }
 
-    public void setBuyerFirstName(String buyerFirstName) {
-        this.buyerFirstName = buyerFirstName;
-    }
-
-    public void setBuyerLastName(String buyerLastName) {
-        this.buyerLastName = buyerLastName;
+    public List<ExportNamePriceProductDTO> getProducts() {
+        return products;
     }
 }
