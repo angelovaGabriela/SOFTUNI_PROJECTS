@@ -2,7 +2,7 @@ package laptopShop.service;
 
 import java.io.IOException;
 
-//ToDo - Implement all methods
+
 public interface CustomerService {
 
     boolean areImported();
