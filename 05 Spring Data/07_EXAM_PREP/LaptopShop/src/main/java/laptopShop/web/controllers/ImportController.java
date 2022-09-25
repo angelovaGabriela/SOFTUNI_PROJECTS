@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.xml.bind.JAXBException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Controller
@@ -76,14 +75,14 @@ public class ImportController extends BaseController {
     }
 
     @PostMapping("/laptops")
-    public ModelAndView importLaptopsConfirm() throws  FileNotFoundException, IOException {
+    public ModelAndView importLaptopsConfirm() throws IOException {
         System.out.println(this.laptopService.importLaptops());
 
         return super.redirect("/import/json");
     }
 
     @GetMapping("/towns")
-    public ModelAndView importTowns() throws IOException {
+    public ModelAndView importTowns() throws IOException, JAXBException {
         String fileContent = this.townService.readTownsFileContent();
 
         return super.view("xml/import-towns", "towns", fileContent);

@@ -1,25 +1,106 @@
 package laptopShop.service.impl;
 
+import laptopShop.model.Town;
+import laptopShop.model.dtos.importTowns.ImportTownsDTO;
+import laptopShop.model.dtos.importTowns.TownImportDTO;
+import laptopShop.repository.TownRepository;
 import laptopShop.service.TownService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolation;
+
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import java.io.FileNotFoundException;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
+
+
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+
 @Service
 public class TownServiceImpl implements TownService {
+
+    private final TownRepository townRepository;
+    private final ModelMapper modelMapper;
+    private final Validator  validator;
+   // private static final String TOWNS_DATA_XML_PATH = "src/main/resources/files/xml/towns.xml";
+
+    @Autowired
+    public TownServiceImpl(TownRepository townRepository) {
+        this.townRepository = townRepository;
+        this.modelMapper = new ModelMapper();
+        this.validator = Validation
+                .buildDefaultValidatorFactory()
+                .getValidator();
+    }
+
+
     @Override
     public boolean areImported() {
-        return false;
+        return this.townRepository.count() > 0;
     }
 
     @Override
     public String readTownsFileContent() throws IOException {
-        return null;
+       Path townReader = Path.of("src","main", "resources", "files", "xml", "towns.xml");
+
+        return Files.readString(townReader);
     }
 
     @Override
-    public String importTowns() throws JAXBException, FileNotFoundException {
-        return null;
+    public String importTowns() throws JAXBException, IOException {
+
+        JAXBContext context = JAXBContext.newInstance(ImportTownsDTO.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+
+
+        String townsFileContent = this.readTownsFileContent();
+        ImportTownsDTO importTowns = (ImportTownsDTO) unmarshaller.unmarshal(new File(townsFileContent));
+
+
+        List<String> result = new ArrayList<>();
+        // Validation check
+        for (TownImportDTO townImportDTO : importTowns.getTowns()) {
+
+            Set<ConstraintViolation<TownImportDTO>> validationErrors
+                    = this.validator.validate(townImportDTO);
+
+
+            if (validationErrors.isEmpty()) {
+                Optional<Town> optionalTown =
+                        this.townRepository.findByName(townImportDTO.getName());
+
+                // if the town exist in the DB
+                if (optionalTown.isEmpty()) {
+                    Town town = this.modelMapper.map(townImportDTO, Town.class);
+                    this.townRepository.save(town);
+
+                    String message = String.format("Successfully imported Town %s", town.getName());
+                    result.add(message);
+                }
+                else {
+                    result.add("Invalid Town");
+                }
+
+            }
+            else {
+                result.add("Invalid Town");
+            }
+
+        }
+
+        return String.join("\n", result);
     }
 }

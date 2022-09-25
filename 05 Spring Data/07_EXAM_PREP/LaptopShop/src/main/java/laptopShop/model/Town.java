@@ -14,7 +14,6 @@ public class Town {
      private long id;
 
     @Column(nullable = false, unique = true)
-    //TODO:  @Size(min = 2) IN DTO
     private String name;
 
 
