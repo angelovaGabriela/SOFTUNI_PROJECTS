@@ -17,9 +17,9 @@ import javax.validation.Validator;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
 
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,15 +31,21 @@ import java.util.Set;
 
 @Service
 public class TownServiceImpl implements TownService {
+    private static final Path path = Path.of("src","main", "resources", "files", "xml", "towns.xml");
 
     private final TownRepository townRepository;
     private final ModelMapper modelMapper;
     private final Validator  validator;
-   // private static final String TOWNS_DATA_XML_PATH = "src/main/resources/files/xml/towns.xml";
+    private final Unmarshaller unmarshaller;
 
     @Autowired
-    public TownServiceImpl(TownRepository townRepository) {
+    public TownServiceImpl(TownRepository townRepository) throws JAXBException {
         this.townRepository = townRepository;
+
+        JAXBContext context = JAXBContext.newInstance(ImportTownsDTO.class);
+        this.unmarshaller = context.createUnmarshaller();
+
+
         this.modelMapper = new ModelMapper();
         this.validator = Validation
                 .buildDefaultValidatorFactory()
@@ -54,22 +60,15 @@ public class TownServiceImpl implements TownService {
 
     @Override
     public String readTownsFileContent() throws IOException {
-       Path townReader = Path.of("src","main", "resources", "files", "xml", "towns.xml");
-
-        return Files.readString(townReader);
+        return Files.readString(path);
     }
 
     @Override
     public String importTowns() throws JAXBException, IOException {
 
-        JAXBContext context = JAXBContext.newInstance(ImportTownsDTO.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-
-
-        String townsFileContent = this.readTownsFileContent();
-        ImportTownsDTO importTowns = (ImportTownsDTO) unmarshaller.unmarshal(new File(townsFileContent));
-
-
+        ImportTownsDTO importTowns =
+                (ImportTownsDTO) unmarshaller
+                        .unmarshal(new FileReader(path.toAbsolutePath().toString()));
         List<String> result = new ArrayList<>();
         // Validation check
         for (TownImportDTO townImportDTO : importTowns.getTowns()) {
@@ -93,7 +92,6 @@ public class TownServiceImpl implements TownService {
                 else {
                     result.add("Invalid Town");
                 }
-
             }
             else {
                 result.add("Invalid Town");
