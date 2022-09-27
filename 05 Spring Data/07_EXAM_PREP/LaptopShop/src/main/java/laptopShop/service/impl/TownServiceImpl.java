@@ -68,7 +68,7 @@ public class TownServiceImpl implements TownService {
 
         ImportTownsDTO importTowns =
                 (ImportTownsDTO) unmarshaller
-                        .unmarshal(new FileReader(path.toAbsolutePath().toString()));
+                         .unmarshal(new FileReader(path.toAbsolutePath().toString()));
         List<String> result = new ArrayList<>();
         // Validation check
         for (TownImportDTO townImportDTO : importTowns.getTowns()) {

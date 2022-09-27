@@ -13,8 +13,6 @@ public class ImportTownsDTO {
     @XmlElement(name = "town")
     private List<TownImportDTO> towns;
 
-    public ImportTownsDTO() {}
-
     public List<TownImportDTO> getTowns() {
         return towns;
     }

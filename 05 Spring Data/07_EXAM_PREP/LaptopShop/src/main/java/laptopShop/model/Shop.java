@@ -2,6 +2,7 @@ package laptopShop.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -13,23 +14,18 @@ public class Shop {
     private long id;
 
     @Column(nullable = false, unique = true)
-    // TODO: @Size(min = 4) IN DTO CLASS
     private String name;
 
     @Column(nullable = false)
-    // TODO @Min(20000) IN DTO CLASS
     private BigDecimal income;
 
     @Column(nullable = false)
-   // TODO @Size(min = 4) IN DTO CLASS
     private String address;
 
     @Column(name = "employee_count")
-    /* TODO: @Min(1) @Max(50) IN DTO CLASS */
     private int employeeCount;
 
     @Column(name = "shop_area")
-    // TODO @Min(150) IN DTO CLASS
     private int shopArea;
 
     @ManyToOne(optional = false)
@@ -53,8 +49,8 @@ public class Shop {
         return town;
     }
 
-    public void setTown(Town town) {
-        this.town = town;
+    public Optional<Town> setTown(Optional<Town> town) {
+        return town;
     }
 
     public long getId() {
