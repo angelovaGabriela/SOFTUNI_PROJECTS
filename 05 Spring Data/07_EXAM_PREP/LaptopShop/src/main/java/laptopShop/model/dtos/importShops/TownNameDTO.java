@@ -9,4 +9,8 @@ public class TownNameDTO {
 
     @XmlElement
     private String name;
+
+    public String getName() {
+        return name;
+    }
 }

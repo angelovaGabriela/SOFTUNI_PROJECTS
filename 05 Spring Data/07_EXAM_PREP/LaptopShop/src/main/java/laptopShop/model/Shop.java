@@ -49,10 +49,9 @@ public class Shop {
         return town;
     }
 
-    public Optional<Town> setTown(Optional<Town> town) {
-        return town;
+    public void setTown(Town town){
+        this.town = town;
     }
-
     public long getId() {
         return id;
     }

@@ -79,9 +79,10 @@ public class ShopServiceImpl implements ShopService {
                     Shop shop = this.modelMapper.map(shopImportDTO, Shop.class);
 
                     Optional<Town> town = this.townRepository
-                            .findByName(shop.getTown().getName());
+                            .findByName(shopImportDTO.getTown().getName());
 
-                    shop.setTown(town);
+
+                        shop.setTown(town.get());
 
                     String message = "Successfully imported Shop " + shop.getName() + " - " + shop.getIncome();
                     result.add(message);

@@ -16,12 +16,9 @@ public class Town {
     @Column(nullable = false, unique = true)
     private String name;
 
-
-   // TODO @Positive
     private int population;
 
     @Column(name = "travel_guide", nullable = false, columnDefinition = "TEXT")
-    // TODO: @Size(min = 10) IN DTO CLASS
     private String travelGuide;
 
     public Town() {}
