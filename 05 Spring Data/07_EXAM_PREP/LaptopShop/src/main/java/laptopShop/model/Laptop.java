@@ -17,29 +17,23 @@ public class Laptop {
     private long id;
 
     @Column(name = "mac_address", nullable = false, unique = true)
-   // TODO  @Size(min = 9) IN DTO CLASS
     private String macAddress;
 
     @Column(name = "cpu_speed", nullable = false)
-    // TODO: @Positive
     private double cpuSpeed;
-
-    /* TODO: @Min(8) @Max(128) IN DTO CLASS*/
     private int ram;
 
-    /* TODO: @Min(128) @Max(1024) IN DTO CLASS*/
     private int storage;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-   // TODO: @Size(min = 10)
     private String description;
 
     @Column(nullable = false)
-    // TODO: @Positive
     private BigDecimal price;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "warranty_type", nullable = false)
+
+    @Column(name = "warranty_type")
+    @Enumerated
     private WarrantyType warrantyType;
 
     @ManyToOne(optional = false)

@@ -1,5 +1,5 @@
 package laptopShop.model;
 
 public enum WarrantyType {
-    BASIC, PREMIUM, LIFETIME
+    BASIC,PREMIUM,LIFETIME
 }
