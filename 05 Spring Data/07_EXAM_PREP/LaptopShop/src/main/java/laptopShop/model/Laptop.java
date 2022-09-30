@@ -126,4 +126,20 @@ public class Laptop {
     public int hashCode() {
         return Objects.hash(id, macAddress);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(String.format("Laptop - %s", this.macAddress)).append(System.lineSeparator());
+        builder.append(String.format("*Cpu speed - %.2f", this.cpuSpeed)).append(System.lineSeparator());
+        builder.append(String.format("**Ram - %d", this.ram)).append(System.lineSeparator());
+        builder.append(String.format("***Storage - %d", this.storage)).append(System.lineSeparator());
+        builder.append(String.format("****Price - %.2f", this.price)).append(System.lineSeparator());
+        builder.append(String.format("#Shop name - %s", this.getShop().getName())).append(System.lineSeparator());
+        builder.append(String.format("##Town - %s", this.getShop().getTown().getName())).append(System.lineSeparator());
+
+        return builder.toString();
+
+    }
 }

@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -23,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class LaptopServiceImpl implements LaptopService {
@@ -60,7 +60,6 @@ public class LaptopServiceImpl implements LaptopService {
     }
 
     @Override
-    @Transactional
     public String importLaptops() throws IOException {
         String json = readLaptopsFileContent();
 
@@ -102,6 +101,15 @@ public class LaptopServiceImpl implements LaptopService {
 
     @Override
     public String exportBestLaptops() {
-        return null;
+       //With @Query "Select DISTINCT l from Laptop l order by l.cpuSpeed desc,l.ram desc,l.storage desc,l.macAddress asc"
+
+        List<Laptop> laptops = this.laptopRepository.findDistinctByOrderByCpuSpeedDescRamDescStorageDescMacAddressAsc();
+
+          return laptops
+                .stream()
+                .map(Laptop::toString)
+                .collect(Collectors.joining("\n"));
+
+
     }
 }
