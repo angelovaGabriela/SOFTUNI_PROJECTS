@@ -10,19 +10,50 @@ public class Stat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // @Positive
-    @Column(nullable = false)
-    private double shooting;
 
-    // @Positive
     @Column(nullable = false)
-    private double passing;
+    private float shooting;
 
-    // @Positive
+
     @Column(nullable = false)
-    private double endurance;
+    private float passing;
+
+
+    @Column(nullable = false)
+    private float endurance;
 
     public Stat() {}
 
 
+    public long getId() {
+        return id;
+    }
+
+    public float getShooting() {
+        return shooting;
+    }
+
+    public float getPassing() {
+        return passing;
+    }
+
+    public float getEndurance() {
+        return endurance;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setShooting(float shooting) {
+        this.shooting = shooting;
+    }
+
+    public void setPassing(float passing) {
+        this.passing = passing;
+    }
+
+    public void setEndurance(float endurance) {
+        this.endurance = endurance;
+    }
 }
