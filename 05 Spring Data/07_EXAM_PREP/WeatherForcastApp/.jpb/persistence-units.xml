@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PersistenceUnitSettings">
+  <component countryName="PersistenceUnitSettings">
     <persistence-units>
-      <persistence-unit name="Default">
+      <persistence-unit countryName="Default">
         <packages>
           <package value="softuni.exam" />
         </packages>

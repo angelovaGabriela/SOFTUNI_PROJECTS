@@ -11,7 +11,7 @@
 	<groupId>su</groupId>
 	<artifactId>SoftWeatherForecast</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SoftWeatherForecast</name>
+	<countryName>SoftWeatherForecast</countryName>
 	<description>Spring Data exam</description>
 	<properties>
 		<java.version>16</java.version>

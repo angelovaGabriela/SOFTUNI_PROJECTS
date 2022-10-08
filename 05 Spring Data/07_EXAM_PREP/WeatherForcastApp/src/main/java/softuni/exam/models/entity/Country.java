@@ -10,11 +10,10 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //@Size(min = 2, max = 60)
-    @Column(unique = true, nullable = false)
-    private String name;
 
-    // @Size(min = 2, max = 20)
+    @Column(name = "country_name",unique = true, nullable = false)
+    private String countryName;
+
     @Column(nullable = false)
     private String currency;
 
@@ -28,12 +27,12 @@ public class Country {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCountryName() {
+        return countryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     public String getCurrency() {
