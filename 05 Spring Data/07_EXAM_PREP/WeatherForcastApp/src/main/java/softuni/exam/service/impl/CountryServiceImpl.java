@@ -3,6 +3,7 @@ package softuni.exam.service.impl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softuni.exam.models.entity.Country;
 import softuni.exam.models.entity.importCountries.ImportCountriesDTO;
@@ -30,6 +31,7 @@ public class CountryServiceImpl implements CountryService {
     private final Validator validator;
 
 
+    @Autowired
     public CountryServiceImpl(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
 
@@ -70,7 +72,6 @@ public class CountryServiceImpl implements CountryService {
                 if (optionalCountry.isPresent()){
                     result.add("Invalid country");
                 } else {
-
                     Country country = this.modelMapper.map(importCountry, Country.class);
                     this.countryRepository.save(country);
 

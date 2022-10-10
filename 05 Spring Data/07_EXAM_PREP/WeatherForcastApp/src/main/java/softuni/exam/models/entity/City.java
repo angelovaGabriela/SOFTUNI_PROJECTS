@@ -10,15 +10,15 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // @Size(min = 2, max = 60)
+
     @Column(name = "city_name", unique = true, nullable = false)
     private String cityName;
 
-    // @Size(min = 2)
+
     @Column(columnDefinition = "text")
     private String description;
 
-    // @Min(500)
+
     private int population;
 
 

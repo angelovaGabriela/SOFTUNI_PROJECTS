@@ -17,11 +17,11 @@ public class Forecast {
     @Column(name = "day_of_week", nullable = false)
     private Day dayOfWeek;
 
-    //@Min(-20) @Max(60)
+
     @Column(name = "max_temperature", nullable = false)
     private double maxTemperature;
 
-    //@Min(-50) @Max(50)
+
     @Column(name = "min_temperature", nullable = false)
     private double minTemperature;
 
