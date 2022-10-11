@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softuni.exam.models.dto.importForecasts.ForecastImportDTO;
 import softuni.exam.models.dto.importForecasts.ImportForecastsDTO;
+import softuni.exam.models.entity.City;
 import softuni.exam.models.entity.Forecast;
 
+import softuni.exam.repository.CityRepository;
 import softuni.exam.repository.ForecastRepository;
 import softuni.exam.service.ForecastService;
 
@@ -31,6 +33,7 @@ public class ForecastServiceImpl implements ForecastService {
     private final static Path path = Path.of("src", "main", "resources", "files", "xml", "forecasts.xml");
 
     private final ForecastRepository forecastRepository;
+    private final CityRepository cityRepository;
 
     private final ModelMapper modelMapper;
 
@@ -38,8 +41,11 @@ public class ForecastServiceImpl implements ForecastService {
     private final Unmarshaller unmarshaller;
 
     @Autowired
-    public ForecastServiceImpl(ForecastRepository forecastRepository, ModelMapper modelMapper) throws JAXBException {
+    public ForecastServiceImpl(ForecastRepository forecastRepository,
+                               CityRepository cityRepository,
+                               ModelMapper modelMapper) throws JAXBException {
         this.forecastRepository = forecastRepository;
+        this.cityRepository = cityRepository;
         this.modelMapper = modelMapper;
 
         JAXBContext context = JAXBContext.newInstance(ImportForecastsDTO.class);
@@ -74,20 +80,22 @@ public class ForecastServiceImpl implements ForecastService {
                     = validator.validate(importForecast);
             if (validationErrors.isEmpty()){
       //forecasts for the same day of week of the city
+                City city = this.cityRepository.findCityById(importForecast.getCity());
+
                 Optional<Forecast> optionalForecast
                         = this.forecastRepository
-                        .findByDayOfWeekAndCityId(importForecast.getDayOfWeek(),
-                                importForecast.getCity().getId());
+                        .findAllByCityAndDayOfWeek(city, importForecast.getDayOfWeek());
 
                 if (optionalForecast.isPresent()) {
                     result.add("Invalid forecast");
                 } else {
                     Forecast forecast = this.modelMapper.map(importForecast, Forecast.class);
-                    this.forecastRepository.save(forecast);
+                    forecast.setCity(city);
 
+                    this.forecastRepository.save(forecast);
                     String message =
                             String.format("Successfully import forecast %s - %.2f",
-                                    forecast.getDayOfWeek(), forecast.getMaxTemperature());
+                                    forecast.getDayOfWeek().toString(), forecast.getMaxTemperature());
                     result.add(message);
                 }
             } else {
