@@ -8,6 +8,7 @@ import softuni.exam.models.dto.importForecasts.ImportForecastsDTO;
 import softuni.exam.models.entity.City;
 import softuni.exam.models.entity.Forecast;
 
+import softuni.exam.models.entity.enums.Day;
 import softuni.exam.repository.CityRepository;
 import softuni.exam.repository.ForecastRepository;
 import softuni.exam.service.ForecastService;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -108,6 +110,19 @@ public class ForecastServiceImpl implements ForecastService {
 
     @Override
     public String exportForecasts() {
-        return null;
+
+        //Filter only forecasts from sunday and from cities with less than 150000 citizens,
+        // order them by max temperature in descending order,
+        // then by the forecast id in ascending order.
+
+        Day sunday = Day.valueOf("SUNDAY");
+        int maxPopulation = 150000;
+        List<Forecast> forecasts
+                = this.forecastRepository
+                .findByDayOfWeekAndCityPopulationLessThanOrderByMaxTemperatureDescIdAsc(sunday, maxPopulation);
+
+        return forecasts.stream()
+                .map(Forecast::toString)
+                .collect(Collectors.joining("\n"));
     }
 }

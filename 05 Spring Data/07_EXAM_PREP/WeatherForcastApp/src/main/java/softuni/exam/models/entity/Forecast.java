@@ -106,4 +106,25 @@ public class Forecast {
     public int hashCode() {
         return Objects.hash(id, dayOfWeek, maxTemperature, minTemperature, sunrise, sunset, city);
     }
+
+    @Override
+    public String toString() {
+
+        //"City: {cityName}:
+        //-min temperature: {minTemperature}
+        //--max temperature: {maxTemperature}
+        //---sunrise: {sunrise}
+        //----sunset: {sunset}
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format("City: %s:", this.getCity().getCityName())).append(System.lineSeparator());
+        builder.append(String.format("-min temperature: %.2f", this.getMinTemperature())).append(System.lineSeparator());
+        builder.append(String.format("--max temperature: %.2f", this.getMaxTemperature())).append(System.lineSeparator());
+        builder.append(String.format("---sunrise: %s", this.sunrise)).append(System.lineSeparator());
+        builder.append(String.format("----sunset: %s", this.sunset)).append(System.lineSeparator());
+
+
+
+        return builder.toString();
+    }
 }
