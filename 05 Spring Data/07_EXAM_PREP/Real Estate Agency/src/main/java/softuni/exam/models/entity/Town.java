@@ -11,11 +11,11 @@ public class Town {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // @Size(min = 2)
+
     @Column(name = "town_name", nullable = false, unique = true)
     private String townName;
 
-    // @Positive
+
     private int population;
 
     public Town() {}

@@ -11,15 +11,14 @@ public class Agent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // @Size(min = 2)
+
     @Column(name = "first_name", nullable = false, unique = true)
     private String firstName;
 
-    // @Size(min = 2)
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    // @Email
+
     @Column(nullable = false, unique = true)
     private String email;
 
