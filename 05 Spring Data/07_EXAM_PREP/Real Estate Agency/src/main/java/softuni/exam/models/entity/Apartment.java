@@ -17,7 +17,7 @@ public class Apartment {
     @Column(name = "apartment_Type", nullable = false)
     private ApartmentType apartmentType;
 
-    // @Min(40)
+
     @Column(nullable = false)
     private double area;
 

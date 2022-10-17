@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softuni.exam.models.dto.importAgents.ImportAgentsDTO;
 import softuni.exam.models.entity.Agent;
+import softuni.exam.models.entity.Town;
 import softuni.exam.repository.AgentRepository;
+import softuni.exam.repository.TownRepository;
 import softuni.exam.service.AgentService;
 
 import javax.validation.ConstraintViolation;
@@ -25,14 +27,17 @@ import java.util.Set;
 public class AgentServiceImpl implements AgentService {
     private final static Path path = Path.of("src", "main", "resources", "files", "json", "agents.json");
     private final AgentRepository agentRepository;
+    private final TownRepository townRepository;
+
 
     private final ModelMapper modelMapper;
     private final Validator validator;
     private final Gson gson;
 
     @Autowired
-    public AgentServiceImpl(AgentRepository agentRepository) {
+    public AgentServiceImpl(AgentRepository agentRepository, TownRepository townRepository) {
         this.agentRepository = agentRepository;
+        this.townRepository = townRepository;
         this.modelMapper = new ModelMapper();
         this.validator = Validation.buildDefaultValidatorFactory().getValidator();
         this.gson = new GsonBuilder().create();
@@ -66,6 +71,8 @@ public class AgentServiceImpl implements AgentService {
                     result.add("Invalid town");
                 } else {
                     Agent agent = this.modelMapper.map(importAgent, Agent.class);
+                    Optional<Town> town = this.townRepository.findByTownName(importAgent.getTown());
+                    agent.setTown(town.get());
                     this.agentRepository.save(agent);
 
                     String message = String

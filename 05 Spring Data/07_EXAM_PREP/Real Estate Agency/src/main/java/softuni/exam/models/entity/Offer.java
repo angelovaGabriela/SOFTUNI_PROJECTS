@@ -13,11 +13,9 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // @Positive
     @Column(nullable = false)
     private BigDecimal price;
 
-    // "dd/MM/yyyy"
     @Column(name = "published_on", nullable = false)
     private LocalDate publishedOn;
 

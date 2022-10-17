@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface TownRepository extends JpaRepository<Town, Long> {
 
     Optional<Town> findByTownName(String townName);
+
 }
