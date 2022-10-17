@@ -1,7 +1,6 @@
 package softuni.exam.models.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -69,4 +68,29 @@ public class Offer {
         this.apartment = apartment;
     }
 
+    @Override
+    public String toString() {
+
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format("Agent %s %s with offer № %d:",
+                this.getAgent().getFirstName(),
+                this.agent.getLastName(), this.getId()))
+                .append(System.lineSeparator());
+
+        builder.append(String.format("-Apartment area: %.2f",
+                this.getApartment().getArea()))
+                .append(System.lineSeparator());
+
+        builder.append(String.format("--Town: %s",
+                this.getApartment().getTown().getTownName()))
+                .append(System.lineSeparator());
+
+        builder.append(String.format("---Price: %.2f$",
+                this.getPrice())).append(System.lineSeparator());
+
+
+
+        return builder.toString();
+    }
 }

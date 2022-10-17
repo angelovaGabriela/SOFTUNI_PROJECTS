@@ -8,12 +8,13 @@ import softuni.exam.models.dto.importOffers.RootImportOffersDTO;
 import softuni.exam.models.entity.Agent;
 import softuni.exam.models.entity.Apartment;
 import softuni.exam.models.entity.Offer;
+import softuni.exam.models.entity.enums.ApartmentType;
 import softuni.exam.repository.AgentRepository;
 import softuni.exam.repository.ApartmentRepository;
 import softuni.exam.repository.OfferRepository;
 import softuni.exam.service.OfferService;
 
-import javax.transaction.Transactional;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class OfferServiceImpl implements OfferService {
@@ -79,9 +81,7 @@ public class OfferServiceImpl implements OfferService {
                     = this.validator.validate(importOffer);
 
             if (validationErrors.isEmpty()) {
-                //Optional<Offer> optionalOffer
-                 //       = this.offerRepository.findOfferByAgentFirstName(importOffer.getAgent().getName());
-                Optional<Agent> agent = this.agentRepository.findByFirstName(importOffer.getAgent().getName());
+               Optional<Agent> agent = this.agentRepository.findByFirstName(importOffer.getAgent().getName());
                 if (agent.isEmpty()) {
                    result.add("Invalid offer");
                 } else {
@@ -108,6 +108,16 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public String exportOffers() {
-        return null;
+
+        ApartmentType apartmentType = ApartmentType.valueOf("three_rooms");
+        List<Offer> offers =
+           this.offerRepository
+            .findOfferByApartmentApartmentTypeOrderByApartmentAreaDescPriceAsc
+              (apartmentType);
+
+        return  offers.stream()
+                .map(Offer::toString)
+                .collect(Collectors.joining("\n"));
+
     }
 }
