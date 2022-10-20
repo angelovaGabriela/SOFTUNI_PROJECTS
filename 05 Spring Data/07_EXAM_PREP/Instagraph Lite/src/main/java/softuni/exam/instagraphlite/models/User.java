@@ -2,6 +2,7 @@ package softuni.exam.instagraphlite.models;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -20,15 +21,14 @@ public class User {
     @JoinColumn(name = "profile_picture_id", nullable = false)
     private Picture profilePicture;
 
-    @OneToMany
-    private List<Post> posts;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Post> posts;
 
-    public List<Post> getPosts() {
+    public Set<Post> getPosts() {
         return posts;
     }
 
-
-    public void setPosts(List<Post> posts) {
+    public void setPosts(Set<Post> posts) {
         this.posts = posts;
     }
 
@@ -70,8 +70,17 @@ public class User {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format("User: %s", this.getUsername())).append(System.lineSeparator());
-        builder.append(String.format("Post count: %d", this.getPosts().size()));
+        builder.append(String.format("Post count: %d", this.getPosts().size())).append(System.lineSeparator());
 
-        return builder.toString();
+        builder.append("==Post Details:").append(System.lineSeparator());
+        getPosts().forEach(post -> {
+            builder.append(String.format("" +
+                    "----Caption: %s\n" +
+                    "----Picture Size: %.2f\n", post.getCaption(), post.getPicture().getSize()));
+        });
+
+            return builder.toString();
     }
+
+
 }

@@ -1,6 +1,7 @@
 package softuni.exam.instagraphlite.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import softuni.exam.instagraphlite.models.User;
 
@@ -13,6 +14,8 @@ public interface UserRepository  extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
 
 
+    @Query("SELECT u from User u ORDER BY size(u.posts) DESC , u.id ")
+    List<User> getAllUsersOrderedByCountOfPostsThenById();
 
-    List<User> findByOrderByPostsDescIdAsc();
+    User findUserByUsername(String name);
 }

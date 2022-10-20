@@ -1,6 +1,7 @@
 package softuni.exam.instagraphlite.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "pictures")
@@ -14,7 +15,30 @@ public class Picture {
 
 
     @Column(nullable = false)
-    private double size;
+    private Double size;
+
+    @OneToMany(mappedBy = "profilePicture")
+    private Set<User> users;
+
+
+    @OneToMany(mappedBy = "picture")
+    private Set<Post> posts;
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
 
     public Picture() {}
 
@@ -34,11 +58,11 @@ public class Picture {
         this.path = path;
     }
 
-    public double getSize() {
+    public Double getSize() {
         return size;
     }
 
-    public void setSize(double size) {
+    public void setSize(Double size) {
         this.size = size;
     }
 
@@ -46,4 +70,26 @@ public class Picture {
     public String toString() {
      return   String.format("%.2f – %s", this.getSize(), this.getPath());
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        // If the object is compared with itself then return true
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Picture picture)) {
+            return false;
+        }
+
+
+        return picture.getPath().equals(this.getPath());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getPath().hashCode();
+    }
+
 }

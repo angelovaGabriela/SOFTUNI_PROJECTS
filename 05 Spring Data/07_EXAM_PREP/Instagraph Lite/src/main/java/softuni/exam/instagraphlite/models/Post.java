@@ -68,14 +68,5 @@ public class Post {
         return Objects.hash(id, caption, user, picture);
     }
 
-    @Override
-    public String toString() {
 
-        StringBuilder builder = new StringBuilder();
-        builder.append("==Post Details:").append(System.lineSeparator());
-        builder.append(String.format("----Caption: %s", this.caption)).append(System.lineSeparator());
-        builder.append(String.format("----Picture Size: %.2f", this.getPicture().getSize())).append(System.lineSeparator());
-
-        return builder.toString();
-    }
 }
