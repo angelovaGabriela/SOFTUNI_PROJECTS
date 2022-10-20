@@ -17,20 +17,10 @@ public class Picture {
     @Column(nullable = false)
     private Double size;
 
-    @OneToMany(mappedBy = "profilePicture")
-    private Set<User> users;
-
 
     @OneToMany(mappedBy = "picture")
     private Set<Post> posts;
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 
     public Set<Post> getPosts() {
         return posts;
