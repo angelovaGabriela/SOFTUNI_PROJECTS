@@ -39,6 +39,6 @@ public class ApplicationBeanConfiguration {
         });
         return modelMapper;
     }
-    }
+}
 
 

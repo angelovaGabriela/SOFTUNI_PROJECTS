@@ -8,11 +8,10 @@ import java.time.LocalDateTime;
 @Table(name = "tickets")
 public class Ticket extends BaseEntity {
 
-    // @Size(min = 2)
+
     @Column(name = "serial_number", unique = true)
     private String serialNumber;
 
-    // @Positive
     private BigDecimal price;
 
     @Column(name = "take_off")

@@ -10,14 +10,12 @@ import javax.persistence.Table;
 @Table(name = "planes")
 public class Plane extends BaseEntity {
 
-    //@Size(min = 5)
+
     @Column(name = "register_number", nullable = false, unique = true)
     private String registerNumber;
 
-    // @Positive
     private int capacity;
 
-    // @Size(min = 2)
     @Column(nullable = false)
     private String airline;
 
