@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class PassengerServiceImpl implements PassengerService {
@@ -86,13 +87,17 @@ public class PassengerServiceImpl implements PassengerService {
                 result.add("Invalid Passenger");
             }
         }
-
-
         return String.join("\n", result);
     }
 
     @Override
     public String getPassengersOrderByTicketsCountDescendingThenByEmail() {
-        return null;
+        List<Passenger> passengers
+                = this.passengerRepository
+                .getPassengersOrderByTicketsDescThenByEmail();
+
+       return passengers.stream()
+                .map(Passenger::toString)
+                .collect(Collectors.joining("\n"));
     }
 }

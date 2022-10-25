@@ -1,6 +1,7 @@
 package softuni.exam.models.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "passengers")
@@ -21,6 +22,9 @@ public class Passenger extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "passenger", fetch = FetchType.EAGER)
+    private Set<Ticket> tickets;
 
     @ManyToOne
     @JoinColumn(name = "town_id")
@@ -75,5 +79,32 @@ public class Passenger extends BaseEntity {
     public void setTown(Town town) {
         this.town = town;
     }
-    //Note: Passenger has a relation with Town
+
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    @Override
+    public String toString() {
+        //"Passenger {firstName}  {lastName}
+        //
+        //Email - {email}
+        //
+        //Phone - {phoneNumber}
+        //
+        //Number of tickets - {number of tickets}
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format("Passenger %s %s", this.getFirstName(), this.getLastName())).append(System.lineSeparator());
+        builder.append(String.format("Email - %s", this.getEmail())).append(System.lineSeparator());
+        builder.append(String.format("Phone - %s", this.getPhoneNumber())).append(System.lineSeparator());
+        builder.append(String.format("Number of tickets - %d", this.getTickets().size())).append(System.lineSeparator());
+
+
+        return builder.toString();
+    }
 }
