@@ -1,10 +1,8 @@
 package softuni.exam.models.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,10 +10,9 @@ import java.util.Set;
 @Table(name = "offers")
 public class Offer extends BaseEntity {
 
-    // @Positive
     private BigDecimal price;
 
-    // @Size(min = 5)
+
     @Column(columnDefinition = "text")
     private String description;
 
@@ -23,7 +20,7 @@ public class Offer extends BaseEntity {
     private boolean hasGoldStatus;
 
     @Column(name = "added_on")
-    private LocalTime addedOn;
+    private LocalDateTime addedOn;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
@@ -55,4 +52,43 @@ public class Offer extends BaseEntity {
         this.car = car;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isHasGoldStatus() {
+        return hasGoldStatus;
+    }
+
+    public void setHasGoldStatus(boolean hasGoldStatus) {
+        this.hasGoldStatus = hasGoldStatus;
+    }
+
+    public LocalDateTime getAddedOn() {
+        return addedOn;
+    }
+
+    public void setAddedOn(LocalDateTime addedOn) {
+        this.addedOn = addedOn;
+    }
+
+    public Set<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(Set<Picture> pictures) {
+        this.pictures = pictures;
+    }
 }

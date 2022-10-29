@@ -37,7 +37,7 @@ public class ApplicationBeanConfiguration {
             @Override
             public LocalDate convert(MappingContext<String, LocalDate> mappingContext) {
 
-                return LocalDate.parse(mappingContext.getSource(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return LocalDate.parse(mappingContext.getSource(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             }
         });
 

@@ -1,8 +1,7 @@
 package softuni.exam.models.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,12 +9,12 @@ import java.util.Set;
 @Table(name = "pictures")
 public class Picture  extends BaseEntity {
 
-    // @Size(min = 3, max = 19)
+
     @Column(unique = true)
     private String name;
 
     @Column(name = "date_and_time")
-    private LocalTime dateAndTime;
+    private LocalDateTime dateAndTime;
 
     @ManyToOne
     @JoinColumn(name = "car_id")
@@ -44,11 +43,19 @@ public class Picture  extends BaseEntity {
         this.name = name;
     }
 
-    public LocalTime getDateAndTime() {
+    public LocalDateTime getDateAndTime() {
         return dateAndTime;
     }
 
-    public void setDateAndTime(LocalTime dateAndTime) {
+    public void setDateAndTime(LocalDateTime dateAndTime) {
         this.dateAndTime = dateAndTime;
+    }
+
+    public Set<Offer> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(Set<Offer> offers) {
+        this.offers = offers;
     }
 }

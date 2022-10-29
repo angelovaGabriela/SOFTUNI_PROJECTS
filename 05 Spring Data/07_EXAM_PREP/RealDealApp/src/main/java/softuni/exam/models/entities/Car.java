@@ -11,13 +11,11 @@ import java.time.LocalDate;
 @Table(name = "cars")
 public class Car extends BaseEntity {
 
-    // @Size(min = 3, max = 19)
     private String make;
 
-    //@Size(min = 3, max = 19)
     private String model;
 
-    //@Positive
+
     private int kilometers;
 
     @Column(name = "registered_on")

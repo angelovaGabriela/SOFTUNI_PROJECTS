@@ -17,8 +17,6 @@ public class Seller extends BaseEntity {
     @Size(min = 3, max = 19)
     @Column(name = "last_name")
     private String lastName;
-
-    // @Email
     @Column(unique = true)
     private String email;
 
