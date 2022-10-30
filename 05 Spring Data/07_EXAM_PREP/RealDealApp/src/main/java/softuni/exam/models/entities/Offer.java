@@ -20,7 +20,7 @@ public class Offer extends BaseEntity {
     private boolean hasGoldStatus;
 
     @Column(name = "added_on")
-    private LocalDateTime addedOn;
+    private String addedOn;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
@@ -76,11 +76,11 @@ public class Offer extends BaseEntity {
         this.hasGoldStatus = hasGoldStatus;
     }
 
-    public LocalDateTime getAddedOn() {
+    public String getAddedOn() {
         return addedOn;
     }
 
-    public void setAddedOn(LocalDateTime addedOn) {
+    public void setAddedOn(String addedOn) {
         this.addedOn = addedOn;
     }
 

@@ -87,7 +87,7 @@ public class OfferServiceImpl implements OfferService {
 
                     this.offerRepository.save(offer);
 
-                    String message = String.format("Successfully imported offer %s - %b", offer.getAddedOn(), offer.isHasGoldStatus());
+                    String message = String.format("Successfully imported offer %s - %s", offer.getAddedOn().toString(), offer.isHasGoldStatus());
                     result.add(message);
 
                 } else {
