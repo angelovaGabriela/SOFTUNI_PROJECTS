@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -21,6 +22,7 @@ public class Offer extends BaseEntity {
 
     @Column(name = "added_on")
     private String addedOn;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
@@ -76,6 +78,15 @@ public class Offer extends BaseEntity {
         this.hasGoldStatus = hasGoldStatus;
     }
 
+    public Set<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(Set<Picture> pictures) {
+        this.pictures = pictures;
+    }
+
+
     public String getAddedOn() {
         return addedOn;
     }
@@ -84,11 +95,16 @@ public class Offer extends BaseEntity {
         this.addedOn = addedOn;
     }
 
-    public Set<Picture> getPictures() {
-        return pictures;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Offer offer = (Offer) o;
+        return hasGoldStatus == offer.hasGoldStatus && Objects.equals(price, offer.price) && description.equals(offer.description) && addedOn.equals(offer.addedOn) && Objects.equals(car, offer.car) && Objects.equals(seller, offer.seller) && Objects.equals(pictures, offer.pictures);
     }
 
-    public void setPictures(Set<Picture> pictures) {
-        this.pictures = pictures;
+    @Override
+    public int hashCode() {
+        return Objects.hash(price, description, hasGoldStatus, addedOn, car, seller, pictures);
     }
 }

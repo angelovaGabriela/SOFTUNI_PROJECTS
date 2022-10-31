@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -80,6 +81,9 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public String getCarsOrderByPicturesCountThenByMake() {
-        return null;
+
+        return this.carRepository.getAllCarsOrderByPicturesCountDescThenByMakeAsc().stream()
+                .map(Car::toString).collect(Collectors.joining("\n"));
+
     }
 }

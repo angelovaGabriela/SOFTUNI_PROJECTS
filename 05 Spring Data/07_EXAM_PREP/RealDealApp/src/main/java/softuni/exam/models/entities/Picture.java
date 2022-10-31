@@ -3,6 +3,7 @@ package softuni.exam.models.entities;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -57,5 +58,18 @@ public class Picture  extends BaseEntity {
 
     public void setOffers(Set<Offer> offers) {
         this.offers = offers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Picture picture = (Picture) o;
+        return name.equals(picture.name) && Objects.equals(dateAndTime, picture.dateAndTime) && Objects.equals(car, picture.car) && Objects.equals(offers, picture.offers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, dateAndTime, car, offers);
     }
 }
