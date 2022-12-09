@@ -6,17 +6,17 @@ use sgd;
 # to games that don't have category
 # rating is more than NOT EQUAL to the given one
 # relese date is NOT NULL
+
 DELIMITER $$
 CREATE PROCEDURE udp_update_budget (min_game_rating FLOAT)  
 BEGIN
-UPDATE games
-SET budget = budget + 10 
-AND YEAR(release_date)  = YEAR(release_date) + 1
-WHERE id NOT IN (SELECT game_id FROM games_categories WHERE game_id IS NOT NULL) 
-AND rating > min_game_rating  
-AND release_date IS NOT NULL;
+UPDATE games AS g
+LEFT JOIN games_categories AS gc
+ON g.id = gc.game_id
+SET g.budget = g.budget + 100.000,
+g.release_date = DATE_ADD(release_date, INTERVAL 1 YEAR)
+WHERE gc.game_id IS NULL 
+AND g.rating BETWEEN  min_game_rating AND g.rating
+AND g.release_date IS NOT NULL;
 END $$
 DELIMITER $$ ;
-CALL udp_update_budget (8);
-
-SELECT SUM(`budget`) FROM  `games`;
