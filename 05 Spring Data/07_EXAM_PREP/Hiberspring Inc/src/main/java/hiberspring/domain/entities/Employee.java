@@ -1,7 +1,7 @@
 package hiberspring.domain.entities;
 
 import javax.persistence.*;
-import java.util.Objects;
+
 
 @Entity
 @Table(name = "employees")
@@ -71,16 +71,16 @@ public class Employee extends BaseEntity {
         this.branch = branch;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Employee employee = (Employee) o;
-        return firstName.equals(employee.firstName) && lastName.equals(employee.lastName) && position.equals(employee.position);
-    }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName, position);
+    public String toString() {
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format("Name: %s %s%n", this.getFirstName(), this.getLastName()));
+        builder.append(String.format("Position: %s%n", this.getPosition()));
+        builder.append(String.format("Card Number: %s%n", this.getCard().getNumber()));
+        builder.append("----------------------------------");
+
+        return builder.toString();
     }
 }
