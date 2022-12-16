@@ -18,12 +18,13 @@ public class Employee extends BaseEntity {
     private String position;
 
 
-    @OneToOne
-    @JoinColumn(unique = true)
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "card_id", unique = true)
     private EmployeeCard card;
 
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "branch_id")
     private Branch branch;
 

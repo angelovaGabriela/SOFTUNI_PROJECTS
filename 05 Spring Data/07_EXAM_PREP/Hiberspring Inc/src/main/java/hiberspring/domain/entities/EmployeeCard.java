@@ -9,6 +9,9 @@ public class EmployeeCard extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String number;
 
+    @OneToOne(mappedBy = "card")
+    private Employee employee;
+
     public EmployeeCard() {}
 
 
@@ -18,5 +21,13 @@ public class EmployeeCard extends BaseEntity {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

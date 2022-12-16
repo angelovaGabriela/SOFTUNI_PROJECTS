@@ -13,7 +13,7 @@ public class Product extends BaseEntity {
     private int clients;
 
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "branch_id")
     private Branch branch;
 

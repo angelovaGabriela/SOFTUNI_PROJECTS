@@ -14,7 +14,7 @@ public class Branch extends BaseEntity {
     private Town town;
 
     @OneToMany
-            (targetEntity = Employee.class, mappedBy = "branch", fetch = FetchType.EAGER)
+            ( targetEntity = Employee.class, mappedBy = "branch", fetch = FetchType.EAGER)
     private Set<Employee> employees;
 
     @OneToMany
