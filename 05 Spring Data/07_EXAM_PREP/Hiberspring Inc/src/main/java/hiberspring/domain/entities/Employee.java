@@ -3,6 +3,7 @@ package hiberspring.domain.entities;
 import javax.persistence.*;
 
 
+
 @Entity
 @Table(name = "employees")
 public class Employee extends BaseEntity {
@@ -20,7 +21,7 @@ public class Employee extends BaseEntity {
 
 
     @OneToOne(optional = false, cascade =CascadeType.ALL)
-    @JoinColumn(name = "card_id", referencedColumnName = "id" ,unique = true)
+    @JoinColumn(name = "card_id", referencedColumnName = "id", unique = true)
     private EmployeeCard card;
 
 
@@ -70,7 +71,6 @@ public class Employee extends BaseEntity {
     public void setBranch(Branch branch) {
         this.branch = branch;
     }
-
 
     @Override
     public String toString() {
