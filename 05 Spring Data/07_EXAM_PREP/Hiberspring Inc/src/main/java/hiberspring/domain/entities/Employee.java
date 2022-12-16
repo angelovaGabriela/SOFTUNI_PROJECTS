@@ -19,8 +19,8 @@ public class Employee extends BaseEntity {
 
 
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "card_id", unique = true)
+    @OneToOne(optional = false, cascade =CascadeType.ALL)
+    @JoinColumn(name = "card_id", referencedColumnName = "id" ,unique = true)
     private EmployeeCard card;
 
 
