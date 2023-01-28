@@ -4,6 +4,6 @@ function subtract() {
 
     let result = firstNumber - secondNumber;
 
-    document.getElementsByName("result").innerText = result;
+    document.getElementById("result").innerText = result;
 
 }
