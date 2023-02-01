@@ -10,7 +10,7 @@ function solve() {
         if (i === 0) {
           return result += e.toLowerCase();
         }
-        return result += e[0].toUpperCase() + e.substring(1).toLowerCase;
+        return result += e[0].toUpperCase() + e.substring(1).toLowerCase();
       })
       break;
       case "Pascal Case":
@@ -23,4 +23,5 @@ function solve() {
   }
 
   document.getElementById("result").textContent = result;
+
 }
