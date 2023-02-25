@@ -2,6 +2,7 @@ window.addEventListener("load", solve);
 function solve () {
     let publish = document.getElementById("publish-btn");
     publish.addEventListener("click", createPost);
+
     let title = document.getElementById("post-title");
     let category = document.getElementById("post-category");
     let content = document.getElementById("post-content");
@@ -22,6 +23,7 @@ function solve () {
     }
 
 
+
     function createElements (titleValue, categoryValue, contentValue) {
         let li = document.createElement("li");
         li.classList.add("rpost");
@@ -33,6 +35,7 @@ function solve () {
 
         let editButton = document.createElement("button");
         editButton.classList.add("action-btn", "edit");
+        editButton.addEventListener("click", editPost);
 
         let approveButton = document.createElement("button");
         approveButton.classList.add("action-btn", "approve");
@@ -70,4 +73,26 @@ function solve () {
         category.value = '';
         content.value = '';    
     }
+    
+    function editPost (event) {
+        // choosing the post where the edit button is and getting his home (parentElement)
+       let currentPost = event.target.parentElement;
+       // getting the first article
+       let articleContent = currentPost.getElementsByTagName("article")[0].children;
+
+       // elements from the article and their text (value);
+       let titleValue  = articleContent[0].textContent;
+       let categoryValue  = articleContent[1].textContent;
+       let contentValue = articleContent[2].textContent;
+
+       // return back the text to the input fields for editin
+
+       title.value = titleValue;
+       category.value = categoryValue.split(":")[1];
+       content.value = contentValue.split(":")[1];
+
+       // removing the current post
+       currentPost.remove();
+       
+    } 
 }
