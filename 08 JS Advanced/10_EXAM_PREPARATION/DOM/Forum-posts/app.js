@@ -52,7 +52,7 @@ function solve () {
     
     }
 
-    function appendElements (titleElement, categoryElement, contentElement, editButton, approveButton) {
+    function appendElements (li, article, titleElement, categoryElement, contentElement, editButton, approveButton) {
        
         ul.appendChild(li);
         li.appendChild(article);
