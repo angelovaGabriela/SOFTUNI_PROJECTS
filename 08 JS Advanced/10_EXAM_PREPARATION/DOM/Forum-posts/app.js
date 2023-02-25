@@ -12,7 +12,7 @@ function solve () {
         let categoryValue = category.value;
         let contentValue = content.value;
 
-    if(! titleValue || !categoryValue || !content.value) {
+    if(!titleValue || !categoryValue || !content.value) {
         return;
     }    
 
@@ -38,10 +38,10 @@ function solve () {
         approveButton.classList.add("action-btn", "approve");
 
         appendElements(li, article, titleElement, categoryElement, contentElement, editButton, approveButton);
-        addTextContent (titleElement, categoryElement, contentElement, editButton, approveButton);
+        addTextContent (titleElement, categoryElement, contentElement, editButton, approveButton, titleValue, categoryValue, contentValue);
     }
 
-    function addTextContent (titleElement, categoryElement, contentElement, editButton, approveButton) {
+    function addTextContent (titleElement, categoryElement, contentElement, editButton, approveButton, titleValue, categoryValue, contentValue) {
 
         titleElement.textContent = titleValue;
         categoryElement.textContent = `Category: ` + categoryValue;
