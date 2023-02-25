@@ -1,7 +1,7 @@
 window.addEventListener("load", solve);
 function solve () {
     let publish = document.getElementById("publish-btn");
-    publish.addEventListener("click", addInfo);
+    publish.addEventListener("click", createPost);
     let title = document.getElementById("post-title");
     let category = document.getElementById("post-category");
     let content = document.getElementById("post-content");
