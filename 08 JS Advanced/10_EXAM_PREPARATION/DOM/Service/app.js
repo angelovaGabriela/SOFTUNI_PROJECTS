@@ -49,7 +49,6 @@ function solve () {
         let finishButton = document.createElement("button");
         finishButton.classList.add("finish-btn");
         finishButton.textContent = "Finish repair";
-        finishButton.disabled = false;
 
         appendElements(div, h2, h3, h4, startButton, finishButton);
     }
