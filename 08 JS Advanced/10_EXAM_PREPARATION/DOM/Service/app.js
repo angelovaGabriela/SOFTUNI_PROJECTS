@@ -2,20 +2,23 @@ window.addEventListener("load", solve);
 
 function solve () {
 
-    // getting the elements 
-    //description, client name, client phone
-    // if one of them empty the program should not do anything
-
     let description = document.getElementById("description");
     let clientName = document.getElementById("client-name");
     let clientPhone = document.getElementById("client-phone");
     let typeProduct = document.getElementById("type-product");
     let sendFormBtn = document.getElementsByTagName("button")[0];
-    let receivedOrders = document.getElementById("received-orders");
-
     sendFormBtn.addEventListener("click", sentForm);
 
+    let receivedOrders = document.getElementById("received-orders");
+    let completedOrders = document.getElementById("completed-orders");
+
+    let clearButton = document.getElementsByClassName("clear-btn")[0];
+    clearButton.addEventListener("click", clearOrders);
+
+
+
     function sentForm (event) {
+
         event.preventDefault();
         let descriptionValue = description.value;
         let nameValue = clientName.value;
@@ -45,10 +48,13 @@ function solve () {
         let startButton = document.createElement("button");
         startButton.classList.add("start-btn");
         startButton.textContent = "Start repair";
+        startButton.addEventListener("click", startRepair);
 
         let finishButton = document.createElement("button");
         finishButton.classList.add("finish-btn");
         finishButton.textContent = "Finish repair";
+        finishButton.disabled = true;
+        finishButton.addEventListener("click", finishRepair);
 
         appendElements(div, h2, h3, h4, startButton, finishButton);
     }
@@ -71,5 +77,29 @@ function solve () {
         div.appendChild(finishButton);
     }
 
+    function startRepair(event) {
+        event.target.disabled = true;
+        let finish = document.getElementsByClassName("finish-btn")[0];
+        finish.disabled = false;
+    }
+
+    function finishRepair(event) {
+
+        let node = event.target.parentElement;
+        let copyOrders = node.cloneNode(true);
+
+        let buttons = Array.from(copyOrders.getElementsByTagName("button"));
+        buttons.forEach(e => e.remove());
+
+        event.target.parentElement.remove();
+        completedOrders.appendChild(copyOrders);
+    
+
+    }
+
+    function clearOrders() {
+        let toClear = Array.from(completedOrders.getElementsByClassName("container"));
+        toClear.forEach(order => order.remove());
+    }
 
 }
