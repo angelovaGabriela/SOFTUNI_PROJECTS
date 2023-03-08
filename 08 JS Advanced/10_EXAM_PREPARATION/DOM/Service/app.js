@@ -79,8 +79,10 @@ function solve () {
 
     function startRepair(event) {
         event.target.disabled = true;
-        let finish = document.getElementsByClassName("finish-btn")[0];
+        let finish = event.target.parentElement.getElementsByClassName("finish-btn")[0];
+    
         finish.disabled = false;
+        
     }
 
     function finishRepair(event) {
