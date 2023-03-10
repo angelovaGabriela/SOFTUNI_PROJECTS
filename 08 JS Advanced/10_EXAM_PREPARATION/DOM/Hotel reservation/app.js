@@ -9,7 +9,9 @@ function solve() {
     let guestsNumber = document.getElementById("people-count");
     let infoReservation = document.getElementsByClassName("info-list")[0];
     let confirmReservation = document.getElementsByClassName("confirm-list")[0];
-    
+    let verificationField = document.getElementById("verification");
+
+
     let nextButton = document.getElementById("next-btn");
     nextButton.addEventListener("click", reservationInfo);
 
@@ -64,7 +66,7 @@ function solve() {
 
         appendElements(li, article, h3, p1, p2, p3, editButton, continueButton);
 
-   }
+}
 
     function appendElements(li, article, h3, p1, p2, p3, editButton, continueButton){
         infoReservation.appendChild(li);
@@ -125,6 +127,7 @@ function solve() {
         let cancelButton = document.createElement("button");
         cancelButton.classList.add("cancel-btn");
         cancelButton.textContent = "Cancel";
+        cancelButton.addEventListener("click", reservationCancelled);
 
         copy.appendChild(confirmButton);
         copy.appendChild(cancelButton);
@@ -141,7 +144,20 @@ function solve() {
 
     function reservationCompleted(event) {
         event.target.parentElement.remove();
-        debugger;
+        nextButton.disabled = false;
+
+        verificationField.classList.add("reservation-confirmed");
+        verificationField.textContent = "Confirmed."
+
+    }
+
+    function reservationCancelled(event) {
+        event.target.parentElement.remove();
+        nextButton.disabled = false;
+
+        verificationField.classList.add("reservation-cancelled");
+        verificationField.textContent = "Cancelled."
+
     }
     
 
