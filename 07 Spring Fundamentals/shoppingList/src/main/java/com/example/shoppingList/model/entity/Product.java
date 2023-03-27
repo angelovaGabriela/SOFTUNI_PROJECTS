@@ -12,11 +12,13 @@ public class Product extends BaseEntity{
     private String name;
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
+    @Column(nullable = false)
     private BigDecimal price;
+    @Column(nullable = false)
     private LocalDateTime neededBefore;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     public Category getCategory() {
