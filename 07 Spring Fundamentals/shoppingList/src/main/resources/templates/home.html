@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/commons::head"></head>
+<head th:replace="~{fragments/commons::head}"></head>
 <body>
-<header th:replace="fragments/commons::navigation"></header>
+<header th:replace="~{fragments/commons::navigation}"></header>
 <main>
     <div class="container bg-blur rounded mt-5 mb-4">
         <h1>All products to buy</h1>
@@ -46,6 +46,6 @@
         <a href="/" class="btn btn-danger">Buy all products for {totalPriceOfProducts} lv|</a>
     </div>
 </main>
-<footer th:replace="fragments/commons::footer"></footer>
+<footer th:replace="~{fragments/commons::footer}"></footer>
 </body>
 </html>

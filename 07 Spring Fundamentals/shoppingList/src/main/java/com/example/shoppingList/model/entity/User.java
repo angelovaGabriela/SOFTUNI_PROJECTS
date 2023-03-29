@@ -17,30 +17,27 @@ public class User extends BaseEntity {
 
     public User() {}
 
-    public String userName() {
+    public String getUsername() {
         return username;
     }
 
-    public User setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
-        return this;
     }
 
-    public String password() {
+    public String getPassword() {
         return password;
     }
 
-    public User setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
-        return this;
     }
 
-    public String email() {
+    public String getEmail() {
         return email;
     }
 
-    public User setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 }

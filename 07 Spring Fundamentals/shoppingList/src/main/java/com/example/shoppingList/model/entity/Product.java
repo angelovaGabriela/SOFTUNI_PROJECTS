@@ -32,39 +32,35 @@ public class Product extends BaseEntity{
 
     public Product() {}
 
-    public String name() {
+    public String getName() {
         return name;
     }
 
-    public Product setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
-    public String description() {
+    public String getDescription() {
         return description;
     }
 
-    public Product setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
     }
 
-    public BigDecimal price() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public Product setPrice(BigDecimal price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
-        return this;
     }
 
-    public LocalDateTime neededBefore() {
+    public LocalDateTime getNeededBefore() {
         return neededBefore;
     }
 
-    public Product setNeededBefore(LocalDateTime neededBefore) {
+    public void setNeededBefore(LocalDateTime neededBefore) {
         this.neededBefore = neededBefore;
-        return this;
     }
 }

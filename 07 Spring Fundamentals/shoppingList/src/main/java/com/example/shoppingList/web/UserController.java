@@ -13,7 +13,6 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
 
-
     @GetMapping("/register")
     public String register() {
         return "register";
@@ -23,6 +22,7 @@ public class UserController {
     public String registerConfirm(@Valid UserRegisterBindingModel userRegisterBindingModel,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
+
         if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword()
                 .equals(userRegisterBindingModel.getConfirmPassword())) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
