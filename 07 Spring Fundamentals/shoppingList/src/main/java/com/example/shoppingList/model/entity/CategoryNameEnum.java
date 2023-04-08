@@ -1,6 +1,6 @@
 package com.example.shoppingList.model.entity;
 
-public enum NameEnum {
+public enum CategoryNameEnum {
     Food,
     Drink,
     Household,

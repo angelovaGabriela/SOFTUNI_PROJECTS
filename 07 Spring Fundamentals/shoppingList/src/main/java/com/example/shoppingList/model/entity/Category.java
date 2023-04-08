@@ -8,18 +8,18 @@ public class Category extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
-    private NameEnum name;
+    private CategoryNameEnum name;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
     public Category() {}
 
-    public NameEnum getName() {
+    public CategoryNameEnum getName() {
         return name;
     }
 
-    public void setName(NameEnum name) {
+    public void setName(CategoryNameEnum name) {
         this.name = name;
     }
 

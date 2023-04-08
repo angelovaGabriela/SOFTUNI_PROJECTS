@@ -17,7 +17,7 @@
             <a class="nav-link text-white active h5" href="/">Shopping List App</a>
         </th:block>
         <th:block th:unless="${@currentUser.id == null}">
-            <a class="nav-link text-white active h5" href="/home">Shopping List App</a>
+            <a class="nav-link text-white active h5" href="/home">View all products</a>
             <a class="nav-link text-white active h5" href="/product/add">Add Product</a>
         </th:block>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -37,7 +37,7 @@
 
                 <th:block th:unless="${@currentUser.id == null}">
                 <li class="nav-item col-md-4">
-                    <a class="nav-link text-white active h5" href="/">Logout</a>
+                    <a class="nav-link text-white active h5" href="/logout">Logout</a>
                 </li>
                 </th:block>
             </ul>
