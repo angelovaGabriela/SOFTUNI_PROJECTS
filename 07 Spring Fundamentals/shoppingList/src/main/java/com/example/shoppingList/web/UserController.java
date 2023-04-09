@@ -4,6 +4,7 @@ import com.example.shoppingList.model.binding.UserLoginBindingModel;
 import com.example.shoppingList.model.binding.UserRegisterBindingModel;
 import com.example.shoppingList.model.service.UserServiceModel;
 import com.example.shoppingList.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -82,14 +83,15 @@ public class UserController {
 
         userService.loginUser(userServiceModel.getId(), userLoginBindingModel.getUsername());
 
-        return "redirect:home";
+        return "redirect:/";
     }
 
-    @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
+    @GetMapping("/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.invalidate();
 
+        return "redirect:/";
+    }
     @ModelAttribute
     public UserRegisterBindingModel userRegisterBindingModel () {
         return new UserRegisterBindingModel();

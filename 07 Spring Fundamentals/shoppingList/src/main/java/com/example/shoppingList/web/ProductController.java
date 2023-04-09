@@ -1,7 +1,10 @@
 package com.example.shoppingList.web;
 
 import com.example.shoppingList.model.binding.ProductAddBindingModel;
+import com.example.shoppingList.model.service.ProductServiceModel;
+import com.example.shoppingList.service.ProductService;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ProductController {
+
+    private final ProductService productService;
+    private final ModelMapper modelMapper;
+
+    public ProductController(ProductService productService, ModelMapper modelMapper) {
+        this.productService = productService;
+        this.modelMapper = modelMapper;
+    }
+
 
     @GetMapping("/product/add")
     public String add() {
@@ -30,9 +42,16 @@ public class ProductController {
             return "redirect:/product/add";
         }
 
-        //TODO: "redirect:home" not in the index page
+        productService.addProduct(modelMapper.map(productAddBindingModel, ProductServiceModel.class));
+
+
         return "redirect:/";
 
+    }
+
+    @GetMapping("/home")
+    public String home() {
+        return "redirect:/";
     }
 
 
