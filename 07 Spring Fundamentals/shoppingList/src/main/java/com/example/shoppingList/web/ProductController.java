@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -51,6 +52,19 @@ public class ProductController {
 
     @GetMapping("/home")
     public String home() {
+        return "redirect:/";
+    }
+
+    @GetMapping("/products/buy/{id}")
+    public String buy(@PathVariable Long id) {
+        productService.buyProduct(id);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("products/buy/all")
+    public String buyAllProducts() {
+        productService.buyAllProducts();
         return "redirect:/";
     }
 
