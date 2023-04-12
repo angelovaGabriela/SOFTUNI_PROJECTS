@@ -29,4 +29,9 @@ public class StyleServiceImpl implements StyleService {
                });
    }
     }
+
+    @Override
+    public Style findByStyleNameEnum(StyleNameEnum styleNameEnum) {
+        return styleRepository.findByStyleName(styleNameEnum).orElse(null);
+    }
 }
