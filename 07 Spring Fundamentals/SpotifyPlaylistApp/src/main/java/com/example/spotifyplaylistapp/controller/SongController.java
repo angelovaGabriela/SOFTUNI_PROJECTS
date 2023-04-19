@@ -46,13 +46,6 @@ public class SongController {
         return "redirect:/";
     }
 
-    @GetMapping("/songs/add/{id}")
-    public String addToPlayList(@PathVariable Long id) {
-        // TODO: implement the add song to playlist functionality
-        return "redirect: /";
-    }
-
-
     @ModelAttribute
     public SongAddBindingModel songAddBindingModel() {
         return new SongAddBindingModel();

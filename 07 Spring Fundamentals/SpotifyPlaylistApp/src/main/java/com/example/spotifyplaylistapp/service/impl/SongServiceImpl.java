@@ -6,11 +6,11 @@ import com.example.spotifyplaylistapp.model.view.SongViewModel;
 import com.example.spotifyplaylistapp.repository.SongRepository;
 import com.example.spotifyplaylistapp.service.SongService;
 import com.example.spotifyplaylistapp.service.StyleService;
-import com.example.spotifyplaylistapp.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,16 +18,14 @@ public class SongServiceImpl implements SongService {
 
     private final ModelMapper modelMapper;
     private final SongRepository songRepository;
-    private final UserService userService;
+
     private final StyleService styleService;
 
     public SongServiceImpl(ModelMapper modelMapper,
                            SongRepository songRepository,
-                           UserService userService,
                            StyleService styleService) {
         this.modelMapper = modelMapper;
         this.songRepository = songRepository;
-        this.userService = userService;
         this.styleService = styleService;
     }
 
@@ -44,5 +42,45 @@ public class SongServiceImpl implements SongService {
               .stream()
               .map(song -> modelMapper.map(song, SongViewModel.class))
               .collect(Collectors.toList());
+    }
+
+    @Override
+    public Song findSongById(Long songId) {
+      return   this.songRepository.findById(songId).orElseThrow();
+    }
+
+    @Override
+    public Set<SongViewModel> getPlaylist(Long id) {
+
+        return this.songRepository.findAllByUserId(id)
+                .stream()
+                .map(this::mapSongViewModel)
+                .collect(Collectors.toSet());
+
+
+    }
+
+    @Override
+    public String getTotalDuration(Long id) {
+        Long sum = this.getPlaylist(id).stream().mapToLong(SongViewModel::getDuration).sum();
+
+        Long hours = sum / 3600;
+        Long minutes = (sum % 3600) / 60;
+        Long seconds = sum % 60;
+
+        if (hours <= 0) {
+            return String.format("%02d:%02d",minutes, seconds);
+        } else {
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        }
+    }
+
+    private SongViewModel mapSongViewModel(Song song) {
+        SongViewModel songView = new SongViewModel();
+        songView.setId(song.getId());
+        songView.setDuration(song.getDuration());
+        songView.setPerformer(song.getPerformer());
+        songView.setTitle(song.getTitle());
+        return songView;
     }
 }

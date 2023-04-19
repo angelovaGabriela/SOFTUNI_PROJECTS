@@ -1,9 +1,6 @@
 package com.example.spotifyplaylistapp.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -19,7 +16,7 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Song> playlist;
 
     public User() {}
@@ -55,4 +52,18 @@ public class User extends BaseEntity {
     public void setPlaylist(Set<Song> playlist) {
         this.playlist = playlist;
     }
+
+    public void addSongToPlaylist(Song song) {
+        this.playlist.add(song);
+    }
+
+    public void removeSongFromPlaylist(Long songId) {
+        this.playlist.removeIf(s -> s.getId().equals(songId));
+    }
+
+    public void deleteAllSongFromPlaylist() {
+        this.playlist.clear();
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.spotifyplaylistapp.service.impl;
 
+import com.example.spotifyplaylistapp.model.entity.Song;
 import com.example.spotifyplaylistapp.model.entity.User;
 import com.example.spotifyplaylistapp.model.service.UserServiceModel;
 import com.example.spotifyplaylistapp.repository.UserRepository;
@@ -39,4 +40,28 @@ public class UserServiceImpl implements UserService {
         currentUser.setId(id);
         currentUser.setUsername(username);
     }
+
+    @Override
+    public void addSongToUser(Long userId, Song song) {
+
+        User user = this.getUSerById(userId);
+        if (user.getPlaylist().stream().noneMatch(s -> s.getId().equals(song.getId()))) {
+            user.addSongToPlaylist(song);
+            this.userRepository.save(user);
+        }
+
+    }
+
+    @Override
+    public void deleteAllSongs(Long userId) {
+        User user = getUSerById(userId);
+        user.deleteAllSongFromPlaylist();
+        this.userRepository.save(user);
+    }
+
+    private User getUSerById(Long userId) {
+        return this.userRepository.findById(userId).orElseThrow();
+    }
+
+
 }
