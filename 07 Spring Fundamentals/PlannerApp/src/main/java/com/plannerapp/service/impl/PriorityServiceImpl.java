@@ -39,4 +39,9 @@ public class PriorityServiceImpl implements PriorityService {
                 });
 
     }
+
+    @Override
+    public Priority findByPriorityNameEnum(PriorityNameEnum priority) {
+      return priorityRepository.findByName(priority).orElse(null);
+    }
 }
