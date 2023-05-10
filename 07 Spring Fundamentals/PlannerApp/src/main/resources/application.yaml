@@ -13,7 +13,7 @@ spring:
         enabled: 'true'
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    password:
+    password: 'PUGGCANDIA9703:*paw'
     username: 'root'
     url: jdbc:mysql://localhost:3306/planner?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
 logging:

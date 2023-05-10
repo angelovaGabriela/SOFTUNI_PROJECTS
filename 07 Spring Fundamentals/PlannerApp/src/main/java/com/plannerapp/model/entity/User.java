@@ -1,9 +1,6 @@
 package com.plannerapp.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -17,7 +14,7 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Task> assignedTasks;
 
     public User() {}
@@ -44,5 +41,18 @@ public class User extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Task> getAssignedTasks() {
+        return assignedTasks;
+    }
+
+
+    public void addTaskToUser(Task task) {
+        this.assignedTasks.add(task);
+    }
+
+    public void setAssignedTasks(Set<Task> assignedTasks) {
+        this.assignedTasks = assignedTasks;
     }
 }

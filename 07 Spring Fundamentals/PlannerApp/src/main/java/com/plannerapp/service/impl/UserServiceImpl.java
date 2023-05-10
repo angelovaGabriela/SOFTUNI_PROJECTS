@@ -1,5 +1,6 @@
 package com.plannerapp.service.impl;
 
+import com.plannerapp.model.entity.Task;
 import com.plannerapp.model.entity.User;
 import com.plannerapp.model.service.UserServiceModel;
 import com.plannerapp.repo.UserRepository;
@@ -37,4 +38,18 @@ public class UserServiceImpl implements UserService {
         currentUser.setId(id);
         currentUser.setUsername(username);
     }
+
+    @Override
+    public void addTaskToUser(Long userID, Task task) {
+        User user = this.getUserById(userID);
+        if (user.getAssignedTasks().stream().noneMatch(s -> s.getId().equals(task.getId()))) {
+            user.addTaskToUser(task);
+            this.userRepository.save(user);
+        }
+    }
+
+    private User getUserById(Long userID) {
+        return this.userRepository.findById(userID).orElseThrow();
+    }
+
 }
