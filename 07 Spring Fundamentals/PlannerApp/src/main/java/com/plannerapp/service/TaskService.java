@@ -16,5 +16,5 @@ public interface TaskService {
 
     Task findTaskById(Long taskID);
 
-    Set<TaskViewModel> getAssignedTasks(Long userID);
+
 }

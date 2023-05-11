@@ -1,6 +1,7 @@
 package com.plannerapp.model.view;
 
 import com.plannerapp.model.entity.Priority;
+import com.plannerapp.model.entity.User;
 
 import java.time.LocalDate;
 
@@ -10,6 +11,8 @@ public class TaskViewModel {
     private LocalDate dueDate;
     private Priority priority;
     private String description;
+
+    private User user;
 
     public TaskViewModel() {}
 
@@ -43,5 +46,13 @@ public class TaskViewModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

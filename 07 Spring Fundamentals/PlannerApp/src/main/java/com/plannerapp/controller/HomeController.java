@@ -2,6 +2,7 @@ package com.plannerapp.controller;
 
 import com.plannerapp.service.HomeService;
 import com.plannerapp.service.TaskService;
+import com.plannerapp.service.UserService;
 import com.plannerapp.util.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +15,16 @@ public class HomeController {
     private final TaskService taskService;
     private final HomeService homeService;
 
+    private final UserService userService;
+
     public HomeController(CurrentUser currentUser,
                           TaskService taskService,
-                          HomeService homeService) {
+                          HomeService homeService,
+                          UserService userService) {
         this.currentUser = currentUser;
         this.taskService = taskService;
         this.homeService = homeService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -31,14 +36,13 @@ public class HomeController {
 
         model.addAttribute("tasks", taskService.findAllTasks());
         model.addAttribute("allTasks", this.taskService.getTotalTaskNumber());
-        model.addAttribute("assignedTasks", this.taskService.getAssignedTasks(currentUser.getId()));
+        model.addAttribute("assignedTasks", this.userService.getAssignedTasks(currentUser.getId()));
 
-        //TODO: assignedTasks visualization
         return "home";
     }
 
     @GetMapping("/task/add/{id}")
-    public String addSongToPlaylist(@PathVariable("id") Long id) {
+    public String assignTaskToUser(@PathVariable("id") Long id) {
 
         if (currentUser.getId() == null) {
             return "redirect:/login";

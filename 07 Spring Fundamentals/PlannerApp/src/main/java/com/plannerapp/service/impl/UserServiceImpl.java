@@ -3,11 +3,15 @@ package com.plannerapp.service.impl;
 import com.plannerapp.model.entity.Task;
 import com.plannerapp.model.entity.User;
 import com.plannerapp.model.service.UserServiceModel;
+import com.plannerapp.model.view.TaskViewModel;
 import com.plannerapp.repo.UserRepository;
 import com.plannerapp.service.UserService;
 import com.plannerapp.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -42,10 +46,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addTaskToUser(Long userID, Task task) {
         User user = this.getUserById(userID);
-        if (user.getAssignedTasks().stream().noneMatch(s -> s.getId().equals(task.getId()))) {
+        if (user.getAssignedTasks().stream().noneMatch(t -> t.getId().equals(task.getId()))) {
             user.addTaskToUser(task);
             this.userRepository.save(user);
         }
+    }
+
+    @Override
+    public Set<TaskViewModel> getAssignedTasks(Long userID) {
+        return this.userRepository.findAssignedTasksById(userID)
+            .stream()
+               .map(this::mapToTaskViewModel)
+                .collect(Collectors.toSet());
+
+
+    }
+
+    private TaskViewModel mapToTaskViewModel(Task task) {
+       TaskViewModel taskView = new TaskViewModel();
+        taskView.setId(task.getId());
+        taskView.setDueDate(task.getDueDate());
+        taskView.setPriority(task.getPriority());
+        taskView.setDescription(task.getDescription());
+        return taskView;
     }
 
     private User getUserById(Long userID) {

@@ -10,7 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,7 +36,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskViewModel> findAllTasks() {
 
-        return taskRepository.findAll()
+        return   taskRepository.findAll()
                 .stream()
                 .map(task -> modelMapper.map(task, TaskViewModel.class))
                 .collect(Collectors.toList());
@@ -54,20 +53,5 @@ public class TaskServiceImpl implements TaskService {
         return this.taskRepository.findById(taskID).orElseThrow();
     }
 
-    @Override
-    public Set<TaskViewModel> getAssignedTasks(Long userID) {
-        return this.taskRepository.findAllByUserId(userID)
-                .stream()
-                .map(this::mapToTaskViewModel)
-                .collect(Collectors.toSet());
-    }
 
-    private TaskViewModel mapToTaskViewModel(Task task) {
-        TaskViewModel taskView = new TaskViewModel();
-        taskView.setId(task.getId());
-        taskView.setDueDate(task.getDueDate());
-        taskView.setPriority(task.getPriority());
-        taskView.setDescription(task.getDescription());
-        return taskView;
-    }
 }

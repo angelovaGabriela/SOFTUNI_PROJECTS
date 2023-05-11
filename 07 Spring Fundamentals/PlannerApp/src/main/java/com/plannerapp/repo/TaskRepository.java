@@ -12,10 +12,9 @@ import java.util.Set;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
+
     List<Task> findAll();
 
-    @Query("select t from Task t where t.user.id = :id")
-    Set<Task> findAllByUserId(@Param("id") Long id);
 
 
 

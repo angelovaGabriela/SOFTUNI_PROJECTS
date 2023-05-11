@@ -1,10 +1,13 @@
 package com.plannerapp.service.impl;
 
 import com.plannerapp.model.entity.Task;
+import com.plannerapp.model.entity.User;
 import com.plannerapp.service.HomeService;
 import com.plannerapp.service.TaskService;
 import com.plannerapp.service.UserService;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class HomeServiceImpl implements HomeService {
@@ -22,4 +25,8 @@ public class HomeServiceImpl implements HomeService {
         Task task = this.taskService.findTaskById(taskID);
         this.userService.addTaskToUser(userID, task);
     }
+
+
+
+
 }
