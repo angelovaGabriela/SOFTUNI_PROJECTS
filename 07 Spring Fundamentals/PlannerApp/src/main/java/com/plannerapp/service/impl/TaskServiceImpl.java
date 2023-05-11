@@ -38,7 +38,7 @@ public class TaskServiceImpl implements TaskService {
 
         return   taskRepository.findAll()
                 .stream()
-                .map(task -> modelMapper.map(task, TaskViewModel.class))
+                .map(task -> modelMapper.map(task, TaskViewModel.class)).filter(taskViewModel -> taskViewModel.getUser() == null)
                 .collect(Collectors.toList());
     }
 
@@ -52,6 +52,8 @@ public class TaskServiceImpl implements TaskService {
     public Task findTaskById(Long taskID) {
         return this.taskRepository.findById(taskID).orElseThrow();
     }
+
+
 
 
 }

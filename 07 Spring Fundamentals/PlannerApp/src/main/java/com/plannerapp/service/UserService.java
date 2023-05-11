@@ -20,5 +20,7 @@ public interface UserService {
     Set<TaskViewModel> getAssignedTasks(Long userID);
 
 
+    Optional<User> findById(Long userID);
 
+    String getUsername(Long id);
 }

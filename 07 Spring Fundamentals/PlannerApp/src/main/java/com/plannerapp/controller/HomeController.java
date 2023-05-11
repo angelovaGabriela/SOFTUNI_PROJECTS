@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+
 @Controller
 public class HomeController {
     private final CurrentUser currentUser;
@@ -34,9 +35,10 @@ public class HomeController {
         }
 
 
-        model.addAttribute("tasks", taskService.findAllTasks());
         model.addAttribute("allTasks", this.taskService.getTotalTaskNumber());
         model.addAttribute("assignedTasks", this.userService.getAssignedTasks(currentUser.getId()));
+        model.addAttribute("tasks", taskService.findAllTasks());
+        model.addAttribute("loggedUsername", this.userService.getUsername(currentUser.getId()));
 
         return "home";
     }

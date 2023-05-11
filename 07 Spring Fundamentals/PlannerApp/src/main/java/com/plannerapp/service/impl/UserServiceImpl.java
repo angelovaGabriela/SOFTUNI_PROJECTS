@@ -10,6 +10,7 @@ import com.plannerapp.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -62,12 +63,23 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public Optional<User> findById(Long userID) {
+        return userRepository.findById(userID);
+    }
+
+    @Override
+    public String getUsername(Long id) {
+        return this.currentUser.getUsername();
+    }
+
     private TaskViewModel mapToTaskViewModel(Task task) {
        TaskViewModel taskView = new TaskViewModel();
         taskView.setId(task.getId());
         taskView.setDueDate(task.getDueDate());
         taskView.setPriority(task.getPriority());
         taskView.setDescription(task.getDescription());
+        taskView.setUser(task.getUser());
         return taskView;
     }
 
