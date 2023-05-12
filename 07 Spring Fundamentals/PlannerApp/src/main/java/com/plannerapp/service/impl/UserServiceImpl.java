@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
         return taskView;
     }
 
-    private User getUserById(Long userID) {
+    public User getUserById(Long userID) {
         return this.userRepository.findById(userID).orElseThrow();
     }
 

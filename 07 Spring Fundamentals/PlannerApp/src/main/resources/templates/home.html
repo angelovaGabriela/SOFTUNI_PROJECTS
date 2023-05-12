@@ -18,7 +18,7 @@
                                 <td scope="row" style="width: 5%"><img class="mr-2 " src="/img/pin.png" alt="Pin" width="35px" height="35px"></td>
                                 <td th:text="*{t.priority.name.name()}" style="width: 15%"></td>
                                 <td th:text="'Due date: ' + *{t.dueDate}" style="width: 40%"></td>
-                                <td><a href="/"><img src="/img/done-remove-button.png" height="35px"></a></td>
+                                <td><a th:href="@{/task/remove/{id}(id = ${t.getId()})}"><img src="/img/done-remove-button.png" height="35px"></a></td>
                                 <td><a href="/"><img src="/img/return.png" height="35px"></a></td>
                             </tr>
                         </table>

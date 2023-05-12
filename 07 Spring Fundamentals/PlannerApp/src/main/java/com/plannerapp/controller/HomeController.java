@@ -55,4 +55,12 @@ public class HomeController {
     }
 
 
+    @GetMapping("/task/remove/{id}")
+    public String removeTaskFromDB(@PathVariable("id") Long id) {
+        if (currentUser.getId() == null) {
+            return "redirect:/login";
+        }
+        this.homeService.deleteTask(id, currentUser.getId());
+        return  "redirect:/";
+    }
 }
