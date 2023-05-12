@@ -5,4 +5,6 @@ public interface HomeService {
 
 
     void deleteTask(Long taskID, Long userID);
+
+    void returnToAvailable(Long taskID, Long userID);
 }

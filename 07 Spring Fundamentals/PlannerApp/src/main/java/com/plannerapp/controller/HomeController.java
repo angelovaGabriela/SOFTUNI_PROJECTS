@@ -63,4 +63,13 @@ public class HomeController {
         this.homeService.deleteTask(id, currentUser.getId());
         return  "redirect:/";
     }
+
+    @GetMapping("/task/return/{id}")
+    public String returnToAvailableTasks(@PathVariable("id") Long id) {
+        if (currentUser.getId() == null) {
+            return "redirect:/login";
+        }
+        this.homeService.returnToAvailable(id, currentUser.getId());
+        return  "redirect:/";
+    }
 }

@@ -52,6 +52,10 @@ public class User extends BaseEntity {
         this.assignedTasks.add(task);
     }
 
+    public void deleteTask(Task task) {
+        this.assignedTasks.remove(task);
+    }
+
     public void setAssignedTasks(Set<Task> assignedTasks) {
         this.assignedTasks = assignedTasks;
     }
