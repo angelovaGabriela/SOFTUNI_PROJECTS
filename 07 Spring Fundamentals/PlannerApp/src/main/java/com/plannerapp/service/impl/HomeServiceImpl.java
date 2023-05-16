@@ -69,7 +69,7 @@ public class HomeServiceImpl implements HomeService {
         task.setUser(null);
         this.userRepository.save(user);
         this.taskRepository.save(task);
-        
+
     }
 
 
