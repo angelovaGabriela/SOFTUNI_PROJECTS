@@ -56,11 +56,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Set<TaskViewModel> getAssignedTasks(Long userID) {
         return this.userRepository.findAssignedTasksById(userID)
-            .stream()
+            .stream().filter(task -> task.getUser() != null)
                .map(this::mapToTaskViewModel)
                 .collect(Collectors.toSet());
-
-
     }
 
     @Override

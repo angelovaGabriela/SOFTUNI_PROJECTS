@@ -19,3 +19,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u.assignedTasks from User u where u.id = :id")
     Set<Task> findAssignedTasksById(@Param("id") Long id);
 }
+// and task.user != null

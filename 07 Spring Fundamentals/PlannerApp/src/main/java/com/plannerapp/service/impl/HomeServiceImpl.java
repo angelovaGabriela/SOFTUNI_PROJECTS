@@ -69,11 +69,7 @@ public class HomeServiceImpl implements HomeService {
         task.setUser(null);
         this.userRepository.save(user);
         this.taskRepository.save(task);
-
-        //TODO: return the task to the "AVAILABLE" and delete it from "ASSIGNED"
-        // I remove the user ID from the task
-        // Searching how to delete the task from the "AVAILABLE"
-
+        
     }
 
 
