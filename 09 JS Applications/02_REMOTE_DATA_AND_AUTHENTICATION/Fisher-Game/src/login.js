@@ -29,8 +29,9 @@ async function onLogin(email, password) {
     })
     const data = await response.json();
 
-    sessionStorage.setItem("email", data.email);
-    sessionStorage.setItem("accessToken", data.accessToken);
+    sessionStorage.setItem('authToken', data.accessToken);
+    sessionStorage.setItem('userEmail', data.email);
+    sessionStorage.setItem('userId', data._id);
     
 
     window.location = "./index.html";

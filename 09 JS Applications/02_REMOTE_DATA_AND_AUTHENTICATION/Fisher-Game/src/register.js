@@ -1,55 +1,60 @@
-document.getElementById('register-form').addEventListener('submit', registerHandler);
 document.querySelectorAll("a").forEach(x => x.classList.remove("active"));
 document.getElementById("register").classList.add("active");
 
 const showError = document.getElementsByClassName('notification')[0];
 
-function registerHandler(event) {
+
+const form = document.getElementById("register-form");
+
+form.addEventListener('submit', registerUser)
+
+async function registerUser(event) {
     event.preventDefault();
-    const formElement = event.target;
-    const data = new FormData(formElement);
-    const { email, password, rePass } = Object.fromEntries(data);
 
-    if (password !== rePass) {
-        showError.textContent = "ERROR"
+    const formData = new FormData(event.target);
+
+    let email = formData.get('email');
+    let password = formData.get('password');
+    let repass = formData.get('rePass');
+
+    if (email == '' || password == '' || repass == '') {
+      showError.textContent = "Missing fields!"
+      setTimeout(() => {
+        showError.textContent = ""
+    }, 1000);
+      
+        // alert('Please fill the required fields!');
+        return;
+    } else if (password !== repass) {
+        showError.textContent = "Passwords don't match!"
         setTimeout(() => {
-            showError.textContent = ""
-        }, 1000);
+          showError.textContent = ""
+      }, 1000);
         
+        // alert('Passwords don\'t match!');
+        return;
     }
 
-    
-    onRegister(email, password);
-}
-
-async function onRegister(email, password) {
-    const body = {
-        email,
-        password
-    }
     try {
-        const url = 'http://localhost:3030/users/register';
-        const response = await fetch(url, {
+        const response = await fetch('http://localhost:3030/users/register', {
             method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(body)
-        })
-
+            headers: { 'Content-type': 'aplication/json' },
+            body: JSON.stringify({ email, password })
+        });
         const data = await response.json();
 
-        if (data.code !== 200) {
-            throw new Error(data.message)
+        if (!response.ok || response.status != 200) {
+            form.reset();
+            throw new Error(data.message);
         }
 
-        sessionStorage.setItem("email", data.email);
-        sessionStorage.setItem("accessToken", data.accessToken);
-        return data;
-    } catch (e) {
-        showError.textContent = e;
-        setTimeout(() => {
-            showError.textContent = "";
-        }, 1000);
+        sessionStorage.setItem('authToken', data.accessToken);
+        sessionStorage.setItem('userEmail', data.email);
+        sessionStorage.setItem('userId', data._id);
+        window.location.href = './login.html';
+
+    } catch (error) {
+        showError.textContent = error.message;
+        // alert(error.message);
     }
 }
