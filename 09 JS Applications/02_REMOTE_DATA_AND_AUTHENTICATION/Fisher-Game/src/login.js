@@ -5,6 +5,10 @@ document.getElementById("login").classList.add("active");
 const showError = document.getElementsByClassName('notification')[0]
 
 
+document.getElementById("guest").style.display = "inline-block";
+document.getElementById("user").style.display = "none";
+     
+
 async function onLogin(event) {
     event.preventDefault();
     const formElement = event.target;
@@ -20,7 +24,7 @@ async function onLogin(event) {
       }, 1000);
       return;
     }
-    
+
     try {
     const url = `http://localhost:3030/users/login`;
 

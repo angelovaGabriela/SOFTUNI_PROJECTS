@@ -3,6 +3,8 @@ document.getElementById("register").classList.add("active");
 
 const showError = document.getElementsByClassName('notification')[0];
 
+document.getElementById("guest").style.display = "inline-block";
+document.getElementById("user").style.display = "none";
 
 const form = document.getElementById("register-form");
 
