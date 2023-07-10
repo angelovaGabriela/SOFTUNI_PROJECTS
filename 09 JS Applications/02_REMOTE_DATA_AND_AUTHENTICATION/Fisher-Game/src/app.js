@@ -3,6 +3,8 @@ document.querySelectorAll("a").forEach(x => x.classList.remove("active"));
 document.getElementById("register").classList.add("active");
 document.getElementById("logout").addEventListener("click", onLogout)
 document.getElementsByClassName('load')[0].addEventListener('click', loadAllCatches);
+const addButton = document.getElementsByClassName('add')[0];
+addButton.addEventListener('click', addCatch);
 
 function onLoadHTML() {
     const token = sessionStorage.getItem("authToken");
@@ -10,10 +12,12 @@ function onLoadHTML() {
         document.getElementById("guest").style.display = "none";
         document.getElementById("user").style.display = "inline-block";
         document.getElementsByTagName('span')[0].textContent = sessionStorage.getItem('userEmail');
+        addButton.disabled = false;
      } else {
         document.getElementById("guest").style.display = "inline-block";
         document.getElementById("user").style.display = "none";
         document.getElementsByTagName('span')[0].textContent = 'guest';
+        addButton.disabled = true;
      }
 }
 
@@ -66,10 +70,44 @@ function renderCatches(data) {
         newCaptureTime.value = `${c.captureTime}`;
 
     })
-        
-      
+
     
-
-
     
 }
+
+        
+async function addCatch(event) {
+    // TODO validations
+    const form = event.target.parentElement.parentElement;
+
+    const formData = new FormData(form);
+    const angler = formData.get('angler');
+    const weight = formData.get('weight');
+    const species = formData.get('species');
+    const location = formData.get('location');
+    const bait = formData.get('bait');
+    const captureTime = formData.get('captureTime');    
+    
+    const url = 'http://localhost:3030/data/catches';
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            'X-Authorization': sessionStorage.getItem('authToken')
+        },
+        body: JSON.stringify({
+            angler: angler,
+            weight: Number(weight),
+            species: species,
+            location: location,
+            bait: bait,
+            captureTime: Number(captureTime)
+        })
+    })
+
+    const data = await response.json();
+
+    loadAllCatches()
+    return data;
+
+  }
