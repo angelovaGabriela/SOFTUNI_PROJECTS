@@ -45,41 +45,51 @@ async function loadAllCatches() {
 }
 
 function renderCatches(data) {
-     
-    let isDisabled = sessionStorage.getItem('userId') == data._ownerId ? false : true; 
+    
+    
     Object.values(data).forEach(c => {
-
         const newCatchDIV = document.createElement('div');
         newCatchDIV.classList.add("catch");
-        
+
 
        newCatchDIV.innerHTML = `
         <label>Angler</label>
-          <input type="text" class="angler" value="${c.angler}" ${isDisabled}>
+          <input type="text" class="angler" value="${c.angler}">
         <label>Weight</label>
-          <input type="text" class="weight" value="${c.weight}" ${isDisabled}>
+          <input type="text" class="weight" value="${c.weight}">
         <label>Species</label>
-          <input type="text" class="species" value="${c.species}" ${isDisabled}>
+          <input type="text" class="species" value="${c.species}">
         <label>Location</label>
-          <input type="text" class="location" value="${c.location}" ${isDisabled}>
+          <input type="text" class="location" value="${c.location}">
         <label>Bait</label>
-          <input type="text" class="bait" value="${c.bait}" disabled>
+          <input type="text" class="bait" value="${c.bait}">
         <label>Capture Time</label>
-         <input type="number" class="captureTime" value="${c.captureTime}" ${isDisabled}>
-           <button class="update" data-id="${c._id}" ${isDisabled}>Update</button>
-           <button class="delete" data-id="${c._id}" ${isDisabled}>Delete</button>
+         <input type="number" class="captureTime" value="${c.captureTime}">
+           <button class="update" data-id="${c._id}">Update</button>
+           <button class="delete" data-id="${c._id}">Delete</button>
     </div>`;
        
+    
+    
+    if(sessionStorage.getItem('userId') == c._ownerId)  {
+       Array.from( newCatchDIV.getElementsByTagName('input')).forEach(i => i.disabled = false)
+       Array.from( newCatchDIV.getElementsByTagName('button')).forEach(b => b.disabled = false)
+    } else {
+        Array.from( newCatchDIV.getElementsByTagName('input')).forEach(i => i.disabled = true)
+        Array.from( newCatchDIV.getElementsByTagName('button')).forEach(b => b.disabled = true)
+    }
+ 
     catches.appendChild(newCatchDIV);
-     
 
-         const deleteBtn = newCatchDIV.getElementsByClassName('delete')[0];
-         deleteBtn.addEventListener('click', deleteHandler);
+      let deleteBtn = newCatchDIV.getElementsByClassName('delete')[0];
+        deleteBtn.addEventListener('click', deleteHandler);
+       
+       
+         
 
-        
     })
-
 }
+
 
 
 async function addCatch(event) {
@@ -141,7 +151,9 @@ async function addCatch(event) {
 }
 
 function deleteHandler(event) {
-    const record = event.target.parentElement;
+
+    debugger;
+    const record = event.target;
     const id = record.getAttribute("data-id");
 
     deleteCatch(id);
@@ -149,5 +161,5 @@ function deleteHandler(event) {
 }
 
 async function deleteCatch(id) {
-
+    //TODO
 }
