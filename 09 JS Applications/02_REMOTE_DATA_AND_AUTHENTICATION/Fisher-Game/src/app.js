@@ -5,6 +5,7 @@ document.getElementById("logout").addEventListener("click", onLogout)
 document.getElementsByClassName('load')[0].addEventListener('click', loadAllCatches);
 const addButton = document.getElementsByClassName('add')[0];
 addButton.addEventListener('click', addCatch);
+const catches = document.getElementById('catches');
 
 function onLoadHTML() {
     const token = sessionStorage.getItem("authToken");
@@ -35,6 +36,7 @@ async function onLogout(e) {
 }
 
 async function loadAllCatches() {
+    catches.replaceChildren();
     const url = 'http://localhost:3030/data/catches';
     const response = await fetch(url);
     const data = await response.json();
@@ -43,41 +45,45 @@ async function loadAllCatches() {
 }
 
 function renderCatches(data) {
-
-    const catchDIV = document.getElementsByClassName('catch')[0];
-    const main = document.getElementById('main');
-    main.replaceChildren();
+     
+    let isDisabled = sessionStorage.getItem('userId') == data._ownerId ? false : true; 
     Object.values(data).forEach(c => {
-        const newCatchDIV = catchDIV.cloneNode(true);
-        main.appendChild(newCatchDIV);
-        const newAngler = newCatchDIV.getElementsByClassName('angler')[0];
-        newAngler.value = `${c.angler}`;
 
-        const newWeight = newCatchDIV.getElementsByClassName('weight')[0];
-        newWeight.value = `${c.weight}`;
+        const newCatchDIV = document.createElement('div');
+        newCatchDIV.classList.add("catch");
+        
 
-        const newSpecies = newCatchDIV.getElementsByClassName('species')[0];
-        newSpecies.value = `${c.species}`;
+       newCatchDIV.innerHTML = `
+        <label>Angler</label>
+          <input type="text" class="angler" value="${c.angler}" ${isDisabled}>
+        <label>Weight</label>
+          <input type="text" class="weight" value="${c.weight}" ${isDisabled}>
+        <label>Species</label>
+          <input type="text" class="species" value="${c.species}" ${isDisabled}>
+        <label>Location</label>
+          <input type="text" class="location" value="${c.location}" ${isDisabled}>
+        <label>Bait</label>
+          <input type="text" class="bait" value="${c.bait}" disabled>
+        <label>Capture Time</label>
+         <input type="number" class="captureTime" value="${c.captureTime}" ${isDisabled}>
+           <button class="update" data-id="${c._id}" ${isDisabled}>Update</button>
+           <button class="delete" data-id="${c._id}" ${isDisabled}>Delete</button>
+    </div>`;
+       
+    catches.appendChild(newCatchDIV);
+     
 
-        const newLocation = newCatchDIV.getElementsByClassName('location')[0];
-        newLocation.value = `${c.location}`;
+         const deleteBtn = newCatchDIV.getElementsByClassName('delete')[0];
+         deleteBtn.addEventListener('click', deleteHandler);
 
-        const newBait = newCatchDIV.getElementsByClassName('bait')[0];
-        newBait.value = `${c.bait}`;
-
-
-        const newCaptureTime = newCatchDIV.getElementsByClassName('captureTime')[0];
-        newCaptureTime.value = `${c.captureTime}`;
-
+        
     })
-
-
 
 }
 
 
 async function addCatch(event) {
-event.preventDefault();
+    event.preventDefault();
     const form = event.target.parentElement.parentElement;
     const formData = new FormData(form);
 
@@ -89,7 +95,7 @@ event.preventDefault();
     const captureTime = formData.get('captureTime');
 
     try {
-        if (angler == '' || weight =='' || species == '' || location == '' || bait == '' || captureTime == '') {
+        if (angler == '' || weight == '' || species == '' || location == '' || bait == '' || captureTime == '') {
             return alert('Missing fields!');
         }
         if (Number(angler) || Number(species) || Number(location) || Number(bait)) {
@@ -116,20 +122,32 @@ event.preventDefault();
                 captureTime: Number(captureTime)
             })
         })
-        
+
 
         const data = await response.json();
         if (!response.ok || response.status != 200) {
             throw new Error(data.message);
         }
 
-       
-        form.reset();
+
+         form.reset();
         loadAllCatches()
         return data;
 
     } catch (e) {
         alert(e.message);
     }
+
+}
+
+function deleteHandler(event) {
+    const record = event.target.parentElement;
+    const id = record.getAttribute("data-id");
+
+    deleteCatch(id);
+    record.remove();
+}
+
+async function deleteCatch(id) {
 
 }
