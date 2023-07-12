@@ -45,14 +45,14 @@ async function loadAllCatches() {
 }
 
 function renderCatches(data) {
-    
-    
+
+
     Object.values(data).forEach(c => {
         const newCatchDIV = document.createElement('div');
         newCatchDIV.classList.add("catch");
 
 
-       newCatchDIV.innerHTML = `
+        newCatchDIV.innerHTML = `
         <label>Angler</label>
           <input type="text" class="angler" value="${c.angler}">
         <label>Weight</label>
@@ -68,24 +68,26 @@ function renderCatches(data) {
            <button class="update" data-id="${c._id}">Update</button>
            <button class="delete" data-id="${c._id}">Delete</button>
     </div>`;
-       
-    
-    
-    if(sessionStorage.getItem('userId') == c._ownerId)  {
-       Array.from( newCatchDIV.getElementsByTagName('input')).forEach(i => i.disabled = false)
-       Array.from( newCatchDIV.getElementsByTagName('button')).forEach(b => b.disabled = false)
-    } else {
-        Array.from( newCatchDIV.getElementsByTagName('input')).forEach(i => i.disabled = true)
-        Array.from( newCatchDIV.getElementsByTagName('button')).forEach(b => b.disabled = true)
-    }
- 
-    catches.appendChild(newCatchDIV);
 
-      let deleteBtn = newCatchDIV.getElementsByClassName('delete')[0];
+
+
+        if (sessionStorage.getItem('userId') == c._ownerId) {
+            Array.from(newCatchDIV.getElementsByTagName('input')).forEach(i => i.disabled = false)
+            Array.from(newCatchDIV.getElementsByTagName('button')).forEach(b => b.disabled = false)
+        } else {
+            Array.from(newCatchDIV.getElementsByTagName('input')).forEach(i => i.disabled = true)
+            Array.from(newCatchDIV.getElementsByTagName('button')).forEach(b => b.disabled = true)
+        }
+
+        catches.appendChild(newCatchDIV);
+
+        let deleteBtn = newCatchDIV.getElementsByClassName('delete')[0];
         deleteBtn.addEventListener('click', deleteHandler);
-       
-       
-         
+
+        let updateBtn = newCatchDIV.getElementsByClassName('update')[0];
+        updateBtn.addEventListener('click', updateCatch);
+
+
 
     })
 }
@@ -140,7 +142,7 @@ async function addCatch(event) {
         }
 
 
-         form.reset();
+        form.reset();
         loadAllCatches()
         return data;
 
@@ -163,16 +165,74 @@ function deleteHandler(event) {
 
 async function deleteCatch(id) {
     const url = `http://localhost:3030/data/catches/${id}`
-    
+
     const response = await fetch(url, {
         method: 'DELETE',
-        headers:  {
-              'X-Authorization': sessionStorage.getItem('authToken')
+        headers: {
+            'X-Authorization': sessionStorage.getItem('authToken')
         },
     })
 
     const data = await response.json();
-
+    loadAllCatches();
     return data;
-    
+
+}
+
+
+async function updateCatch(event) {
+    event.preventDefault();
+    try {
+
+
+        const record = event.target
+        const id = record.getAttribute("data-id");
+
+        const [angler, weight, species, location, bait, captureTime] = event.target.parentNode.querySelectorAll('input');
+       
+        if (angler.value == '' || weight.value == '' || species.value == '' || location.value == '' || bait.value == '' || captureTime.value == '') {
+            return alert('Missing fields!');
+        }
+        if (Number(angler.value) || Number(species.value) || Number(location.value) || Number(bait.value)) {
+            return alert('Number is not allowed!');
+        }
+        if (isNaN(weight.value) || isNaN(captureTime.value)) {
+            return alert('Enter a number!');
+        }
+       
+       
+       
+       
+        const body = {
+            angler: angler.value,
+            weight: Number(weight.value),
+            species: species.value,
+            location: location.value,
+            bait: bait.value,
+            captureTime: Number(captureTime.value)
+        }
+
+
+        const url = `http://localhost:3030/data/catches/${id}`;
+
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Authorization': sessionStorage.getItem('authToken')
+            },
+            body: JSON.stringify(body)
+        })
+
+        if (!response.ok || response.status != 200) {
+            let data = await response.json();
+            throw new Error(error.message)
+        }
+
+
+    } catch (error) {
+        alert(error.message)
+    }
+
+    loadAllCatches();
 }
