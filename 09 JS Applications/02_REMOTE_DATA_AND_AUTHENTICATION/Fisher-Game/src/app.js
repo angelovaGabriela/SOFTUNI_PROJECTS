@@ -152,14 +152,27 @@ async function addCatch(event) {
 
 function deleteHandler(event) {
 
-    debugger;
-    const record = event.target;
+
+    const record = event.target
     const id = record.getAttribute("data-id");
 
     deleteCatch(id);
-    record.remove();
+    record.parentElement.remove();
+
 }
 
 async function deleteCatch(id) {
-    //TODO
+    const url = `http://localhost:3030/data/catches/${id}`
+    
+    const response = await fetch(url, {
+        method: 'DELETE',
+        headers:  {
+              'X-Authorization': sessionStorage.getItem('authToken')
+        },
+    })
+
+    const data = await response.json();
+
+    return data;
+    
 }
