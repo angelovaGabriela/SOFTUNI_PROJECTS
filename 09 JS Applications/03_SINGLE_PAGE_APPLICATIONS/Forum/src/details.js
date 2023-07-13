@@ -5,4 +5,5 @@ const form = document.querySelector('#detailsView form');
 
 export function showDetails(){
     main.replaceChildren(section);
+    //TODO
 }

@@ -8,19 +8,57 @@ const cancel = document.getElementsByClassName('cancel')[0];
 cancel.addEventListener('click', cancelPost);
 section.remove();
 
-export function showHome() {
+export async function showHome() {
     main.replaceChildren(section);
+    const posts = await loadTopics();
+}
 
+async  function  loadTopics() {
+    const url = `http://localhost:3030/jsonstore/collections/myboard/posts`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    renderTopics(data)
+}
+function renderTopics(data) {
+    const topicsContainer = document.getElementsByClassName('topic-title')[0];
+    topicsContainer.replaceChildren();
+     Object.values(data).forEach(p => {
+        const newTopic = document.createElement('div');
+        newTopic.classList.add('topic-container');
+
+        newTopic.innerHTML =
+            `<div class="topic-name-wrapper" id="${p._id}">
+                <div class="topic-name">
+                    <a href="#" class="normal">
+                        <h2>${p.topicName}</h2>
+                    </a>
+                    <div class="columns">
+                        <div>
+                            <p>Date: <time>${p.date}</time></p>
+                            <div class="nick-name">
+                                <p>Username: <span>${p.username}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+        topicsContainer.appendChild(newTopic);
+        newTopic.querySelector('a').addEventListener('click', showDetails);
+    });
+
+    main.replaceChildren(section);
 }
 
 function onSubmit(e) {
     e.preventDefault();
     const formData = new FormData(form);
-    const { topicName, username, postText } = Object.fromEntries(formData);
+    const { topicName, username, postText,} = Object.fromEntries(formData);
     const body = {
         topicName,
         username,
-        postText
+        postText,
+        date: new Date()
     }
     createPost(body);
     form.reset();
@@ -38,7 +76,7 @@ async function createPost(body) {
     })
     const data = await response.json();
 
-
+     loadTopics();
     return data;
 
 }
