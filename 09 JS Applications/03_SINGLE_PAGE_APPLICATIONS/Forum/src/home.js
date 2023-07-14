@@ -28,9 +28,9 @@ function renderTopics(data) {
         newTopic.classList.add('topic-container');
 
         newTopic.innerHTML =
-            `<div class="topic-name-wrapper" id="${p._id}">
+            `<div class="topic-name-wrapper">
                 <div class="topic-name">
-                    <a href="#" class="normal">
+                    <a href="#" class="normal" id="${p._id}">
                         <h2>${p.topicName}</h2>
                     </a>
                     <div class="columns">
