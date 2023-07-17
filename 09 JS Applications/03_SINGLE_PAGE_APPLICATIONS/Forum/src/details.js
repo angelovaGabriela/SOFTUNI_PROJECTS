@@ -19,14 +19,14 @@ export async function showDetails(event) {
     }
 
 
-   const post = await loadPosts(id)
- 
+    const post = await loadPosts(id)
+
     const comments = await loadComments(id);
 
     const res = topicTemplate(post, comments);
-   section.replaceChildren(res);
+    section.replaceChildren(res);
     main.replaceChildren(section);
-    //TODO
+    
 }
 
 async function loadPosts(id) {
@@ -38,45 +38,15 @@ async function loadPosts(id) {
 }
 
 async function loadComments(id) {
-    const url = `http://localhost:3030/jsonstore/collections/myboard/comments/${id}`
+    const url = `http://localhost:3030/jsonstore/collections/myboard/comments`
     const response = await fetch(url);
     const data = await response.json();
-    
-    return data;
+
+    const filterData = Object.values(data).filter(c => c.id === id);
+    return filterData;
 }
 
-function onSubmit(e) {
-    e.preventDefault();
-    const formData = new FormData(form);
-    const { postText, username } = Object.fromEntries(formData);
-const body = {
-    postText,
-    username,
-    id, 
-    date: new Date()
-}
-    createComment(body);
-
-}
-
-async function createComment(body) {
-    const url = `http://localhost:3030/jsonstore/collections/myboard/comments`
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(body)
-    });
-
-    const data = await response.json();
-    form.reset();
-    return data;
-
-
-}
-
-function topicTemplate(post, comments) {
+ function topicTemplate(post, comments) {
     container.replaceChildren();
     let contentDiv = document.createElement('div');
     contentDiv.classList.add('theme-content');
@@ -97,9 +67,9 @@ function topicTemplate(post, comments) {
 
                                 <p class="post-content">${post.postText}</p>
                             </div>
-
-
                             <div id="user-comment"></div>
+                            </div>
+                        </div>
 
                             <div class="answer-comment">
                                 <p><span>currentUser</span> comment:</p>
@@ -117,27 +87,57 @@ function topicTemplate(post, comments) {
                         </div>`;
 
     container.appendChild(contentDiv);
-  
 
-    const addCommentDiv = document.getElementById('user-comment');
-    
-    Object.values(comments).map(c => {
 
-    
+    let addCommentDiv = contentDiv.getElementsByTagName('div')[5];
+
+    comments.forEach(c => {
+
+
         const createComment = document.createElement('div');
         createComment.classList.add("topic-name-wrapper")
-        createComment.innerHTML = 
-        `<div class="topic-name">
+        createComment.innerHTML =
+            `<div class="topic-name">
         <p><strong>${c.username}</strong> commented on <time>${c.date}</time></p>
         <div class="post-content">
             <p>${c.postText}</p>
         </div>
-    </div>` 
+    </div>`
 
-    addCommentDiv.appendChild(createComment);
-   });
-   
+        addCommentDiv.appendChild(createComment);
+    });
 
-   return container;
+    return container;
+
+}
+
+async function onSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const { postText, username } = Object.fromEntries(formData);
+    const body = {
+        postText,
+        username,
+        id,
+        date: new Date()
+    }
+    const create = await createComment(body);
+    showDetails();
+}
+
+async function createComment(body) {
+    const url = `http://localhost:3030/jsonstore/collections/myboard/comments`
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    });
+
+    const data = await response.json();
+    form.reset();
+    return data;
+
 
 }
