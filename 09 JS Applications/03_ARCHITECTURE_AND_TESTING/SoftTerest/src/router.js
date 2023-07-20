@@ -12,7 +12,8 @@ export function initialize(links) {
 
     const context = {
         showSection,
-        goTo
+        goTo,
+        updateNavigate
     }
     return context;
 
@@ -37,11 +38,24 @@ export function initialize(links) {
     }
 
 
-    function goTo(name) {
+    function goTo(name, ...params) {
         const handler = links[name];
         if (typeof (handler) === "function") {
-            handler(context)
+            handler(context, ...params)
         }
     }
 
+    function updateNavigate() {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+
+        if (user) {
+            // all elements witch class "user" 
+            document.querySelectorAll(".user").forEach(e => e.style.display = "block");
+            document.querySelectorAll(".guest").forEach(e => e.style.display = "none");
+            
+        } else {
+            document.querySelectorAll(".user").forEach(e => e.style.display = "none");
+            document.querySelectorAll(".guest").forEach(e => e.style.display = "block");
+        }
+    }
 }

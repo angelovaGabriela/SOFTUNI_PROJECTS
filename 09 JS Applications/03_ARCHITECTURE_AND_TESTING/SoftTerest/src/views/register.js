@@ -21,6 +21,7 @@ async function onSubmit(event) {
         alert("Passwords doesn't match!")
     } else {
         await register(email, password);
-        contextStealer.goTo("/");
+        contextStealer.updateNavigate();
+        contextStealer.goTo("/catalog");
     }
 }

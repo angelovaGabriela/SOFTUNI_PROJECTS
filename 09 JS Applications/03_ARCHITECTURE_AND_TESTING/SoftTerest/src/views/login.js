@@ -14,7 +14,8 @@ async function onSubmit(event) {
     const formData = new FormData(form);
 
     const { email, password } = Object.fromEntries(formData);
-    await login(email, password)
+    await login(email, password);
 
-    contextStealer.goTo("/");
+    contextStealer.updateNavigate();
+    contextStealer.goTo("/catalog");
 }

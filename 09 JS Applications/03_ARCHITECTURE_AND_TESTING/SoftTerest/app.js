@@ -24,6 +24,7 @@ import { showRegister } from "./src/views/register.js";
 import { showCreate } from "./src/views/create.js";
 import { showDetails } from "./src/views/details.js";
 import { initialize } from "./src/router.js";
+import { logout } from "./src/api/user.js";
 
 
 
@@ -35,13 +36,19 @@ const links = {
     "/login": showLogin,
     "/register": showRegister,
     "/details": showDetails,
-    "/create": showCreate
+    "/create": showCreate,
+    "/logout": async function() {
+        await logout();
+        router.goTo("/");
+        router.updateNavigate();
+    }
 }
 
 
 const router = initialize(links)
 
 //starting point (on refresh will redirect us home)
+router.updateNavigate();
 router.goTo("/");
 
 
