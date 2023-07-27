@@ -28,6 +28,9 @@ export async function logout() {
     sessionStorage.removeItem("userData");
     return result;
 }
+
+
+//"{\"email\":\"lord_denis@pug.fr\",\"password\":\"12345\
 //  Create Furniture (POST): http://localhost:3030/data/catalog
 export async function createFurniture(data) {
     const result = await api.post(endpoints.createFurniture, data)

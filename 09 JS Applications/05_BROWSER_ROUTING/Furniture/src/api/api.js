@@ -28,22 +28,23 @@ function getOptions(method, body) {
     }
 
     const user = JSON.parse(sessionStorage.getItem("userData"));
-    const token = user.accessToken;
+    
 
-    if(user) {
+    if (user) {
+        const token = user.accessToken;
         options.headers["X-Authorization"] = token;
     }
 
     if (body) {
         options.headers["Content-Type"] = "Application/json"
-        options["body"] = JSON.stringify(body);
+        options.body = JSON.stringify(body);
     }
 
-    return options
+    return options;
 }
 
 export async function get(url) {
-   return await request(url,getOptions("GET"));
+   return await request(url, getOptions("GET"));
 }
 
 export async function post(url, data) {

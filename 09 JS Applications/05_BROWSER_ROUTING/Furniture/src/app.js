@@ -1,5 +1,6 @@
 import page from "../node_modules/page/page.mjs";
 import {render} from "../node_modules/lit-html/lit-html.js"
+import { register } from "./api/data.js"
 const root = document.querySelector(".container");
 import { catalogView } from "./views/catalogView.js"
 import { createView } from "./views/createView.js"
@@ -21,7 +22,9 @@ page("/*", catalogView)
 
 page.start();
 
+
 function renderMiddleWare(ctx, next) {
     ctx.render = (content) => render(content, root);
     next();
 }
+
