@@ -10,7 +10,8 @@ export async function detailsView(ctx) {
     const details = await getFurnitureDetails(furnitureId);
     const userData = JSON.parse(sessionStorage.getItem("userData"));
     const isOwner = userData._id === details._ownerId;
-   ctx.render(detailsTemplate(details, isOwner, daleteFurnitureById));
+
+    ctx.render(detailsTemplate(details, isOwner, daleteFurnitureById));
 }
 
 
@@ -23,12 +24,12 @@ async function daleteFurnitureById(event) {
 }
 
 function renderOwnerBtn(isOwner, daleteFurnitureById, id) {
-    return   isOwner ? html `
+    return isOwner ? html`
 
-    <a href=”#” class="btn btn-info">Edit</a>
+    <a href="/edit/${id}" class="btn btn-info">Edit</a>
     <a @click=${daleteFurnitureById} data-id=${id} href=”javascript:void(0)” class="btn btn-red">Delete</a>
     `
-    : ""
+        : ""
 
 }
 
