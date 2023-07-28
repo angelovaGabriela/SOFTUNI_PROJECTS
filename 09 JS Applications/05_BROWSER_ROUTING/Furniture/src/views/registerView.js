@@ -7,13 +7,14 @@ export async function registerView(ctx) {
 
 }
 
-function onSubmit(e) {
+async function onSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData(e.target);
     const {email, password, rePass} = Object.fromEntries(formData);
 //validations
-    register(email, password);
+    await register(email, password);
+    context.updateNavigation();
     context.page.redirect("/");
 }
 

@@ -6,16 +6,16 @@ let context = null;
 export async function loginView(ctx) {
     context = ctx;
     ctx.render(createLoginTemplate(onSubmit))
-    
 }
 
-function onSubmit(e) {
+ async function onSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const { email, password } = Object.fromEntries(formData);
 
     // validations
-    login(email, password);
+    await login(email, password);
+    context.updateNavigation();
     context.page.redirect("/");
 
 

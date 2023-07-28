@@ -1,6 +1,6 @@
 import page from "../node_modules/page/page.mjs";
 import {render} from "../node_modules/lit-html/lit-html.js"
-import { register } from "./api/data.js"
+import { logout} from "./api/data.js"
 const root = document.querySelector(".container");
 import { catalogView } from "./views/catalogView.js"
 import { createView } from "./views/createView.js"
@@ -21,10 +21,37 @@ page("/my-furniture",renderMiddleWare, myFurnitureView)
 page("/*", catalogView)
 
 page.start();
+updateNavigation();
 
+const logoutBTN = document.getElementById("logoutBtn");
+logoutBTN.addEventListener("click", onClickLogout);
+
+async function onClickLogout() {
+    await logout();
+    updateNavigation();
+    page.redirect("/");
+}
+
+
+function updateNavigation() {
+    const userSection = document.getElementById("user");
+    const guestSection = document.getElementById("guest");
+
+    const userData = JSON.parse(sessionStorage.getItem("userData"));
+
+    if (userData) {
+        userSection.style.display = "inline-block";
+        guestSection.style.display = "none";
+
+    } else {
+        userSection.style.display = "none";
+        guestSection.style.display = "inline-block";
+    }
+}
 
 function renderMiddleWare(ctx, next) {
     ctx.render = (content) => render(content, root);
+    ctx.updateNavigation = updateNavigation;
     next();
 }
 
