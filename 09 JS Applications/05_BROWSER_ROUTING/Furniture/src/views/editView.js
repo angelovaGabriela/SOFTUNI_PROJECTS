@@ -12,17 +12,17 @@ export async function editView(ctx) {
 }
 
 async function onSubmit(event) {
-    event.preventDefault();
+     event.preventDefault();
 
     const formData = new FormData(event.target);
     const {make, model, year, description, price, img, material} = Object.fromEntries(formData);
     const id = event.target.dataset.id;
-    
+ 
     await updateFurnitureDetails(id, {make, model, year, description, price, img, material});
     context.page.redirect("/")
 }
 
-function editTemplate(furniture) {
+function editTemplate(furniture, stateForm = {}) {
     return html `
          <div class="row space-top">
             <div class="col-md-12">
@@ -39,11 +39,11 @@ function editTemplate(furniture) {
                     </div>
                     <div class="form-group has-success">
                         <label class="form-control-label" for="new-model">Model</label>
-                        <input class="form-control is-valid" id="new-model" type="text" name="model" .value="${furniture.model}">
+                        <input class="form-control" id="new-model" type="text" name="model" .value="${furniture.model}">
                     </div>
                     <div class="form-group has-danger">
                         <label class="form-control-label" for="new-year">Year</label>
-                        <input class="form-control is-invalid" id="new-year" type="number" name="year" .value="${Number(furniture.year)}}">
+                        <input class="form-control" id="new-year" type="number" name="year" .value="${Number(furniture.year)}}">
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" for="new-description">Description</label>
@@ -57,7 +57,7 @@ function editTemplate(furniture) {
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" for="new-image">Image</label>
-                        <input class="form-control" id="new-image" type="text" name="img" .value="${furniture.img}">
+                        <input class="form-control ${stateForm.hasImg}" id="new-image" type="text" name="img" .value="${furniture.img}">
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" for="new-material">Material (optional)</label>

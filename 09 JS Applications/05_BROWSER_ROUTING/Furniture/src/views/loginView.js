@@ -8,16 +8,19 @@ export async function loginView(ctx) {
     ctx.render(createLoginTemplate(onSubmit))
 }
 
- async function onSubmit(e) {
+async function onSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const { email, password } = Object.fromEntries(formData);
 
-    // validations
-    await login(email, password);
-    context.updateNavigation();
-    context.page.redirect("/");
-
+    if (!email || !password) {
+        alert("Please, enter your credentials!");
+        return context.render(createLoginTemplate(onSubmit))
+    } 
+        await login(email, password);
+        context.updateNavigation();
+        context.page.redirect("/");
+   
 
 }
 function createLoginTemplate(handler) {

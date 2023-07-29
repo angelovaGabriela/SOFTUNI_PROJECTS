@@ -4,7 +4,6 @@ let context = null;
 export async function registerView(ctx) {
     context = ctx;
     ctx.render(createRegisterTemplate(onSubmit));
-
 }
 
 async function onSubmit(e) {
@@ -12,7 +11,16 @@ async function onSubmit(e) {
 
     const formData = new FormData(e.target);
     const {email, password, rePass} = Object.fromEntries(formData);
-//validations
+
+    if (!email || !password || !rePass) {
+        alert("Please complete the full registration form!");
+        return context.render(createRegisterTemplate(onSubmit))
+    }
+    else if (password !== rePass) {
+        alert("Passwords don't match!");
+        return context.render(createRegisterTemplate(onSubmit))
+    } 
+
     await register(email, password);
     context.updateNavigation();
     context.page.redirect("/");
