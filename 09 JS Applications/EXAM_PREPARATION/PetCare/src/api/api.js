@@ -1,12 +1,12 @@
 import { getUserData } from "./utils.js";
 
-const host = 'http://localhost:3000';
+const host = 'http://localhost:3030';
 
 
 export async function requester (method, url, data) {
 
     const options = {
-        method, 
+        method,  
         headers: {}
     }
 
