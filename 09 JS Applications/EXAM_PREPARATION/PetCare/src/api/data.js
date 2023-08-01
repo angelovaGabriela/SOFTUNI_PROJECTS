@@ -15,3 +15,7 @@ export async function deleteAnimalById(id) {
 export async function createAnimalPost(data) {
     return post('/data/pets', data)
 }
+
+export async function editAnimalPost(id, data) {
+    return put('/data/pets/' + id, data)
+}

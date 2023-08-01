@@ -8,6 +8,7 @@ import { getUserData } from "./api/utils.js";
 import { showCatalog } from "./views/catalogView.js";
 import { showCreate } from "./views/createView.js";
 import { showDetails } from "./views/detailsView.js";
+import { showEdit } from "./views/editView.js";
 import { showHome } from "./views/homeView.js";
 import { showLogin } from "./views/loginView.js";
 import { showRegister } from "./views/registerView.js";
@@ -18,7 +19,7 @@ page(renderMiddleWare)
 page('/', showHome)
 page('/catalog', showCatalog)
 page('/catalog/:id', showDetails)
-page('/edit/:id', () => console.log('edit'))
+page('/edit/:id', showEdit)
 page('/create', showCreate)
 page('/login', showLogin)
 page('/register', showRegister)
