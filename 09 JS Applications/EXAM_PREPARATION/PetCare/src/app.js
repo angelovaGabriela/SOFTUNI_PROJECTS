@@ -6,6 +6,7 @@ import { page, render } from "./api/lib.js"
 import { updateNav } from "./api/nav.js";
 import { getUserData } from "./api/utils.js";
 import { showCatalog } from "./views/catalogView.js";
+import { showCreate } from "./views/createView.js";
 import { showDetails } from "./views/detailsView.js";
 import { showHome } from "./views/homeView.js";
 import { showLogin } from "./views/loginView.js";
@@ -18,7 +19,7 @@ page('/', showHome)
 page('/catalog', showCatalog)
 page('/catalog/:id', showDetails)
 page('/edit/:id', () => console.log('edit'))
-page('/create', () => console.log('create'))
+page('/create', showCreate)
 page('/login', showLogin)
 page('/register', showRegister)
 
