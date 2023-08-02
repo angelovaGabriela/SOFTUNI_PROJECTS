@@ -19,5 +19,8 @@
     "chai": "4.3.4"
   },
   "keywords": [],
+  "directories": {
+    "test": "tests"
+  },
   "description": ""
 }
