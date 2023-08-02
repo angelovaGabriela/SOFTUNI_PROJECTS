@@ -26,7 +26,7 @@ function postCardTemplate(material) {
                     <h2 class="post-title">${material.title}</h2>
                     <img class="post-image" src="${material.imageUrl}" alt="Kids clothes">
                     <div class="btn-wrapper">
-                        <a href="/catalog/${material._id}" class="details-btn btn">Details</a>
+                        <a href="/details/${material._id}" class="details-btn btn">Details</a>
                     </div>
                 </div>
             </div>

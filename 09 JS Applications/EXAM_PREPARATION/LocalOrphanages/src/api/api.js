@@ -5,18 +5,18 @@ const host = 'http://localhost:3030';
 export async function requester (method, url, data) {
     const options = {
         method,
-        headres: {}
+        headers: {}
     }
 
     if (data !== undefined) {
-        options.headres["Content-Type"] = "application/json";
+        options.headers["Content-Type"] = "application/json";
         options.body = JSON.stringify(data);
     }
 
     const user = getUserData();
 
     if (user) {
-        options.headres["X-Authorization"] = user.accessToken;
+        options.headers["X-Authorization"] = user.accessToken;
     }
 
 
