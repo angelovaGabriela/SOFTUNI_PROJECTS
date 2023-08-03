@@ -3,7 +3,7 @@
 //<a href="#" class="donate-btn btn">Donate</a>
 
 
-import { getMaterialById } from '../api/data.js';
+import { getMaterialById, deleteMaterialById } from '../api/data.js';
 import { html, nothing } from '../api/lib.js'
 
 export async function showDetails(ctx) {
@@ -12,21 +12,30 @@ export async function showDetails(ctx) {
     const hasUser = Boolean(ctx.user);
     const isOwner = Boolean(hasUser && ctx.user._id == material._ownerId);
 
-    ctx.render(detailsTemplate(material, hasUser, isOwner));
+    ctx.render(detailsTemplate(material, hasUser, isOwner, onDelete));
+
+    async function onDelete(){
+        const choice = confirm("Are you sure?")
+
+        if (choice) {
+             await deleteMaterialById(id);
+             ctx.page.redirect('/');
+        }
+    }
 }
 
-function materialsControl(material , hasUser, isOwner) {
+function materialsControl(material , hasUser, isOwner, onDelete) {
     if (hasUser === false) {
-        return nothing
+        return  nothing;
     }
     if (isOwner) {
         return html `
         <a href="/edit/${material._id}" class="edit-btn btn">Edit</a>
-        <a href="javascript:void(0)" class="delete-btn btn">Delete</a>`
+        <a  @click=${onDelete} href="javascript:void(0)" class="delete-btn btn">Delete</a>`
     }
 }
 
-function detailsTemplate(material, hasUser, isOwner) {
+function detailsTemplate(material, hasUser, isOwner, onDelete) {
     return html `
       <section id="details-page">
             <h1 class="title">Post Details</h1>
@@ -45,7 +54,7 @@ function detailsTemplate(material, hasUser, isOwner) {
 
                 
                         <div class="btns">
-                            ${materialsControl(material, hasUser, isOwner)}
+                            ${materialsControl(material, hasUser, isOwner, onDelete)}
                         </div>
 
                     </div>

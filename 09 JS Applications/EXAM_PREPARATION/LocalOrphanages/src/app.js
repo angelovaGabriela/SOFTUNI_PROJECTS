@@ -5,8 +5,11 @@ import { page, render } from './api/lib.js'
 import { updateNav } from './api/nav.js';
 import { getUserData } from './api/utils.js';
 import { showCatalog } from './views/catalogView.js';
+import { showCreate } from './views/create.js';
 import { showDetails } from './views/details.js';
+import { showEdit } from './views/edit.js';
 import { showLogin } from './views/login.js';
+import { showMyPosts } from './views/my-posts.js';
 import { showRegister } from './views/register.js';
 
 const main = document.getElementById("main-content");
@@ -14,11 +17,11 @@ const main = document.getElementById("main-content");
 page(renderMiddleWare);
 page('/', showCatalog);
 page('/details/:id', showDetails);
-page('/edit/:id', () => console.log("edit"));
-page('/create', () => console.log("create"));
+page('/edit/:id', showEdit);
+page('/create', showCreate);
 page('/login', showLogin);
 page('/register', showRegister);
-page('/my-posts', () => console.log("my-posts"));
+page('/my-posts', showMyPosts);
 
 updateNav();
 page.start();

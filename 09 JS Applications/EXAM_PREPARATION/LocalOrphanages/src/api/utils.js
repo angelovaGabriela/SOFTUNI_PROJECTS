@@ -16,6 +16,6 @@ export function createSubmitHandler(callBback) {
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData);
-        callBback(data);
+        callBback(data, event.target);
     }
 }
