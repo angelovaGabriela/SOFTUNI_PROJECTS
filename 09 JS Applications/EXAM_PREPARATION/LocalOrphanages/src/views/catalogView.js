@@ -11,12 +11,14 @@ function catalogTemplate(materials) {
     return html`
      <section id="dashboard-page">
             <h1 class="title">All Posts</h1>
+        <div class="all-posts">
             ${materials.length == 0
             ? html`
             <!-- Display an h1 if there are no posts -->
             <h1 class="title no-posts-title">No posts yet!</h1>`
             : materials.map(m => postCardTemplate(m))};
-        </section>
+       </div>
+    </section>
     `
 }
 
