@@ -1,18 +1,27 @@
-// BONUS
-//<!--Bonus - Only for logged-in users ( not authors )-->
-//<a href="#" class="donate-btn btn">Donate</a>
-
-
 import { getMaterialById, deleteMaterialById } from '../api/data.js';
+import { donate, getTotalDonationCount, getOwnDonations} from '../api/donations.js'
 import { html, nothing } from '../api/lib.js'
 
 export async function showDetails(ctx) {
     const id = ctx.params.id;
-    const material = await getMaterialById(id)
-    const hasUser = Boolean(ctx.user);
-    const isOwner = Boolean(hasUser && ctx.user._id == material._ownerId);
 
-    ctx.render(detailsTemplate(material, hasUser, isOwner, onDelete));
+    let requests = [
+        getMaterialById(id),
+        getTotalDonationCount(id)
+    ];
+
+    
+    const hasUser = Boolean(ctx.user);
+    if (hasUser) {
+        requests.push(getOwnDonations(id, ctx.user._id));
+    }
+
+    let [material, donations, hasDonations] = await Promise.all(requests);
+
+    const isOwner = Boolean(hasUser && ctx.user._id == material._ownerId);
+    let canDonate = !isOwner && hasDonations == 0;
+
+    ctx.render(detailsTemplate(material, donations, hasUser, isOwner, canDonate, onDelete, onDonate));
 
     async function onDelete(){
         const choice = confirm("Are you sure?")
@@ -22,20 +31,43 @@ export async function showDetails(ctx) {
              ctx.page.redirect('/');
         }
     }
+
+    async function onDonate() {
+        const data = {
+            id,
+        }
+        await donate(data);
+        
+
+        donations = await getTotalDonationCount(id);
+        canDonate = await getOwnDonations(id, ctx.user._id)
+        ctx.render(detailsTemplate(material, donations, hasUser, isOwner, canDonate, onDelete, onDonate));
+
+
+    }
 }
 
-function materialsControl(material , hasUser, isOwner, onDelete) {
+function materialsControl(material, hasUser, isOwner, canDonate, onDelete, onDonate) {
     if (hasUser === false) {
         return  nothing;
     }
+    if (canDonate) {
+        return html `
+        <div class="btns">
+        <a  @click=${onDonate} href="javascript:void(0)" class="donate-btn btn">Donate</a>
+    </div>
+        `
+    }
     if (isOwner) {
         return html `
+         <div class="btns">
         <a href="/edit/${material._id}" class="edit-btn btn">Edit</a>
-        <a  @click=${onDelete} href="javascript:void(0)" class="delete-btn btn">Delete</a>`
+        <a  @click=${onDelete} href="javascript:void(0)" class="delete-btn btn">Delete</a>
+        </div>`
     }
 }
 
-function detailsTemplate(material, hasUser, isOwner, onDelete) {
+function detailsTemplate(material, hasUser, donations, isOwner, canDonate, onDelete, onDonate) {
     return html `
       <section id="details-page">
             <h1 class="title">Post Details</h1>
@@ -50,12 +82,12 @@ function detailsTemplate(material, hasUser, isOwner, onDelete) {
                         <p class="post-description">Description: ${material.description}</p>
                         <p class="post-address">Address: ${material.address}</p>
                         <p class="post-number">Phone number: ${material.phone}</p>
-                        <p class="donate-Item">Donate Materials: 0</p>
+                        <p class="donate-Item">Donate Materials: ${donations}</p>
 
                 
-                        <div class="btns">
-                            ${materialsControl(material, hasUser, isOwner, onDelete)}
-                        </div>
+                       
+                            ${materialsControl(material, hasUser, isOwner, canDonate, onDelete, onDonate)}
+                        
 
                     </div>
                 </div>
