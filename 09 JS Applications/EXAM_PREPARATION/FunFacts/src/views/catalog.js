@@ -25,7 +25,7 @@ function factCard(fact) {
   return html `
   <div class="fact">
             <img src="${fact.imageUrl}" alt="example3" />
-            <h3 class="category">Nature</h3>
+            <h3 class="category">${fact.category}</h3>
             <p class="description">${fact.description}</p>
             <a class="details-btn" href="/details/${fact._id}">More Info</a>
           </div>

@@ -14,7 +14,7 @@ export function showLogin(ctx) {
 
 
         await login(email, password);
-        //ctx.updateNav();
+        ctx.updateNav();
         ctx.page.redirect('/');
 
     }

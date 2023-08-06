@@ -2,6 +2,7 @@ import { html } from "../api/lib.js";
 import { createSubmitHandler } from "../api/utils.js";
 import { register } from "../api/user.js"
 
+
 export function showRegister(ctx) {
     ctx.render(registerTemplate(createSubmitHandler(onRegister)));
 
@@ -14,7 +15,7 @@ export function showRegister(ctx) {
         }
 
         await register(email, password);
-        // ctx.updateNav();
+        ctx.updateNav();
         ctx.page.redirect("/");
     }
 }

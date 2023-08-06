@@ -16,7 +16,7 @@ export async function showDetails(ctx) {
 
         if (choice) {
             await deleteFactById(id);
-            ctx.page.redirect('/');
+            ctx.page.redirect('/catalog');
         }
     }
 
