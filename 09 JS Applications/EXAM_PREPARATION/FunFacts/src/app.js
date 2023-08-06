@@ -4,18 +4,22 @@
 
 import { page, render } from "./api/lib.js"
 import { getUserData } from "./api/utils.js";
+import { showCatalog } from "./views/catalog.js";
+import { showDetails } from "./views/details.js";
 import { showHome } from "./views/home.js";
+import { showLogin } from "./views/login.js";
+import { showRegister } from "./views/register.js";
 
 const main = document.querySelector('main');
 
 page(renderMiddleWare);
 page('/', showHome)
-page('/catalog', () => console.log("catalog"))
-page('/details/:id', () => console.log("details"))
+page('/catalog', showCatalog)
+page('/details/:id', showDetails)
 page('/edit/:id', () => console.log("edit"))
 page('/create', () => console.log("create"))
-page('/login', () => console.log("login"))
-page('/register', () => console.log("register"))
+page('/login', showLogin)
+page('/register', showRegister)
 
 //updateNav();
 page.start();
