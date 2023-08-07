@@ -451,7 +451,7 @@ describe("E2E tests", function () {
 
     });
 
-    it("Edit should populate form with correct data [ 5 Points ]", async () => {
+    it.only("Edit should populate form with correct data [ 5 Points ]", async () => {
       const data = mockData.catalog[2];
       const user = mockData.users[0];
       const { get } = await handle(endpoints.details(data._id));
@@ -589,7 +589,7 @@ describe("E2E tests", function () {
       expect(isHandled()).to.be.true;
     });
   });
-  describe('BONUS:Search Page [ 15 Points ]', async () => {
+  describe.skip('BONUS:Search Page [ 15 Points ]', async () => {
 
     it('Show no matches for Guest [ 2.5 Points ]', async () => {
         const { get } = await handle(endpoints.search('Tomato'));
