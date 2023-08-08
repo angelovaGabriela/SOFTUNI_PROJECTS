@@ -1,10 +1,32 @@
-import { html } from '../api/lib.js'
+import { html, nothing } from '../api/lib.js'
+import { search } from '../api/data.js'
+import { getUserData } from '../api/utils.js';
+ 
+export async function showSearch(ctx) {
+  let user = getUserData(ctx.user);
+  console.log(user);
+  let moto = undefined;
 
-export function showSearch(ctx) {
-    ctx.render(searchTemplate());
+const name = ctx.querystring.split('=')[1];
+    if(name !== undefined) {
+      moto = await search(name);
+    }
+    console.log(moto);
+    ctx.render(searchTemplate(moto, user, onSearch));
+
+    async function onSearch() {
+      const query = document.getElementById('search-input').value;
+      if (query !== '') {
+          ctx.page.redirect(`/search?query=${query}`);
+      } else {
+          return alert('All fields are required!');
+      }
+  }
+
+
 }
 
-function searchTemplate() {
+function searchTemplate(moto, user, onSearch) {
     return html `
       <section id="search">
 
@@ -16,19 +38,22 @@ function searchTemplate() {
       name="search"
       id="search-input"
     />
-    <button class="button-list">Search</button>
+    <button @click=${onSearch} class="button-list">Search</button>
   </form>
 </div>
 <h4 id="result-heading">Results:</h4>
-  <div class="search-result">
- <h2 class="no-avaliable">No result.</h2>
-  <!--If there are matches display a div with information about every motorcycle-->
- <div class="motorcycle">
-  <img src="./images/Honda Hornet.png" alt="example1" />
-  <h3 class="model">Honda Hornet</h3>
-    <a class="details-btn" href="">More Info</a>
-</div>
-  </div>
-        </section>
-    `
+${moto != undefined
+  ? html `<div class="search-result">
+     ${moto.length == 0 ? html`
+     <h2 class="no-avaliable">No result.</h2>`
+ : moto.map(m => html `
+                <div class="motorcycle">
+                 <img src="${m.imageUrl}" alt="example1" />
+                 <h3 class="model">${m.model}</h3>
+                 <a class="details-btn" href="/details/${m._id}">More Info</a>
+                </div>`)
+}
+
+  </div>` : nothing } 
+        </section>`
 }

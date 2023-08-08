@@ -19,3 +19,7 @@ export async function createMotorcyclePost(data) {
 export async function editMotorcyclePost(id, data) {
     return put('/data/motorcycles/' + id, data)
 }
+
+export async function search(query) {
+    return get(`/data/motorcycles?where=model%20LIKE%20%22${query}%22`);
+  }
