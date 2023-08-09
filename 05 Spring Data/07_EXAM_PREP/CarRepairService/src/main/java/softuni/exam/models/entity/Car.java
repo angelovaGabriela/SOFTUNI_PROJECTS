@@ -13,25 +13,24 @@ public class Car extends BaseEntity {
     private CarEnum carType;
 
     @Column(name = "car_make", nullable = false)
-   // @Size(min = 2, max = 30)
     private String carMake;
 
     @Column(name = "car_model", nullable = false)
-    //@Size(min = 2, max = 30)
+
     private String carModel;
 
-    //@Positive
+
     private int year;
 
     @Column(name = "plate_number", nullable = false, unique = true)
-    //@Size(min = 2, max = 30)
+
     private String plateNumber;
 
-    //@Positive
+
     private int kilometers;
 
     @Column(nullable = false)
-    //@Min(1)
+
     private double engine;
 
     @OneToMany(targetEntity = Task.class, mappedBy = "cars")
