@@ -4,8 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softuni.exam.models.dto.task.ImportTasksDTO;
-import softuni.exam.repository.TaskRepository;
-import softuni.exam.service.TaskService;
+import softuni.exam.repository.TasksRepository;
+import softuni.exam.service.TasksService;
 
 import javax.validation.Validator;
 import javax.xml.bind.JAXBContext;
@@ -16,19 +16,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @Service
-public class TaskServiceImpl implements TaskService {
+public class TasksServiceImpl implements TasksService {
     private static final Path TASKS_FILE_PATH = Path.of("src", "main", "resources", "files", "xml", "tasks.xml");;
 
-    private final TaskRepository taskRepository;
+    private final TasksRepository tasksRepository;
     private final ModelMapper modelMapper;
     private final Unmarshaller unmarshaller;
     private final Validator validator;
 
     @Autowired
-    public TaskServiceImpl(TaskRepository taskRepository,
-                           ModelMapper modelMapper,
-                           Validator validator) throws JAXBException {
-        this.taskRepository = taskRepository;
+    public TasksServiceImpl(TasksRepository tasksRepository,
+                            ModelMapper modelMapper,
+                            Validator validator) throws JAXBException {
+        this.tasksRepository = tasksRepository;
         this.modelMapper = modelMapper;
         this.validator = validator;
 
@@ -40,7 +40,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public boolean areImported() {
-        return this.taskRepository.count() > 0;
+        return this.tasksRepository.count() > 0;
     }
 
     @Override

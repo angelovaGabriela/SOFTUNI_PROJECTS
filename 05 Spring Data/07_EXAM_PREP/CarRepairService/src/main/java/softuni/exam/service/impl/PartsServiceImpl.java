@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import softuni.exam.repository.PartRepository;
+import softuni.exam.repository.PartsRepository;
 import softuni.exam.service.PartService;
 
 import javax.validation.Validator;
@@ -13,10 +13,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @Service
-public class PartServiceImpl implements PartService {
-    private final static Path path = Path.of("src", "main", "resources", "files", "json", "parts.json");
+public class PartsServiceImpl implements PartService {
+    private static final Path path = Path.of("src", "main", "resources", "files", "json", "parts.json");
 
-    private final PartRepository partRepository;
+    private final PartsRepository partsRepository;
     private final Gson gson;
     private final ModelMapper modelMapper;
 
@@ -24,11 +24,11 @@ public class PartServiceImpl implements PartService {
     private final Validator validator;
 
     @Autowired
-    public PartServiceImpl(PartRepository partRepository,
-                           Gson gson,
-                           ModelMapper modelMapper,
-                           Validator validator) {
-    this.partRepository = partRepository;
+    public PartsServiceImpl(PartsRepository partsRepository,
+                            Gson gson,
+                            ModelMapper modelMapper,
+                            Validator validator) {
+    this.partsRepository = partsRepository;
 
         this.gson = gson;
         this.modelMapper = modelMapper;
@@ -37,7 +37,7 @@ public class PartServiceImpl implements PartService {
 
     @Override
     public boolean areImported() {
-        return this.partRepository.count() > 0;
+        return this.partsRepository.count() > 0;
     }
 
     @Override

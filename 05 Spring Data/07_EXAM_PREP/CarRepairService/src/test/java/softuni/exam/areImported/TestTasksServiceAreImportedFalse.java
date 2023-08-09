@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import softuni.exam.repository.TasksRepository;
-import softuni.exam.service.TasksService;
 import softuni.exam.service.impl.TasksServiceImpl;
 
 @ExtendWith(MockitoExtension.class)

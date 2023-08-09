@@ -71,6 +71,10 @@ public class CarImportDTO {
     public CarEnum getCarType() {
         return carType;
     }
+
+    public String getPlateNumber() {
+        return plateNumber;
+    }
 }
 
 

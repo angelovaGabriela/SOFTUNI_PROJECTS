@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import softuni.exam.repository.MechanicRepository;
+import softuni.exam.repository.MechanicsRepository;
 import softuni.exam.service.MechanicService;
 
 import javax.validation.Validator;
@@ -13,21 +13,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @Service
-public class MechanicServiceImpl implements MechanicService {
-    private final static Path path = Path.of("src", "main", "resources", "files", "json", "mechanics.json");
+public class MechanicsServiceImpl implements MechanicService {
+    private  static final Path path = Path.of("src", "main", "resources", "files", "json", "mechanics.json");
 
-    private final MechanicRepository mechanicRepository;
+    private final MechanicsRepository mechanicsRepository;
     private final Gson gson;
     private final ModelMapper modelMapper;
     private final Validator validator;
 
     @Autowired
-    public MechanicServiceImpl(MechanicRepository mechanicRepository,
-                               Gson gson,
-                               ModelMapper modelMapper,
-                               Validator validator) {
+    public MechanicsServiceImpl(MechanicsRepository mechanicsRepository,
+                                Gson gson,
+                                ModelMapper modelMapper,
+                                Validator validator) {
 
-        this.mechanicRepository = mechanicRepository;
+        this.mechanicsRepository = mechanicsRepository;
         this.gson = gson;
         this.modelMapper = modelMapper;
         this.validator = validator;
@@ -35,7 +35,7 @@ public class MechanicServiceImpl implements MechanicService {
 
     @Override
     public boolean areImported() {
-        return this.mechanicRepository.count() > 0;
+        return this.mechanicsRepository.count() > 0;
     }
 
     @Override

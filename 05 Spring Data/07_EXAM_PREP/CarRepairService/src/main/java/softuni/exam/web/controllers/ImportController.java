@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import softuni.exam.service.PartService;
-import softuni.exam.service.TaskService;
+import softuni.exam.service.TasksService;
 import softuni.exam.service.MechanicService;
 import softuni.exam.service.CarService;
 
@@ -20,14 +20,14 @@ import java.io.IOException;
 public class ImportController extends BaseController {
 
     private final PartService partService;
-    private final TaskService taskService;
+    private final TasksService tasksService;
     private final MechanicService mechanicService;
     private final CarService carService;
 
     @Autowired
-    public ImportController(PartService partService, TaskService taskService, MechanicService mechanicService, CarService carService) {
+    public ImportController(PartService partService, TasksService tasksService, MechanicService mechanicService, CarService carService) {
         this.partService = partService;
-        this.taskService = taskService;
+        this.tasksService = tasksService;
         this.mechanicService = mechanicService;
         this.carService = carService;
     }
@@ -49,7 +49,7 @@ public class ImportController extends BaseController {
     public ModelAndView importXml() {
         boolean[] areImported = new boolean[]{
                 this.carService.areImported(),
-                this.taskService.areImported()
+                this.tasksService.areImported()
         };
 
         return super.view("xml/import-xml", "areImported", areImported);
@@ -71,14 +71,14 @@ public class ImportController extends BaseController {
 
     @GetMapping("/tasks")
     public ModelAndView importTasks() throws IOException {
-        String tasksXmlFileContent = this.taskService.readTasksFileContent();
+        String tasksXmlFileContent = this.tasksService.readTasksFileContent();
 
         return super.view("xml/import-tasks", "tasks", tasksXmlFileContent);
     }
 
     @PostMapping("/tasks")
     public ModelAndView importTasksConfirm() throws JAXBException, FileNotFoundException, IOException {
-        System.out.println(this.taskService.importTasks());
+        System.out.println(this.tasksService.importTasks());
 
         return super.redirect("/import/xml");
     }
