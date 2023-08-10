@@ -33,9 +33,6 @@ public class Car extends BaseEntity {
 
     private double engine;
 
-    @OneToMany(targetEntity = Task.class, mappedBy = "cars")
-    private Set<Task> tasks;
-
     public Car() {}
 
     public CarEnum getCarType() {
@@ -94,11 +91,4 @@ public class Car extends BaseEntity {
         this.engine = engine;
     }
 
-    public Set<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
-    }
 }

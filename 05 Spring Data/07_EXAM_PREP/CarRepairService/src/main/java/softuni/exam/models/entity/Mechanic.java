@@ -12,10 +12,10 @@ import java.util.Set;
 public class Mechanic extends BaseEntity {
 
     @Column(name = "first_name", nullable = false, unique = true)
-    //@Size(min = 2)
+
     private String firstName;
     @Column(name = "last_name", nullable = false)
-    //@Size(min = 2)
+
     private String lastName;
 
     @Column(nullable = false, unique = true)
@@ -23,11 +23,9 @@ public class Mechanic extends BaseEntity {
     private String email;
 
     @Column(unique = true)
-    //@Size(min = 2)
     private String phone;
 
-    @OneToMany(targetEntity = Task.class, mappedBy = "mechanic")
-    private Set<Task> tasks;
+
 
     public Mechanic() {}
 
@@ -63,11 +61,5 @@ public class Mechanic extends BaseEntity {
         this.phone = phone;
     }
 
-    public Set<Task> getTasks() {
-        return tasks;
-    }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
-    }
 }

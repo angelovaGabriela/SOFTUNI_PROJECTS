@@ -66,4 +66,20 @@ public class Task extends BaseEntity {
         this.cars = cars;
     }
 
+    @Override
+    public String toString() {
+        String FORMAT = "Car %s %s with %dkm\n" +
+                "-Mechanic: %s %s - task №%d:\n" +
+                "--Engine: %.2f\n" +
+                "---Price: %.2f\n";
+        return String.format(FORMAT,
+                this.getCars().getCarMake(),
+                this.getCars().getCarModel(),
+                this.getCars().getKilometers(),
+                this.getMechanic().getFirstName(),
+                this.getMechanic().getLastName(),
+                this.getId(),
+                this.getCars().getEngine(),
+                this.getPrice());
+    }
 }

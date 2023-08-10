@@ -12,7 +12,7 @@ import java.util.Set;
 public class Part extends BaseEntity {
 
     @Column(name = "part_name", nullable = false, unique = true)
-    //@Size(min = 2, max = 19)
+
     private String partName;
 
     @Column(nullable = false)
@@ -23,9 +23,6 @@ public class Part extends BaseEntity {
     //@Positive
     private int quantity;
 
-
-    @OneToMany(targetEntity = Task.class, mappedBy = "parts")
-    private Set<Task> task;
 
     public Part() {}
 
@@ -54,11 +51,5 @@ public class Part extends BaseEntity {
         this.quantity = quantity;
     }
 
-    public Set<Task> getTask() {
-        return task;
-    }
 
-    public void setTask(Set<Task> task) {
-        this.task = task;
-    }
 }

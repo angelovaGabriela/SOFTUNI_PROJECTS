@@ -4,13 +4,20 @@ import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import softuni.exam.models.dto.mechanic.ImportMechanicsDTO;
+import softuni.exam.models.entity.Mechanic;
 import softuni.exam.repository.MechanicsRepository;
 import softuni.exam.service.MechanicService;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class MechanicsServiceImpl implements MechanicService {
@@ -45,6 +52,31 @@ public class MechanicsServiceImpl implements MechanicService {
 
     @Override
     public String importMechanics() throws IOException {
-        return null;
+        String json = this.readMechanicsFromFile();
+        ImportMechanicsDTO[] importMechanics = this.gson.fromJson(json, ImportMechanicsDTO[].class);
+
+        List<String> result = new ArrayList<>();
+        for (ImportMechanicsDTO importMechanic : importMechanics) {
+            Set<ConstraintViolation<ImportMechanicsDTO>> validationErrors =
+                    this.validator.validate(importMechanic);
+
+            if (validationErrors.isEmpty()) {
+             Optional<Mechanic> optionalMechanic = this.mechanicsRepository.findByEmail(importMechanic.getEmail());
+
+             if (optionalMechanic.isPresent()) {
+                 result.add("Invalid mechanic");
+             } else {
+                 Mechanic mechanic = this.modelMapper.map(importMechanic, Mechanic.class);
+                 this.mechanicsRepository.save(mechanic);
+
+                 String message = String.format("Successfully imported mechanic %s %s", mechanic.getFirstName(), mechanic.getLastName());
+                 result.add(message);
+             }
+            } else {
+                result.add("Invalid mechanic");
+            }
+        }
+
+        return String.join("\n", result);
     }
 }

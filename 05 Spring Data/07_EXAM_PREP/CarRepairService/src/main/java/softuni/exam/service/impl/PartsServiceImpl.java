@@ -4,13 +4,20 @@ import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import softuni.exam.models.dto.part.ImportPartsDTO;
+import softuni.exam.models.entity.Part;
 import softuni.exam.repository.PartsRepository;
 import softuni.exam.service.PartService;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PartsServiceImpl implements PartService {
@@ -47,6 +54,29 @@ public class PartsServiceImpl implements PartService {
 
     @Override
     public String importParts() throws IOException {
-        return null;
+
+        String json = this.readPartsFileContent();
+        ImportPartsDTO[] parts = this.gson.fromJson(json, ImportPartsDTO[].class);
+
+        List<String> result = new ArrayList<>();
+        for (ImportPartsDTO importPart : parts) {
+            Set<ConstraintViolation<ImportPartsDTO>> validationErrors = this.validator.validate(importPart);
+            if (validationErrors.isEmpty()) {
+                Optional<Part> optionalPart = this.partsRepository.findByPartName(importPart.getPartName());
+
+                if (optionalPart.isPresent()) {
+                    result.add("Invalid part");
+                } else {
+                    Part part = this.modelMapper.map(importPart, Part.class);
+                    this.partsRepository.save(part);
+
+                    String message = String.format("Successfully imported part %s - %.2f", part.getPartName(), part.getPrice());
+                    result.add(message);
+                }
+            } else {
+                result.add("Invalid part");
+            }
+        }
+        return String.join("\n", result);
     }
 }
