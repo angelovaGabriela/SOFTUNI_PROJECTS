@@ -21,7 +21,7 @@ import java.util.Set;
 
 @Service
 public class PartsServiceImpl implements PartService {
-    private static final String path = "src/main/resources/files/json/parts.json";
+    private static final String PARTS_FILE_PATH = "src/main/resources/files/json/parts.json";
 
 
     private final PartsRepository partsRepository;
@@ -50,7 +50,7 @@ public class PartsServiceImpl implements PartService {
 
     @Override
     public String readPartsFileContent() throws IOException {
-        return Files.readString(Path.of(path));
+        return Files.readString(Path.of(PARTS_FILE_PATH));
     }
 
     @Override
