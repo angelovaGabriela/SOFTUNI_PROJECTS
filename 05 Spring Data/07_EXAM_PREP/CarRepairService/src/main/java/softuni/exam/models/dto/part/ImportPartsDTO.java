@@ -14,10 +14,10 @@ public class ImportPartsDTO {
     @Column(nullable = false)
     @Min(10)
     @Max(2000)
-    private double price;
+    private Double price;
 
     @Positive
-    private int quantity;
+    private Integer quantity;
 
     public ImportPartsDTO() {}
 
@@ -25,11 +25,12 @@ public class ImportPartsDTO {
         return partName;
     }
 
-    public double getPrice() {
+
+    public Double getPrice() {
         return price;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 }

@@ -70,8 +70,8 @@ public class Task extends BaseEntity {
     public String toString() {
         String FORMAT = "Car %s %s with %dkm\n" +
                 "-Mechanic: %s %s - task №%d:\n" +
-                "--Engine: %.2f\n" +
-                "---Price: %.2f\n";
+                "--Engine: %.1f\n" +
+                "---Price: %.2f$\n";
         return String.format(FORMAT,
                 this.getCars().getCarMake(),
                 this.getCars().getCarModel(),

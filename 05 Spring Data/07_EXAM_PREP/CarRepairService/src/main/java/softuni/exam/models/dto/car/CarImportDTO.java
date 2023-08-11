@@ -26,7 +26,7 @@ public class CarImportDTO {
     @NotNull
     @Positive
     @XmlElement
-    private int year;
+    private Integer year;
 
 
     @NotNull
@@ -37,12 +37,12 @@ public class CarImportDTO {
     @NotNull
     @Positive
     @XmlElement
-    private int kilometers;
+    private Integer kilometers;
 
     @NotNull
     @Min(1)
     @XmlElement
-    private double engine;
+    private Double engine;
 
     @NotNull
     @XmlElement
@@ -56,24 +56,24 @@ public class CarImportDTO {
         return carModel;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public int getKilometers() {
+    public String getPlateNumber() {
+        return plateNumber;
+    }
+
+    public Integer getKilometers() {
         return kilometers;
     }
 
-    public double getEngine() {
+    public Double getEngine() {
         return engine;
     }
 
     public CarEnum getCarType() {
         return carType;
-    }
-
-    public String getPlateNumber() {
-        return plateNumber;
     }
 }
 

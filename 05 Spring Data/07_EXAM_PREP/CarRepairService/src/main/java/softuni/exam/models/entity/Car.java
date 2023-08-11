@@ -20,18 +20,19 @@ public class Car extends BaseEntity {
     private String carModel;
 
 
-    private int year;
+    @Column(nullable = false)
+    private Integer year;
 
     @Column(name = "plate_number", nullable = false, unique = true)
 
     private String plateNumber;
 
-
-    private int kilometers;
+    @Column(nullable = false)
+    private Integer kilometers;
 
     @Column(nullable = false)
 
-    private double engine;
+    private Double engine;
 
     public Car() {}
 
@@ -59,11 +60,11 @@ public class Car extends BaseEntity {
         this.carModel = carModel;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -75,20 +76,19 @@ public class Car extends BaseEntity {
         this.plateNumber = plateNumber;
     }
 
-    public int getKilometers() {
+    public Integer getKilometers() {
         return kilometers;
     }
 
-    public void setKilometers(int kilometers) {
+    public void setKilometers(Integer kilometers) {
         this.kilometers = kilometers;
     }
 
-    public double getEngine() {
+    public Double getEngine() {
         return engine;
     }
 
-    public void setEngine(double engine) {
+    public void setEngine(Double engine) {
         this.engine = engine;
     }
-
 }

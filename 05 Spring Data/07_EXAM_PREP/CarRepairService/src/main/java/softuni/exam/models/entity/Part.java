@@ -18,10 +18,11 @@ public class Part extends BaseEntity {
     @Column(nullable = false)
     //@Min(10)
     //@Max(2000)
-    private double price;
+    private Double price;
 
+    @Column(nullable = false)
     //@Positive
-    private int quantity;
+    private Integer quantity;
 
 
     public Part() {}
@@ -35,21 +36,19 @@ public class Part extends BaseEntity {
         this.partName = partName;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
-
-
 }
