@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TasksServiceImpl implements TasksService {
-    private static final Path TASKS_FILE_PATH = Path.of("src", "main", "resources", "files", "xml", "tasks.xml");;
+    private static final String TASKS_FILE_PATH = "src/main/resources/files/xml/tasks.xml";
 
     private final TasksRepository tasksRepository;
     private final MechanicsRepository mechanicsRepository;
@@ -65,13 +65,13 @@ public class TasksServiceImpl implements TasksService {
 
     @Override
     public String readTasksFileContent() throws IOException {
-        return Files.readString(TASKS_FILE_PATH);
+        return Files.readString(Path.of(TASKS_FILE_PATH));
     }
 
     @Override
     public String importTasks() throws IOException, JAXBException {
 
-        ImportTasksDTO importTasksDTO = (ImportTasksDTO) this.unmarshaller.unmarshal(new FileReader(TASKS_FILE_PATH.toAbsolutePath().toString()));
+        ImportTasksDTO importTasksDTO = (ImportTasksDTO) this.unmarshaller.unmarshal(new FileReader(TASKS_FILE_PATH));
 
         List<String> result = new ArrayList<>();
 

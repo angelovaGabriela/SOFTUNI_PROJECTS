@@ -21,7 +21,8 @@ import java.util.Set;
 
 @Service
 public class MechanicsServiceImpl implements MechanicService {
-    private  static final Path path = Path.of("src", "main", "resources", "files", "json", "mechanics.json");
+
+    private static final String path = "src/main/resources/files/json/mechanics.json";
 
     private final MechanicsRepository mechanicsRepository;
     private final Gson gson;
@@ -47,7 +48,7 @@ public class MechanicsServiceImpl implements MechanicService {
 
     @Override
     public String readMechanicsFromFile() throws IOException {
-        return Files.readString(path);
+        return Files.readString(Path.of(path));
     }
 
     @Override

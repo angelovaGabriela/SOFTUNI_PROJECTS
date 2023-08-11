@@ -26,7 +26,7 @@ import java.util.Set;
 
 @Service
 public class CarsServiceImpl implements CarService {
-    private static final Path CARS_FILE_PATH = Path.of("src", "main", "resources", "files", "xml", "cars.xml");
+ private static final String CARS_FILE_PATH = "src/main/resources/files/xml/cars.xml";
 
     private final CarsRepository carsRepository;
 
@@ -54,12 +54,12 @@ public class CarsServiceImpl implements CarService {
 
     @Override
     public String readCarsFromFile() throws IOException {
-       return Files.readString(CARS_FILE_PATH);
+       return Files.readString(Path.of(CARS_FILE_PATH));
     }
 
     @Override
     public String importCars() throws IOException, JAXBException {
-        ImportCarsDTO importCarsDTO = (ImportCarsDTO) this.unmarshaller.unmarshal(new FileReader(CARS_FILE_PATH.toAbsolutePath().toString()));
+        ImportCarsDTO importCarsDTO = (ImportCarsDTO) this.unmarshaller.unmarshal(new FileReader(CARS_FILE_PATH));
         List<String> result = new ArrayList<>();
 
 
