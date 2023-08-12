@@ -3,8 +3,8 @@ package softuni.exam.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import softuni.exam.models.dto.task.ImportTasksDTO;
-import softuni.exam.models.dto.task.TaskImportDTO;
+import softuni.exam.models.dto.ImportTasksDTO;
+import softuni.exam.models.dto.TaskImportDTO;
 import softuni.exam.models.entity.*;
 import softuni.exam.repository.CarsRepository;
 import softuni.exam.repository.MechanicsRepository;
@@ -71,9 +71,9 @@ public class TasksServiceImpl implements TasksService {
     @Override
     public String importTasks() throws IOException, JAXBException {
 
-        ImportTasksDTO importTasksDTO = (ImportTasksDTO) this.unmarshaller.unmarshal(new FileReader(TASKS_FILE_PATH));
+      final ImportTasksDTO importTasksDTO = (ImportTasksDTO) this.unmarshaller.unmarshal(new FileReader(TASKS_FILE_PATH));
 
-        List<String> result = new ArrayList<>();
+        final List<String> result = new ArrayList<>();
 
         for (TaskImportDTO taskImportDTO : importTasksDTO.getTasks())  {
             Set<ConstraintViolation<TaskImportDTO>> validationErrors = this.validator.validate(taskImportDTO);
@@ -83,7 +83,7 @@ public class TasksServiceImpl implements TasksService {
                 if (optionalTask.isPresent()) {
                     result.add("Invalid task");
                 } else {
-                    Task task = this.modelMapper.map(taskImportDTO, Task.class);
+
                     Optional<Car> car = this.carsRepository.findById(taskImportDTO.getCars().getId());
                     Optional<Part> part = this.partsRepository.findById(taskImportDTO.getParts().getId());
                     Optional<Mechanic> mechanic = this.mechanicsRepository.findByFirstName(taskImportDTO.getMechanic().getFirstName());
@@ -93,6 +93,7 @@ public class TasksServiceImpl implements TasksService {
                         result.add("Invalid task");
                         continue;
                     }
+                    final Task task = this.modelMapper.map(taskImportDTO, Task.class);
 
                     task.setCars(car.get());
                     task.setParts(part.get());

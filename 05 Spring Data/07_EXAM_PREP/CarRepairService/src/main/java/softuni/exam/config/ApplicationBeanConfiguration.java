@@ -19,7 +19,7 @@ public class ApplicationBeanConfiguration {
 
     @Bean
     public Gson gson() {
-        return new GsonBuilder().create();
+        return new GsonBuilder().setPrettyPrinting().create();
     }
 
     @Bean
@@ -30,23 +30,24 @@ public class ApplicationBeanConfiguration {
     @Bean
     public ModelMapper modelMapper() {
 
-        ModelMapper modelMapper = new ModelMapper();
-
-        modelMapper.addConverter(new Converter<String, LocalDate>() {
-            @Override
-            public LocalDate convert(MappingContext<String, LocalDate> mappingContext) {
-
-                return LocalDate.parse(mappingContext.getSource(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            }
-        });
-
-        modelMapper.addConverter(new Converter<String, LocalDateTime>() {
-            @Override
-            public LocalDateTime convert(MappingContext<String, LocalDateTime> mappingContext) {
-
-                return LocalDateTime.parse(mappingContext.getSource(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            }
-        });
-        return modelMapper;
+        return new ModelMapper();
+//        ModelMapper modelMapper = new ModelMapper();
+//
+//        modelMapper.addConverter(new Converter<String, LocalDate>() {
+//            @Override
+//            public LocalDate convert(MappingContext<String, LocalDate> mappingContext) {
+//
+//                return LocalDate.parse(mappingContext.getSource(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+//            }
+//        });
+//
+//        modelMapper.addConverter(new Converter<String, LocalDateTime>() {
+//            @Override
+//            public LocalDateTime convert(MappingContext<String, LocalDateTime> mappingContext) {
+//
+//                return LocalDateTime.parse(mappingContext.getSource(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//            }
+//        });
+//        return modelMapper;
     }
 }

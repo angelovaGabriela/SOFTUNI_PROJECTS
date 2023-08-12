@@ -6,13 +6,13 @@
                     <h1 class="myBackgroundColor">Import Mechanics</h1>
                 </div>
                  <hr class="hr-background my-hr"/>
-                <form th:action="@{/import/mechanic}" method="post">
+                <form th:action="@{/import/mechanics}" method="post">
                     <div class="col-md-12 d-flex justify-content-center">
                         <label for="employees-textarea">Mechanics:</label>
                     </div>
                     <div class="col-md-12 d-flex justify-content-center">
                         <div class="col-md-8 d-flex justify-content-center">
-                            <textarea class="form-control" id="employees-textarea" rows="10" th:text="${mechanic}" name="mechanic" readonly></textarea>
+                            <textarea class="form-control" id="employees-textarea" rows="10" th:text="${mechanics}" name="mechanics" readonly></textarea>
                         </div>
                     </div>
                     <div class="col-md-12 d-flex justify-content-center">

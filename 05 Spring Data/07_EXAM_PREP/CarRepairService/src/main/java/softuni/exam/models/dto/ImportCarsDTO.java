@@ -1,5 +1,7 @@
-package softuni.exam.models.dto.car;
+package softuni.exam.models.dto;
 
+
+import softuni.exam.models.dto.CarImportDTO;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,7 +14,7 @@ import java.util.List;
 public class ImportCarsDTO {
 
 
-@XmlElement(name = "cars")
+@XmlElement(name = "car")
 private List<CarImportDTO> cars;
 
 

@@ -4,8 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import softuni.exam.models.dto.car.CarImportDTO;
-import softuni.exam.models.dto.car.ImportCarsDTO;
+import softuni.exam.models.dto.CarImportDTO;
+import softuni.exam.models.dto.ImportCarsDTO;
 import softuni.exam.models.entity.Car;
 import softuni.exam.repository.CarsRepository;
 import softuni.exam.service.CarService;

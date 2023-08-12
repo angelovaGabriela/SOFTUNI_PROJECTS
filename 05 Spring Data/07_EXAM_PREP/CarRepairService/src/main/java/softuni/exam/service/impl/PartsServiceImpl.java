@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import softuni.exam.models.dto.part.ImportPartsDTO;
+import softuni.exam.models.dto.ImportPartsDTO;
 import softuni.exam.models.entity.Part;
 import softuni.exam.repository.PartsRepository;
 import softuni.exam.service.PartService;

@@ -1,15 +1,14 @@
-package softuni.exam.models.dto.car;
+package softuni.exam.models.dto;
 
 import softuni.exam.models.entity.CarEnum;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "car")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CarImportDTO {
 
@@ -40,7 +39,7 @@ public class CarImportDTO {
     private Integer kilometers;
 
     @NotNull
-    @Min(1)
+    @DecimalMin(value = "1.00")
     @XmlElement
     private Double engine;
 

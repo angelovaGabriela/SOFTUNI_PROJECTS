@@ -2,7 +2,7 @@ package softuni.exam.models.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Entity
@@ -13,8 +13,10 @@ public class Task extends BaseEntity {
     private BigDecimal price;
 
     //yyyy-MM-dd HH:mm:ss" format
+//    @Column(nullable = false)
+//    private LocalDateTime date;
     @Column(nullable = false)
-    private LocalDateTime date;
+    private Date date;
 
     @ManyToOne
     private Part parts;
@@ -34,11 +36,19 @@ public class Task extends BaseEntity {
         this.price = price;
     }
 
-    public LocalDateTime getDate() {
+//    public LocalDateTime getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(LocalDateTime date) {
+//        this.date = date;
+//    }
+
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

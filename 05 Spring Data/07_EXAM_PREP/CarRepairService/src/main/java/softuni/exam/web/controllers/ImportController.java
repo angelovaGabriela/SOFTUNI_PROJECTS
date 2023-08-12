@@ -96,14 +96,14 @@ public class ImportController extends BaseController {
         return super.redirect("/import/json");
     }
 
-    @GetMapping("/mechanic")
+    @GetMapping("/mechanics")
     public ModelAndView importMechanics() throws IOException {
         String fileContent = this.mechanicService.readMechanicsFromFile();
 
         return super.view("json/import-mechanics", "mechanics", fileContent);
     }
 
-    @PostMapping("/mechanic")
+    @PostMapping("/mechanics")
     public ModelAndView importMechanicsConfirm() throws IOException, JAXBException {
         System.out.println(this.mechanicService.importMechanics());
         return super.redirect("/import/json");
