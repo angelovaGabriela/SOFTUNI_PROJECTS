@@ -143,3 +143,10 @@ public class Player {
                 this.team.getStadiumName());
     }
 }
+//"Book title: {bookTitle}
+//
+//"*Book author: {bookAuthor}
+//
+//"**Date borrowed: {dateBorrowed}
+//
+//"***Borrowed by: {firstName} {lastNam
