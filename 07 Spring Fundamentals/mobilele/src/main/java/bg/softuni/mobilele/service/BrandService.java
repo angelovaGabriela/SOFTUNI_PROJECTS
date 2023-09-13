@@ -1,9 +1,9 @@
 package bg.softuni.mobilele.service;
 
-import bg.softuni.mobilele.model.BrandEntity;
-import bg.softuni.mobilele.model.DTO.BrandDTO;
-import bg.softuni.mobilele.model.DTO.ModelDTO;
-import bg.softuni.mobilele.model.ModelEntity;
+import bg.softuni.mobilele.model.entity.BrandEntity;
+import bg.softuni.mobilele.model.dto.brand.BrandDTO;
+import bg.softuni.mobilele.model.dto.model.ModelDTO;
+import bg.softuni.mobilele.model.entity.ModelEntity;
 import bg.softuni.mobilele.repository.BrandRepository;
 import org.springframework.stereotype.Service;
 

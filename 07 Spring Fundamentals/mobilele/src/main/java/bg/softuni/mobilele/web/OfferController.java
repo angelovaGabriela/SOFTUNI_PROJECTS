@@ -1,12 +1,15 @@
 package bg.softuni.mobilele.web;
 
-import bg.softuni.mobilele.model.DTO.AddOfferDTO;
+import bg.softuni.mobilele.model.dto.offer.AddOfferDTO;
+import bg.softuni.mobilele.model.dto.search.SearchOfferDTO;
 import bg.softuni.mobilele.service.BrandService;
 import bg.softuni.mobilele.service.OfferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -52,12 +55,45 @@ public class OfferController {
                     bindingResult);
             return "redirect:/offers/add";
         }
-
+//TODO
         offerService.addOffer(addOfferModel);
 
 
         return "redirect:/offers/all";
 
     }
+
+    @GetMapping("/offers/search")
+    public String searchOffer() {
+        return "offer-search";
+    }
+
+    @PostMapping("/offers/search")
+    public String searchQuery(@Valid SearchOfferDTO searchOfferDTO,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("searchOfferModel", searchOfferDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.searchOfferModel", bindingResult);
+
+            return "redirect:/offers/search";
+        }
+        return String.format("redirect:/offers/search/%s", searchOfferDTO.getQuery());
+    }
+
+    @GetMapping("offers/search/{query}")
+    public String searchResults(@PathVariable String query, Model model) {
+
+        model.addAttribute("offers", this.offerService.findOfferByOfferName(query));
+        return "offer-search";
+    }
+
+    @ModelAttribute(name = "searchOfferModel")
+    private SearchOfferDTO initSearchModel() {
+        return new SearchOfferDTO();
+    }
+
+
 
 }

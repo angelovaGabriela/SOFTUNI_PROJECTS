@@ -1,4 +1,4 @@
-package bg.softuni.mobilele.model;
+package bg.softuni.mobilele.model.entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

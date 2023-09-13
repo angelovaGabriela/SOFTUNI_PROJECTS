@@ -1,10 +1,10 @@
 package bg.softuni.mobilele.service;
 
-import bg.softuni.mobilele.model.DTO.AddOfferDTO;
-import bg.softuni.mobilele.model.DTO.BrandDTO;
-import bg.softuni.mobilele.model.ModelEntity;
-import bg.softuni.mobilele.model.OfferEntity;
-import bg.softuni.mobilele.model.UserEntity;
+import bg.softuni.mobilele.model.dto.offer.AddOfferDTO;
+import bg.softuni.mobilele.model.dto.offer.CardListingOfferDTO;
+import bg.softuni.mobilele.model.entity.ModelEntity;
+import bg.softuni.mobilele.model.entity.OfferEntity;
+import bg.softuni.mobilele.model.entity.UserEntity;
 import bg.softuni.mobilele.model.mapper.OfferMapper;
 import bg.softuni.mobilele.repository.ModelRepository;
 import bg.softuni.mobilele.repository.OfferRepository;
@@ -13,15 +13,16 @@ import bg.softuni.mobilele.user.CurrentUser;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OfferService {
 
-    private OfferRepository offerRepository;
-    private OfferMapper offerMapper;
-    private UserRepository userRepository;
-    private CurrentUser currentUser;
-    private ModelRepository modelRepository;
+    private final OfferRepository offerRepository;
+    private final OfferMapper offerMapper;
+    private final UserRepository userRepository;
+    private final CurrentUser currentUser;
+    private final ModelRepository modelRepository;
 
     public OfferService(OfferRepository offerRepository,
                         OfferMapper offerMapper,
@@ -51,6 +52,16 @@ public class OfferService {
         newOffer.setSeller(seller);
 
         offerRepository.save(newOffer);
+
+    }
+
+    public List<CardListingOfferDTO> findOfferByOfferName(String query) {
+
+            return this.offerRepository
+                    .findAllByModel_NameContains(query)
+                    .stream()
+                    .map(offerMapper::offerEntityToCardListingOfferDTO)
+                    .collect(Collectors.toList());
 
     }
 
