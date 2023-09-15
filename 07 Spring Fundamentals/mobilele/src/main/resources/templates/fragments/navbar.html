@@ -51,12 +51,16 @@
                 </li>
                 <th:block sec:authorize="isAuthenticated()">
                 <li class="nav-item">
-                    <div class="form-inline my-2 my-lg-0 border px-3">
-                        <div class="logged-user"
-                             text="Welcome, Gosho"></div>
-                        <a class="nav-link" th:href="@{/users/logout}">Logout</a>
+                    <div class="form-check-inline my-2 my-lg-0 px-3">
+                        <div class="text-white">Welcome, <th:block sec:authentication="name">X</th:block> !</div>
+                        <form th:action="@{users/logout}" th:method="post">
+                            <input class="btn btn-link nav-link" type="submit" value="Logout">
+                        </form>
+
                     </div>
                 </li>
+
+
                 </th:block>
                 <th:block sec:authorize="!isAuthenticated()">
                 <li class="nav-item">

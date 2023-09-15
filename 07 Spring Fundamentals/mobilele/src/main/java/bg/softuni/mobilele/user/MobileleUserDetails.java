@@ -34,6 +34,21 @@ public class MobileleUserDetails implements UserDetails {
         return lastName;
     }
 
+    public String getFullName() {
+        StringBuilder fullName = new StringBuilder();
+        if (getFirstName() != null) {
+            fullName.append(getFirstName());
+        }
+        if (getLastName() != null) {
+            if (fullName.length() != 0) {
+                fullName.append(" ");
+            }
+            fullName.append(getLastName());
+        }
+
+        return fullName.toString();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
@@ -41,12 +56,12 @@ public class MobileleUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override
