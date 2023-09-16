@@ -2,6 +2,7 @@ package bg.softuni.mobilele.model.entity;
 
 import bg.softuni.mobilele.model.enums.EngineEnum;
 import bg.softuni.mobilele.model.enums.TransmissionEnum;
+import com.sun.istack.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -29,7 +30,8 @@ public class OfferEntity {
 
     private String imageUrl;
 
-    private int mileAge;
+    @Column(nullable = false)
+    private Integer mileage;
 
     @Column(nullable = false)
     private String description;
@@ -41,7 +43,8 @@ public class OfferEntity {
     @Column(nullable = false)
     private TransmissionEnum transmission;
 
-    private int year;
+    @Column(nullable = false)
+    private Integer year;
 
     @ManyToOne
     private ModelEntity model;
@@ -49,8 +52,6 @@ public class OfferEntity {
     @ManyToOne
     private UserEntity seller;
     // много оферти могат да отидат при един user
-
-
 
 
     public UUID getId() {
@@ -78,12 +79,12 @@ public class OfferEntity {
         this.imageUrl = imageUrl;
     }
 
-    public int getMileAge() {
-        return mileAge;
+    public Integer getMileage() {
+        return mileage;
     }
 
-    public void setMileAge(int mileAge) {
-        this.mileAge = mileAge;
+    public void setMileage(Integer mileage) {
+        this.mileage = mileage;
     }
 
     public BigDecimal getPrice() {
@@ -102,11 +103,11 @@ public class OfferEntity {
         this.transmission = transmission;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -141,7 +142,7 @@ public class OfferEntity {
                 "id=" + id +
                 ", engine=" + engine +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", mileAge=" + mileAge +
+                ", mileAge=" + mileage +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", transmission=" + transmission +
