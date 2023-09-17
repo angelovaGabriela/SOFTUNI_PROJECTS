@@ -48,6 +48,7 @@ public class OfferService {
 
         offerRepository.save(newOffer);
 
+
     }
 
     public List<CardListingOfferDTO> findOfferByOfferName(String query) {

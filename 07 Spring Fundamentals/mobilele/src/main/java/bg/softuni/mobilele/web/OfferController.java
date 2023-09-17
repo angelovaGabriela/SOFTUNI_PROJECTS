@@ -58,7 +58,6 @@ public class OfferController {
                     bindingResult);
             return "redirect:/offers/add";
         }
-//TODO
         offerService.addOffer(addOfferModel, userDetails);
 
 
