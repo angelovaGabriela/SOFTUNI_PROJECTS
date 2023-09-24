@@ -57,3 +57,9 @@ form.main-form {
 .logged-user {
      color: white;
 }
+
+#lang {
+     margin: 13px;
+     font-size: small;
+     border-block-color: initial;
+}

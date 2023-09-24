@@ -27,18 +27,18 @@
             <ul class="navbar-nav mr-auto col-12 justify-content-between">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/offers/search">Search</a>
+                    <a class="nav-link" th:text="#{navbar_search}" href="/offers/search">Search</a>
                 </li>
 
                 <li class="nav-item"
                 >
-                    <a class="nav-link" href="/brands/all">All Brands</a>
+                    <a class="nav-link" th:text="#{navbar_all_brands}" href="/brands/all">All Brands</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/offers/add">Add Offer</a>
+                    <a class="nav-link" th:text="#{navbar_add_offer}"  href="/offers/add">Add Offer</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/offers/all">All Offers</a>
+                    <a class="nav-link" th:text="#{navbar_all_offers}" href="/offers/all">All Offers</a>
                 </li>
                 <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
@@ -56,7 +56,7 @@
                 <li class="nav-item">
                     <div class="form-check-inline my-2 my-lg-0 px-3">
                         <div class="text-white">Welcome, <th:block th:text="${#authentication.principal.fullName}">X</th:block> !</div>
-                        <form th:action="@{users/logout}" th:method="post">
+                        <form th:text="#{navbar_logout}" th:action="@{users/logout}" th:method="post">
                             <input class="btn btn-link nav-link" type="submit" value="Logout">
                         </form>
 
@@ -78,13 +78,12 @@
 
                 <li class="nav-item">
                     <form th:method="get">
-                        <label class="text-white" th:text="#{navbar_language}" for="lang"></label>
-                        <select
+                        <select class="bg-secondary"
                                 onchange="this.form.submit()"
                                 id="lang"
                                 name="lang">
-                            <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
-                            <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
+                            <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">EN</option>
+                            <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">BG</option>
                         </select>
                     </form>
                 </li>
