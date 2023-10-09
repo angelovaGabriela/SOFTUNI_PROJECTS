@@ -1,7 +1,7 @@
 package bg.softuni.mobilele.service;
 
 import bg.softuni.mobilele.model.dto.offer.AddOfferDTO;
-import bg.softuni.mobilele.model.dto.offer.CardListingOfferDTO;
+import bg.softuni.mobilele.model.dto.offer.OfferDetailDTO;
 import bg.softuni.mobilele.model.entity.ModelEntity;
 import bg.softuni.mobilele.model.entity.OfferEntity;
 import bg.softuni.mobilele.model.entity.UserEntity;
@@ -9,6 +9,8 @@ import bg.softuni.mobilele.model.mapper.OfferMapper;
 import bg.softuni.mobilele.repository.ModelRepository;
 import bg.softuni.mobilele.repository.OfferRepository;
 import bg.softuni.mobilele.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,11 @@ public class OfferService {
         this.modelRepository = modelRepository;
     }
 
+    public Page<OfferDetailDTO> getAllOffers(Pageable pageable) {
+      return   this.offerRepository
+                .findAll(pageable)
+                .map(offerMapper::offerEntityToCardListingOfferDTO);
+    }
     public void addOffer(AddOfferDTO addOfferDTO, UserDetails userDetails){
         OfferEntity newOffer = offerMapper
                 .addOfferDtoToOfferEntity(addOfferDTO);
@@ -51,7 +58,7 @@ public class OfferService {
 
     }
 
-    public List<CardListingOfferDTO> findOfferByOfferName(String query) {
+    public List<OfferDetailDTO> findOfferByOfferName(String query) {
 
         return this.offerRepository
                 .findAllByModel_NameContains(query)
