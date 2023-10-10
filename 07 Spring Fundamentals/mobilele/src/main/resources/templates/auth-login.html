@@ -19,13 +19,13 @@ xmlns:th="http//www.thymeleaf.org">
     <h2 class="text-center text-white">Login</h2>
     <form   th:action="@{/users/login}"
             th:method="post"
-            th:object="${userModel}"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
 
         <div class="form-group">
             <label for="username" class="text-white font-weight-bold">E-mail</label>
             <input
                    id="username"
+                   th:value="${username}"
                    name="username"
                    type="text"
                    min="2"
@@ -46,7 +46,7 @@ xmlns:th="http//www.thymeleaf.org">
 
         </div>
 
-        <p class="invalid-feedback errors alert alert-danger">
+        <p th:if="${bad_credentials}" class="errors alert alert-danger">
             Invalid username or password.
         </p>
 
