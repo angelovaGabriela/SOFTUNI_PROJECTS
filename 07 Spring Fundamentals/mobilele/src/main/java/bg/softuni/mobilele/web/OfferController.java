@@ -5,6 +5,7 @@ import bg.softuni.mobilele.model.dto.search.SearchOfferDTO;
 import bg.softuni.mobilele.service.BrandService;
 import bg.softuni.mobilele.service.OfferService;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +36,8 @@ public class OfferController {
     public String allOffers(
             Model model,
             @PageableDefault(
+                    sort = "price",
+                    direction = Sort.Direction.ASC,
                     page = 0,
                     size = 5)
             Pageable pageable) {
