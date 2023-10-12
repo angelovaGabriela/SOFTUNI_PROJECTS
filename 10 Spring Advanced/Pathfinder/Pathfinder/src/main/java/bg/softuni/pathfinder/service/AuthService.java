@@ -3,8 +3,8 @@ package bg.softuni.pathfinder.service;
 import bg.softuni.pathfinder.model.User;
 import bg.softuni.pathfinder.model.dto.UserRegistrationDTO;
 import bg.softuni.pathfinder.repository.UserRepository;
-import org.hibernate.usertype.UserVersionType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,11 +12,13 @@ import java.util.Optional;
 @Service
 public class AuthService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -33,7 +35,7 @@ public class AuthService {
 
         User user = new User(
             registrationDTO.getUsername(),
-            registrationDTO.getPassword(),
+            passwordEncoder.encode(registrationDTO.getPassword()),
             registrationDTO.getEmail(),
             registrationDTO.getFullname(),
             registrationDTO.getAge()
