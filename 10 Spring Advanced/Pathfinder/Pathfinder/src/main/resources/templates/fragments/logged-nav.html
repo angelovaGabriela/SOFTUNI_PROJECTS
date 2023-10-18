@@ -1,4 +1,4 @@
-<nav class="main-nav">
+ <nav class="main-nav">
     <ul>
         <li>
             <a href="/static">Add new route</a>
@@ -10,7 +10,9 @@
             <a href="/static">Admin</a>
         </li>
         <li>
-            <a href="/static">Logout</a>
+           <form th:action="@{/users/logout}" method="post">
+              <button type="submit">Logout</button>
+           </form>
         </li>
     </ul>
 </nav>
