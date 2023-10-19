@@ -1,18 +1,16 @@
- <nav class="main-nav">
+ <nav xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="main-nav">
     <ul>
         <li>
             <a href="/static">Add new route</a>
         </li>
         <li>
-            <a href="/static">Profile</a>
+            <a href="/users/profile">Profile</a>
         </li>
         <li>
-            <a href="/static">Admin</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/static">Admin</a>
         </li>
         <li>
-           <form th:action="@{/users/logout}" method="post">
-              <button type="submit">Logout</button>
-           </form>
+            <a href="/users/logout">Logout</a>
         </li>
     </ul>
 </nav>
