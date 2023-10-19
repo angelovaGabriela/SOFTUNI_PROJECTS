@@ -38,10 +38,12 @@ public class PathfinderSecurityConfiguration {
                 .logoutUrl("/users/logout")
                 .clearAuthentication(true)
                 .deleteCookies("JSESSIONID")
-                .and()
-                .csrf().disable();
+                .logoutSuccessUrl("/");
 
         return http.build();
+
+        // csrf enabled, implemented automatically from Spring
+        // How to set manually --> <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}}">
 
     }
 
