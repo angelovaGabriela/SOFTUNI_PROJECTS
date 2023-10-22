@@ -1,5 +1,7 @@
 package bg.softuni.pathfinder.model.views;
 
+import java.util.List;
+
 public class RouteIndexView {
 
     private Long id;
@@ -13,6 +15,8 @@ public class RouteIndexView {
         this.description = description;
         this.thumbnailUrl = thumbnailUrl;
     }
+
+
 
 
     public Long getId() {

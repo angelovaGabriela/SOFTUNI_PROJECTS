@@ -1,13 +1,12 @@
 package bg.softuni.pathfinder.web;
 
-import bg.softuni.pathfinder.model.Route;
+import bg.softuni.pathfinder.model.views.RouteDetailsView;
 import bg.softuni.pathfinder.model.views.RouteIndexView;
 import bg.softuni.pathfinder.service.RouteService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -31,6 +30,15 @@ public class RouteController {
 
         return "routes";
 
+    }
+
+    @GetMapping("/details/{id}")
+    public String getRoute(@PathVariable("id") Long routeId, Model model) {
+        RouteDetailsView route = routeService.getRoute(routeId);
+
+        model.addAttribute("route", route);
+
+        return "route-details";
     }
 
 }
