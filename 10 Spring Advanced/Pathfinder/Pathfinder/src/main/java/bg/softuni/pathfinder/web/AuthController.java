@@ -1,7 +1,7 @@
 package bg.softuni.pathfinder.web;
 
 import bg.softuni.pathfinder.model.User;
-import bg.softuni.pathfinder.model.UserProfileView;
+import bg.softuni.pathfinder.model.views.UserProfileView;
 import bg.softuni.pathfinder.model.dto.UserRegistrationDTO;
 import bg.softuni.pathfinder.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;

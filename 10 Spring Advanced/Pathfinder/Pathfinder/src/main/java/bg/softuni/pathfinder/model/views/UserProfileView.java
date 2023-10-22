@@ -1,4 +1,4 @@
-package bg.softuni.pathfinder.model;
+package bg.softuni.pathfinder.model.views;
 
 import bg.softuni.pathfinder.model.enums.Level;
 import java.util.Set;
