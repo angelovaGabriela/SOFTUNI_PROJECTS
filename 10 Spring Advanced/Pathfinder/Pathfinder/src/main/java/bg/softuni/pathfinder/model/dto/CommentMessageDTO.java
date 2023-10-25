@@ -4,6 +4,8 @@ public class CommentMessageDTO {
 
     private String message;
 
+    public CommentMessageDTO() {}
+
     public CommentMessageDTO(String message) {
         this.message = message;
     }
