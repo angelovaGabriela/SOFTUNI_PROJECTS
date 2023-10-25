@@ -39,7 +39,7 @@ public class CommentService {
             commentRepository.save(comment);
 
             return new CommentDisplayView(
-                    author.getFullName(), comment.getText());
+                    comment.getId(), author.getFullName(), comment.getText());
     }
 
 }
