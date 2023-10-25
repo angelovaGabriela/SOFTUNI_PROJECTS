@@ -38,3 +38,14 @@ async function handleFormSubmition(event) {
             return commentHtml;
 
         }
+        // GET request is a default request
+        fetch(`http://localhost:8080/api/${routeId}/comments`, {
+            headers: {
+                "Accepts": "application/json"
+            }
+        }).then(result => result.json())
+        .then(data => {
+            for(let comment of data) {
+                commentContainer.innerHTML += commentAsHtml(comment)
+            }
+        })
