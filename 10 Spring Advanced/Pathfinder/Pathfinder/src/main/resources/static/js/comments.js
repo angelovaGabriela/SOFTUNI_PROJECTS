@@ -17,7 +17,7 @@ async function handleFormSubmition(event) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Accepts': 'application/json',
+            'Accept': 'application/json',
             [csrfHeaderName]: csrfHeaderValue
         },
         body:JSON.stringify({
@@ -41,7 +41,7 @@ async function handleFormSubmition(event) {
         // GET request is a default request
         fetch(`http://localhost:8080/api/${routeId}/comments`, {
             headers: {
-                "Accepts": "application/json"
+                "Accept": "application/json"
             }
         }).then(result => result.json())
         .then(data => {
