@@ -8,6 +8,9 @@ const csrfHeaderValue = document.head.querySelector('[name=_csrf]').content
 
 const commentContainer = document.getElementById('commentCtnr');
 
+let allComments = [];
+let maxComments = 2;
+
 async function handleFormSubmition(event) {
     event.preventDefault();
 
@@ -25,12 +28,14 @@ async function handleFormSubmition(event) {
         })
     }).then(result => result.json())
         .then(data => {
+            allComments.push(data)
             document.getElementById('message').value = "";
-            commentContainer.innerHTML += commentAsHtml(data)
+           // commentContainer.innerHTML += commentAsHtml(data)
+            displayComments();
         });
     }
-        function commentAsHtml(comment) {
-            let commentHtml = '<div>\n'
+        function commentAsHtml(comment, visible, order) {
+            let commentHtml = `<div ${visible ? "" : style="display: none;"} id="${order}">\n` //TODO: to fix
             commentHtml += `<h4>${comment.authorName}</h4>\n`
             commentHtml += `<p>${comment.message}</p>\n`
             commentHtml += '</div>\n'
@@ -46,6 +51,48 @@ async function handleFormSubmition(event) {
         }).then(result => result.json())
         .then(data => {
             for(let comment of data) {
-                commentContainer.innerHTML += commentAsHtml(comment)
+                allComments.push(comment)
+              //  commentContainer.innerHTML += commentAsHtml(comment)
+                displayComments();
             }
         })
+
+        function displayComments() {
+            
+            commentContainer.innerHTML = "";
+
+            for(let i = 0; i < allComments.length; i++) {
+                if(i < maxComments) {
+                    commentContainer.innerHTML += commentAsHtml(allComments[i], true, i);
+                } else {
+                    commentContainer.innerHTML += commentAsHtml(allComments[i], false, i);
+                }
+            }
+
+            if(allComments.length > maxComments) {
+                commentContainer.innerHTML += '<button id="showmore_btn" onclick="showmore()"> Show more </button>'
+            }
+            commentContainer.innerHTML += '<button style="display: none;" id="showless_btn" onclick="showless()"> Show less </button>'
+
+        }
+
+        function showmore() {
+            for(let i = maxComments - 1; i < allComments.length; i++) {
+                document.getElementById('comment' + i).style.display = 'block';
+            }
+
+            document.getElementById('showmore_btn').style.display = 'none';
+            document.getElementById('showless_btn').style.display = 'block';
+            
+        }
+
+        
+        function showless() {
+            for(let i = maxComments - 1; i < allComments.length; i++) {
+                document.getElementById('comment' + i).style.display = 'none';
+            }
+
+            document.getElementById('showmore_btn').style.display = 'block';
+            document.getElementById('showless_btn').style.display = 'none';
+
+        }
