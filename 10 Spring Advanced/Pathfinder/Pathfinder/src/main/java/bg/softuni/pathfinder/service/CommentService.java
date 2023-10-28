@@ -1,5 +1,6 @@
 package bg.softuni.pathfinder.service;
 
+import bg.softuni.pathfinder.exceptions.ErrorApiResponse;
 import bg.softuni.pathfinder.exceptions.RouteNotFoundException;
 import bg.softuni.pathfinder.model.Comment;
 import bg.softuni.pathfinder.model.Route;
@@ -9,7 +10,9 @@ import bg.softuni.pathfinder.model.views.CommentDisplayView;
 import bg.softuni.pathfinder.repository.CommentRepository;
 import bg.softuni.pathfinder.repository.RouteRepository;
 import bg.softuni.pathfinder.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,5 +63,7 @@ public class CommentService {
             return new CommentDisplayView(
                     comment.getId(), author.getFullName(), comment.getText());
     }
+
+
 
 }
