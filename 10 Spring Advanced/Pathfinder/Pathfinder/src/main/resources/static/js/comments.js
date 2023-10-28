@@ -35,7 +35,7 @@ async function handleFormSubmition(event) {
         });
     }
         function commentAsHtml(comment, visible, order) {
-            let commentHtml = `<div ${visible ? "" : style="display: none;"} id="${order}">\n` //TODO: to fix
+            let commentHtml = `<div ${visible ? "" : style="display: none;"} id="${order}">\n`
             commentHtml += `<h4>${comment.authorName}</h4>\n`
             commentHtml += `<p>${comment.message}</p>\n`
             commentHtml += '</div>\n'
@@ -77,8 +77,8 @@ async function handleFormSubmition(event) {
         }
 
         function showmore() {
-            for(let i = maxComments - 1; i < allComments.length; i++) {
-                document.getElementById('comment' + i).style.display = 'block';
+            for(let i = maxComments; i < allComments.length; i++) {
+                document.getElementById(i).style.display = 'block';
             }
 
             document.getElementById('showmore_btn').style.display = 'none';
@@ -88,11 +88,14 @@ async function handleFormSubmition(event) {
 
         
         function showless() {
-            for(let i = maxComments - 1; i < allComments.length; i++) {
-                document.getElementById('comment' + i).style.display = 'none';
+            for(let i = maxComments; i < allComments.length; i++) {
+                document.getElementById(i).style.display = 'none';
             }
 
             document.getElementById('showmore_btn').style.display = 'block';
             document.getElementById('showless_btn').style.display = 'none';
 
         }
+
+//TODO: beginning 2 comments and "Show more" button
+//TODO: then all comments and "Show less" button
