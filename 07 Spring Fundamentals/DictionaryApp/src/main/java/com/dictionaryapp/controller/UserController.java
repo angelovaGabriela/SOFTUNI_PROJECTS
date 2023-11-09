@@ -4,6 +4,7 @@ import com.dictionaryapp.model.binding.UserLoginBindingModel;
 import com.dictionaryapp.model.binding.UserRegisterBindingModel;
 import com.dictionaryapp.model.service.UserServiceModel;
 import com.dictionaryapp.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -84,6 +85,11 @@ public class UserController {
         return "redirect:home";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.invalidate();
+        return "redirect:/";
+    }
 
     @GetMapping("/home")
     public String home() {
