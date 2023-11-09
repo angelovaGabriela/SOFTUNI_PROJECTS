@@ -1,12 +1,13 @@
 package com.dictionaryapp.controller;
 
+import com.dictionaryapp.model.binding.UserLoginBindingModel;
 import com.dictionaryapp.model.binding.UserRegisterBindingModel;
 import com.dictionaryapp.model.service.UserServiceModel;
-import com.dictionaryapp.repo.UserRepository;
 import com.dictionaryapp.service.UserService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,13 +51,52 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+        if(!model.containsAttribute("isFound")) {
+            model.addAttribute(true);
+        }
         return "login";
     }
 
+    @PostMapping("/login")
+    public String confirmLogin(@Valid UserLoginBindingModel userLoginBindingModel,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
+
+            return "redirect:login";
+        }
+
+      UserServiceModel userServiceModel = this.userService.findUser(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
+
+        if (userServiceModel == null) {
+            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
+            redirectAttributes.addFlashAttribute("isFound", false);
+
+            return "redirect:login";
+        }
+
+        userService.login(userServiceModel.getId(), userLoginBindingModel.getUsername());
+
+        return "redirect:home";
+    }
+
+
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
     @ModelAttribute
     public UserRegisterBindingModel userRegisterBindingModel() {
         return new UserRegisterBindingModel();
+    }
+
+    @ModelAttribute
+    public UserLoginBindingModel userLoginBindingModel() {
+        return new UserLoginBindingModel();
     }
 
 }
