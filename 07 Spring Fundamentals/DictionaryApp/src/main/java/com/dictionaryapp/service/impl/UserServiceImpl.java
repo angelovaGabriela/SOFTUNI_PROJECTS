@@ -73,10 +73,26 @@ public class UserServiceImpl implements UserService {
     public List<WordsViewModel> getAllGermanWords(Long id) {
         User user = userRepository.findById(id).orElse(null);
         assert user != null;
-       return user.getAddedWords()
-               .stream().map(word -> modelMapper.map(word, WordsViewModel.class))
-               .filter(w -> w.getLanguage().getName().equals(LanguageNameEnum.GERMAN))
-               .collect(Collectors.toList());
+        LanguageNameEnum language = LanguageNameEnum.valueOf("GERMAN");
+
+        return getCollection(user,language);
+    }
+
+    private List<WordsViewModel> getCollection(User user, LanguageNameEnum language) {
+        return user.getAddedWords()
+                .stream().map(word -> modelMapper.map(word, WordsViewModel.class))
+                .filter(w -> w.getLanguage().getName().equals(language))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WordsViewModel> getAllFrenchWords(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        assert user != null;
+        LanguageNameEnum language = LanguageNameEnum.valueOf("FRENCH");
+
+        return getCollection(user, language);
+
     }
 
 
