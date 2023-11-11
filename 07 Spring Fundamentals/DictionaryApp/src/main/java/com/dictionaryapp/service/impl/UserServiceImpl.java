@@ -1,13 +1,18 @@
 package com.dictionaryapp.service.impl;
 
+import com.dictionaryapp.model.entity.LanguageNameEnum;
 import com.dictionaryapp.model.entity.User;
 import com.dictionaryapp.model.entity.Word;
 import com.dictionaryapp.model.service.UserServiceModel;
+import com.dictionaryapp.model.view.WordsViewModel;
 import com.dictionaryapp.repo.UserRepository;
 import com.dictionaryapp.service.UserService;
 import com.dictionaryapp.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,21 +53,31 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
-// TODO:
-//  @Override
-//    public void addWordToUser(Long userId, Word word) {
-//
-//        User user = this.getUserById(userId);
-//        if (user.getAddedWords().stream().noneMatch(w -> w.getId().equals(word.getId()))) {
-//            user.addWordToDictionary(word);
-//            this.userRepository.save(user);
-//        }
-//
-//    }
 
-//    private User getUserById(Long userId) {
-//        return this.userRepository.findById(userId).orElseThrow();
-//    }
+
+    @Override
+    public void addWordToUser(Long userId, Word word) {
+
+
+        User user = this.userRepository.findById(userId).orElse(null);
+        assert user != null;
+        if (user.getAddedWords().stream().noneMatch(w -> w.getId().equals(word.getId()))) {
+                user.addWordToDictionary(word);
+                this.userRepository.save(user);
+            }
+
+
+    }
+
+    @Override
+    public List<WordsViewModel> getAllGermanWords(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        assert user != null;
+       return user.getAddedWords()
+               .stream().map(word -> modelMapper.map(word, WordsViewModel.class))
+               .filter(w -> w.getLanguage().getName().equals(LanguageNameEnum.GERMAN))
+               .collect(Collectors.toList());
+    }
 
 
 }

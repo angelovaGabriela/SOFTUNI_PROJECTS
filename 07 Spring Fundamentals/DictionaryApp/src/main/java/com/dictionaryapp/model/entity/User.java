@@ -58,9 +58,8 @@ public class User extends BaseEntity{
     }
 
 
-//TODO:
-//    public void addWordToDictionary(Word word) {
-//        this.addedWords.add(word);
-//    }
+    public void addWordToDictionary(Word word) {
+        this.addedWords.add(word);
+    }
 
 }

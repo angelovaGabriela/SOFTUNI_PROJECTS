@@ -1,10 +1,13 @@
 package com.dictionaryapp.service;
 
 import com.dictionaryapp.model.entity.User;
+
 import com.dictionaryapp.model.entity.Word;
 import com.dictionaryapp.model.service.UserServiceModel;
+import com.dictionaryapp.model.view.WordsViewModel;
 
-import java.util.Optional;
+import java.util.List;
+
 
 public interface UserService {
 
@@ -17,5 +20,10 @@ public interface UserService {
 
     User findUserByUsername(String username);
 
-//   TODO: void addWordToUser(Long userId, Word word);
+
+    void addWordToUser(Long userId, Word word);
+
+
+    List<WordsViewModel> getAllGermanWords(Long id);
+
 }
