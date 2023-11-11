@@ -54,13 +54,13 @@
 
             <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
                 <h3 class="mySticky bg-gray text-dark rounded">Italian: {italianWordsCount}</h3>
-                    <div class="mt-3 rounded badge-success">
+                    <div th:each="wi : ${italianWords}" th:object="${wi}" class="mt-3 rounded badge-success">
                         <img class="mr-2" src="/img/italian.png" alt="Flag" width="20px" height="20px">
-                        <span>{italianTerm}: {translation}</span>
+                        <span th:text="|*{term} : *{translation}|">{italianTerm}: {translation}</span>
                         <br>
-                        <span>Example: {example}</span>
+                        <span th:text="|Example: *{example}|">Example: {example}</span>
                         <br>
-                        <span>Added by: {username} on {inputDate}</span>
+                        <span th:text="|Added by: *{addedBy.username} on *{inputDate}|">Added by: {username} on {inputDate}</span>
                         <a class="ml-3 text-danger" href="/">Remove</a>
                     </div>
             </div>

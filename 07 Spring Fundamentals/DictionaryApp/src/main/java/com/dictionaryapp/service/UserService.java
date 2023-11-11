@@ -29,4 +29,6 @@ public interface UserService {
     List<WordsViewModel> getAllFrenchWords(Long id);
 
     List<WordsViewModel> getAllSpanishWords(Long id);
+
+    List<WordsViewModel>  getAllItalianWords(Long id);
 }

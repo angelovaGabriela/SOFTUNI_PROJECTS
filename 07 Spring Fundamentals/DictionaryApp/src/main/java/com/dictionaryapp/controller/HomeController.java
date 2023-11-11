@@ -38,6 +38,8 @@ public class HomeController {
         model.addAttribute("germanWords", userService.getAllGermanWords(currentUser.getId()));
         model.addAttribute("frenchWords", userService.getAllFrenchWords(currentUser.getId()));
         model.addAttribute("spanishWords", userService.getAllSpanishWords(currentUser.getId()));
+        model.addAttribute("italianWords", userService.getAllItalianWords(currentUser.getId()));
+
 
 
 
