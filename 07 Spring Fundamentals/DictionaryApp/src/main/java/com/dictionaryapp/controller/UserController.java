@@ -82,7 +82,7 @@ public class UserController {
 
         userService.login(userServiceModel.getId(), userLoginBindingModel.getUsername());
 
-        return "redirect:home";
+        return "redirect:/";
     }
 
     @GetMapping("/logout")

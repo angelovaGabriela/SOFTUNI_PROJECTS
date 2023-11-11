@@ -39,4 +39,10 @@ public class LanguageServiceImpl implements LanguageService {
 
 
     }
+
+    @Override
+    public Language findByLanguageNameEnum(LanguageNameEnum language) {
+
+        return languageRepository.findByName(language).orElse(null);
+    }
 }

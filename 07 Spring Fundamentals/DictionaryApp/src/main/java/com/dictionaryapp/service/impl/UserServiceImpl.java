@@ -1,6 +1,7 @@
 package com.dictionaryapp.service.impl;
 
 import com.dictionaryapp.model.entity.User;
+import com.dictionaryapp.model.entity.Word;
 import com.dictionaryapp.model.service.UserServiceModel;
 import com.dictionaryapp.repo.UserRepository;
 import com.dictionaryapp.service.UserService;
@@ -41,4 +42,27 @@ public class UserServiceImpl implements UserService {
         currentUser.setId(id);
         currentUser.setUsername(username);
     }
+
+    @Override
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+// TODO:
+//  @Override
+//    public void addWordToUser(Long userId, Word word) {
+//
+//        User user = this.getUserById(userId);
+//        if (user.getAddedWords().stream().noneMatch(w -> w.getId().equals(word.getId()))) {
+//            user.addWordToDictionary(word);
+//            this.userRepository.save(user);
+//        }
+//
+//    }
+
+//    private User getUserById(Long userId) {
+//        return this.userRepository.findById(userId).orElseThrow();
+//    }
+
+
 }

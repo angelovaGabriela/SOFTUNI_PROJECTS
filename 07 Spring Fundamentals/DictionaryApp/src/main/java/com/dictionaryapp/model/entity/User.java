@@ -1,10 +1,7 @@
 package com.dictionaryapp.model.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 
 import java.util.Set;
@@ -23,7 +20,7 @@ public class User extends BaseEntity{
     private String email;
 
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Word> addedWords;
 
     public User() {}
@@ -59,4 +56,11 @@ public class User extends BaseEntity{
     public void setAddedWords(Set<Word> addedWords) {
         this.addedWords = addedWords;
     }
+
+
+//TODO:
+//    public void addWordToDictionary(Word word) {
+//        this.addedWords.add(word);
+//    }
+
 }
