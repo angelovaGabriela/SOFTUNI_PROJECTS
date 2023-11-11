@@ -95,5 +95,14 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public List<WordsViewModel> getAllSpanishWords(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        assert user != null;
+        LanguageNameEnum language = LanguageNameEnum.valueOf("SPANISH");
+
+        return getCollection(user, language);
+    }
+
 
 }
