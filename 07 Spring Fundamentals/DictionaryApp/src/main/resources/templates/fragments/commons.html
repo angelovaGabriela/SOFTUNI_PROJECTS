@@ -12,11 +12,17 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-lg bg-nav rounded " >
+        <th:block th:if="${@currentUser.id == null}">
         <a class="nav-link my-text-color active h5 " href="/">Dictionary App</a>
-        <a class="nav-link my-text-color active h5  " href="/word-add">Add Word</a>
+        </th:block>
 
+        <th:block th:unless="${@currentUser.id == null}">
+        <a class="nav-link my-text-color active h5 " href="/home">Dictionary App</a>
+        <a class="nav-link my-text-color active h5  " href="/word-add">Add Word</a>
+        </th:block>
         <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
             <ul class="navbar-nav row">
+                <th:block th:if="${@currentUser.id == null}">
                 <li class="nav-item col-md-4">
                     <a class="nav-link active h5 my-text-color" href="/login">Login</a>
                 </li>
@@ -24,11 +30,16 @@
                 <li class="nav-item col-md-4">
                     <a class="nav-link my-text-color active h5 " href="/register">Register</a>
                 </li>
+                </th:block>
 
-                    <a class="nav-link h5 my-text-color">Welcome, {username}</a>
+                    <a class="nav-link h5 my-text-color" th:if="${@currentUser.id == null}">Welcome, GUEST!</a>
+                    <a class="nav-link h5 my-text-color" th:unless="${@currentUser.id == null}">Welcome, <th:block th:text="${@currentUser.getUsername()}"></th:block>!</a>
+
+                <th:block th:unless="${@currentUser.id == null}">
                 <li class="nav-item col-md-4">
-                    <a class="nav-link my-text-color active h5 " href="/">Logout</a>
+                    <a class="nav-link my-text-color active h5 " href="/logout">Logout</a>
                 </li>
+                </th:block>
             </ul>
         </div>
     </nav>
