@@ -113,5 +113,32 @@ public class UserServiceImpl implements UserService {
         return getCollection(user, language);
     }
 
+    @Override
+    public Integer getGermanWordsCount(Long id) {
+        return getAllGermanWords(id).size();
+    }
+
+    @Override
+    public Integer getFrenchWordsCount(Long id) {
+        return getAllFrenchWords(id).size();
+    }
+
+    @Override
+    public Integer getSpanishWordsCount(Long id) {
+        return getAllSpanishWords(id).size();
+    }
+
+    @Override
+    public Integer getItalianWordsCount(Long id) {
+        return getAllItalianWords(id).size();
+    }
+
+    @Override
+    public Integer getAllWordsCount(Long id) {
+        return getFrenchWordsCount(id) + getItalianWordsCount(id) + getSpanishWordsCount(id) + getGermanWordsCount(id);
+    }
+
+
+
 
 }

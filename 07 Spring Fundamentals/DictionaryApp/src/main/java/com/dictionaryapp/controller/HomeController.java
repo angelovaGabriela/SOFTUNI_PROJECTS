@@ -41,9 +41,12 @@ public class HomeController {
         model.addAttribute("italianWords", userService.getAllItalianWords(currentUser.getId()));
 
 
+        model.addAttribute("germanWordsCount", userService.getGermanWordsCount(currentUser.getId()));
+        model.addAttribute("frenchWordsCount", userService.getFrenchWordsCount(currentUser.getId()));
+        model.addAttribute("spanishWordsCount", userService.getSpanishWordsCount(currentUser.getId()));
+        model.addAttribute("italianWordsCount", userService.getItalianWordsCount(currentUser.getId()));
 
-
-//        model.addAttribute("userDictionary", userService.getUserDictionary(currentUser.getId()));
+        model.addAttribute("wordsCount", userService.getAllWordsCount(currentUser.getId()));
 //
 //        model.addAttribute("germanWordsCount", wordService.germanWordsCount(currentUser.getId()));
 //        model.addAttribute("frenchWordsCount", wordService.frenchWordsCount(currentUser.getId()));

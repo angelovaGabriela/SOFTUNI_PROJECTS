@@ -31,4 +31,15 @@ public interface UserService {
     List<WordsViewModel> getAllSpanishWords(Long id);
 
     List<WordsViewModel>  getAllItalianWords(Long id);
+
+    Integer getGermanWordsCount(Long id);
+
+    Integer getFrenchWordsCount(Long id);
+
+    Integer getSpanishWordsCount(Long id);
+
+    Integer getItalianWordsCount(Long id);
+
+
+    Integer getAllWordsCount(Long id);
 }
