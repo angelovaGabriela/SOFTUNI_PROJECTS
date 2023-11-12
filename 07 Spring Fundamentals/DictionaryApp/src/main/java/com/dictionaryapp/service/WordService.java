@@ -9,5 +9,5 @@ public interface WordService {
     void addWord(WordServiceModel wordServiceModel);
 
 
-
+    void removeWord(Long id, Long id1);
 }

@@ -6,6 +6,8 @@ import com.dictionaryapp.util.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
@@ -47,13 +49,21 @@ public class HomeController {
         model.addAttribute("italianWordsCount", userService.getItalianWordsCount(currentUser.getId()));
 
         model.addAttribute("wordsCount", userService.getAllWordsCount(currentUser.getId()));
-//
-//        model.addAttribute("germanWordsCount", wordService.germanWordsCount(currentUser.getId()));
-//        model.addAttribute("frenchWordsCount", wordService.frenchWordsCount(currentUser.getId()));
-//        model.addAttribute("spanishWordsCount", wordService.spanishWordsCount(currentUser.getId()));
-//        model.addAttribute("italianWordsCount", wordService.italianWordsCount(currentUser.getId()));
+
 
         return "home";
+    }
+
+
+    @GetMapping ("/word/remove/{id}")
+    public String removeWord(@PathVariable("id") Long id) {
+        if (currentUser.getId() == null) {
+            return "redirect:/login";
+        }
+
+        this.wordService.removeWord(id, currentUser.getId());
+
+        return "redirect:/";
     }
 
 }

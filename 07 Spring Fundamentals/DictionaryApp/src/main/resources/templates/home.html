@@ -19,7 +19,7 @@
                         <span th:text="|Example: *{example}|">Example: {example}</span>
                         <br>
                         <span th:text="|Added by: *{addedBy.username} on *{inputDate}|">Added by: {username} on {inputDate}</span>
-                        <a class="ml-3 text-danger" href="/">Remove</a>
+                        <a class="ml-3 text-danger" th:href="@{/word/remove/{id}(id = ${wg.getId()})}">Remove</a>
                     </div>
             </div>
 
@@ -32,7 +32,7 @@
                         <span th:text="|Example: *{example}|">Example: {example}</span>
                         <br>
                         <span th:text="|Added by: *{addedBy.username} on *{inputDate}|">Added by: {username} on {inputDate}</span>
-                        <a class="ml-3 text-danger" href="/">Remove</a>
+                        <a class="ml-3 text-danger" th:href="@{/word/remove/{id}(id = ${ws.getId()})}">Remove</a>
                     </div>
             </div>
         </div>
@@ -48,7 +48,8 @@
                         <span th:text="|Example: *{example}|">Example: {example}</span>
                         <br>
                         <span th:text="|Added by: *{addedBy.username} on *{inputDate}|">Added by: {username} on {inputDate}</span>
-                        <a class="ml-3 text-danger" href="/">Remove</a>
+                        <a class="ml-3 text-danger" th:href="@{/word/remove/{id}(id = ${wf.getId()})}">Remove</a>
+
                     </div>
             </div>
 
@@ -61,7 +62,7 @@
                         <span th:text="|Example: *{example}|">Example: {example}</span>
                         <br>
                         <span th:text="|Added by: *{addedBy.username} on *{inputDate}|">Added by: {username} on {inputDate}</span>
-                        <a class="ml-3 text-danger" href="/">Remove</a>
+                        <a class="ml-3 text-danger" th:href="@{/word/remove/{id}(id = ${wi.getId()})}">Remove</a>
                     </div>
             </div>
         </div>

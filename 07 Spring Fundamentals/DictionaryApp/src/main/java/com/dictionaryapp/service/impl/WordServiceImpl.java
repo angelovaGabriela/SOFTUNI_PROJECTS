@@ -1,6 +1,5 @@
 package com.dictionaryapp.service.impl;
 
-import com.dictionaryapp.model.entity.LanguageNameEnum;
 import com.dictionaryapp.model.entity.User;
 import com.dictionaryapp.model.entity.Word;
 import com.dictionaryapp.model.service.WordServiceModel;
@@ -14,7 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class WordServiceImpl implements WordService {
@@ -53,7 +52,11 @@ public class WordServiceImpl implements WordService {
 
     }
 
+    @Override
+    public void removeWord(Long id, Long userId) {
 
+        //TODO: implement the functionality
+    }
 
 
 }
