@@ -10,6 +10,7 @@ import com.dictionaryapp.service.UserService;
 import com.dictionaryapp.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -138,6 +139,24 @@ public class UserServiceImpl implements UserService {
         return getFrenchWordsCount(id) + getItalianWordsCount(id) + getSpanishWordsCount(id) + getGermanWordsCount(id);
     }
 
+    @Override
+    public User getUserById(Long userId) {
+        return this.userRepository.findById(userId).orElseThrow();
+    }
+
+    @Override
+    public void saveUser(User user) {
+        this.userRepository.save(user);
+    }
+
+
+        @Transactional
+        @Override
+        public void removeAll(Long userId) {
+            User user = this.userRepository.findById(userId).orElseThrow();
+            user.removeAllWordsFromDictionary();
+            this.userRepository.save(user);
+        }
 
 
 

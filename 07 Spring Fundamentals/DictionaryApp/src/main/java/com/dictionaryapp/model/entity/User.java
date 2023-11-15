@@ -66,4 +66,8 @@ public class User extends BaseEntity{
         this.addedWords.remove(word);
     }
 
+    public void removeAllWordsFromDictionary() {
+        this.addedWords.clear();
+    }
+
 }

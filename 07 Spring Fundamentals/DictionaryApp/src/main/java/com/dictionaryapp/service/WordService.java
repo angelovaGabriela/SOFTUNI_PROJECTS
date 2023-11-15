@@ -1,13 +1,13 @@
 package com.dictionaryapp.service;
 
-import com.dictionaryapp.model.service.WordServiceModel;
-import com.dictionaryapp.model.view.WordsViewModel;
 
-import java.util.List;
+import com.dictionaryapp.model.service.WordServiceModel;
+
 
 public interface WordService {
     void addWord(WordServiceModel wordServiceModel);
 
 
-    void removeWord(Long id, Long id1);
+    void removeWord(Long wordId, Long userId);
+
 }

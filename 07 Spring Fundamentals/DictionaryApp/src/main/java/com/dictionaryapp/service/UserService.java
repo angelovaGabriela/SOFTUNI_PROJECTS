@@ -42,4 +42,10 @@ public interface UserService {
 
 
     Integer getAllWordsCount(Long id);
+
+    User getUserById(Long userId);
+
+    void saveUser(User user);
+
+    void removeAll(Long id);
 }

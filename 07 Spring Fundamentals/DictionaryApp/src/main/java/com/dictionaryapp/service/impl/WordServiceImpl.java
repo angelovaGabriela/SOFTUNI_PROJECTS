@@ -3,7 +3,6 @@ package com.dictionaryapp.service.impl;
 import com.dictionaryapp.model.entity.User;
 import com.dictionaryapp.model.entity.Word;
 import com.dictionaryapp.model.service.WordServiceModel;
-import com.dictionaryapp.model.view.WordsViewModel;
 import com.dictionaryapp.repo.WordRepository;
 import com.dictionaryapp.service.LanguageService;
 import com.dictionaryapp.service.UserService;
@@ -11,9 +10,7 @@ import com.dictionaryapp.service.WordService;
 import com.dictionaryapp.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class WordServiceImpl implements WordService {
@@ -52,11 +49,19 @@ public class WordServiceImpl implements WordService {
 
     }
 
+    @Transactional
     @Override
-    public void removeWord(Long id, Long userId) {
+    public void removeWord(Long wordId, Long userId) {
+       User user =  this.userService.getUserById(userId);
+       Word word = this.wordRepository.findById(wordId).orElseThrow();
 
-        //TODO: implement the functionality
+       user.removeWordFromDictionary(word);
+       this.userService.saveUser(user);
+
+       this.wordRepository.deleteById(wordId);
     }
+
+
 
 
 }

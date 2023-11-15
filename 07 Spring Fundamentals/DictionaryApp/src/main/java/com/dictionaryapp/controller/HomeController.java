@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
@@ -64,6 +63,18 @@ public class HomeController {
         this.wordService.removeWord(id, currentUser.getId());
 
         return "redirect:/";
+    }
+
+    @GetMapping("/home/remove-all")
+    public String removeAll() {
+        if (currentUser.getId() == null) {
+            return "redirect:login";
+        }
+
+        this.userService.removeAll(currentUser.getId());
+
+        return "redirect:/";
+
     }
 
 }
