@@ -1,5 +1,6 @@
 package com.resellerapp.controller;
 
+import com.resellerapp.util.CurrentUser;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,10 +8,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
+    private final CurrentUser currentUser;
 
-    @GetMapping
+    public HomeController(CurrentUser currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    @GetMapping("/")
     public String index() {
-        return "index";
+        if (currentUser.getId() == null) {
+            return "index";
+        }
+        return "home";
     }
 
 }
