@@ -1,10 +1,12 @@
 package com.resellerapp.controller;
 
+import com.resellerapp.model.binding.LoginUserBindingModel;
 import com.resellerapp.model.binding.RegisterUserBindingModel;
 import com.resellerapp.model.service.UserServiceModel;
 import com.resellerapp.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,12 +50,49 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+        if (!model.containsAttribute("isFound")) {
+            model.addAttribute("isFound", true);
+        }
+
         return "login";
+    }
+
+
+    @PostMapping("/login")
+    public String confirmLogin(@Valid LoginUserBindingModel loginUserBindingModel,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("loginUserBindingModel", loginUserBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.loginUserBindingModel", bindingResult);
+
+            return "redirect:login";
+        }
+
+      UserServiceModel userServiceModel = this.userService.findByUsernameAndPassword(loginUserBindingModel.getUsername(), loginUserBindingModel.getPassword());
+
+        if (userServiceModel == null) {
+            redirectAttributes.addFlashAttribute("loginUserBindingModel", loginUserBindingModel);
+            redirectAttributes.addFlashAttribute("isFound", false);
+            return "redirect:login";
+        }
+
+        userService.loginUser(userServiceModel.getId(), loginUserBindingModel.getUsername());
+
+
+        return "redirect:/";
+
     }
 
     @ModelAttribute
     public RegisterUserBindingModel registerUserBindingModel() {
         return new RegisterUserBindingModel();
     }
+
+    @ModelAttribute
+    public LoginUserBindingModel loginUserBindingModel() {
+        return new LoginUserBindingModel();
+    }
+
 }
