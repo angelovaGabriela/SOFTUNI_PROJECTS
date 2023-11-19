@@ -1,25 +1,20 @@
-package com.resellerapp.model.entity;
+package com.resellerapp.model.view;
 
-import javax.persistence.*;
+import com.resellerapp.model.entity.Condition;
+import com.resellerapp.model.entity.User;
+
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "offers")
-public class Offer extends BaseEntity {
+public class OfferViewModel {
 
+    private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    private User seller;
     private String description;
-
-    @Column(nullable = false)
+    private Condition condition;
     private BigDecimal price;
 
-    @ManyToOne(optional = false)
-    private Condition condition;
-
-    @ManyToOne
-    @JoinColumn(name = "seller_id")
-    private User seller;
+    public OfferViewModel() {}
 
     public User getSeller() {
         return seller;
@@ -29,22 +24,12 @@ public class Offer extends BaseEntity {
         this.seller = seller;
     }
 
-    public Offer() {}
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     public Condition getCondition() {
@@ -55,5 +40,19 @@ public class Offer extends BaseEntity {
         this.condition = condition;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
 
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

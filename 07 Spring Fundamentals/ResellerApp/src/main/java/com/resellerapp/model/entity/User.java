@@ -1,9 +1,6 @@
 package com.resellerapp.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -18,9 +15,9 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Offer> offers;
-    //to add boughtOffers
+
 
     @OneToMany
     private Set<Offer> boughtOffers;
@@ -66,4 +63,9 @@ public class User extends BaseEntity {
     public void setBoughtOffers(Set<Offer> boughtOffers) {
         this.boughtOffers = boughtOffers;
     }
+
+    public void offerAddedByMe(Offer offer) {
+        this.getOffers().add(offer);
+    }
+
 }

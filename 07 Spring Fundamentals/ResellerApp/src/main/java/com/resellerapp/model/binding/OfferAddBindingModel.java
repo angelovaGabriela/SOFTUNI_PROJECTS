@@ -1,6 +1,7 @@
 package com.resellerapp.model.binding;
 
 import com.resellerapp.model.entity.ConditionNameEnum;
+import com.resellerapp.model.entity.User;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,9 @@ public class OfferAddBindingModel {
 
     @NotNull
     private ConditionNameEnum condition;
+
+
+    private User seller;
 
     public OfferAddBindingModel() {}
 
