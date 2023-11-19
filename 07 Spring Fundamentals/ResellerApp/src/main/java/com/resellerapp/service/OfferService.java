@@ -9,4 +9,6 @@ public interface OfferService {
     void addOffer(OfferServiceModel offerServiceModel);
 
     List<OfferViewModel> findAllOtherOffers();
+
+    List<OfferViewModel> findAllMyOffers();
 }

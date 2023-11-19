@@ -58,4 +58,12 @@ public class OfferServiceImpl implements OfferService {
                 .stream().map(offer -> modelMapper.map(offer, OfferViewModel.class)).filter(offerViewModel -> offerViewModel.getSeller().getId() != currentUser.getId()).collect(Collectors.toList());
 
     }
+
+    @Override
+    public List<OfferViewModel> findAllMyOffers() {
+        // filtering only the offers from other users
+        return offerRepository.findAll()
+                .stream().map(offer -> modelMapper.map(offer, OfferViewModel.class)).filter(offerViewModel -> offerViewModel.getSeller().getId() == currentUser.getId()).collect(Collectors.toList());
+
+    }
 }

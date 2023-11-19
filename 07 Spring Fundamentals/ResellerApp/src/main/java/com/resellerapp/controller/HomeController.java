@@ -26,6 +26,7 @@ public class HomeController {
 
 
         model.addAttribute("otherOffers", offerService.findAllOtherOffers());
+        model.addAttribute("myOffers", offerService.findAllMyOffers());
 
         return "home";
     }
