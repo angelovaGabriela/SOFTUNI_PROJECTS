@@ -38,5 +38,11 @@ public class Offer extends BaseEntity {
         this.price = price;
     }
 
+    public Condition getCondition() {
+        return condition;
+    }
 
+    public void setCondition(Condition condition) {
+        this.condition = condition;
+    }
 }

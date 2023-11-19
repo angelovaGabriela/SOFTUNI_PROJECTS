@@ -46,6 +46,7 @@ public class SongController {
         return "redirect:/";
     }
 
+
     @ModelAttribute
     public SongAddBindingModel songAddBindingModel() {
         return new SongAddBindingModel();
