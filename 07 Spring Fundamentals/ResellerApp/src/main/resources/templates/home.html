@@ -51,12 +51,12 @@
 
             <div class="col-6 mt-1 mb-1">
                 <h3 class="mySticky bg-gray text-dark  mb-0 mt-2">All Other Offers</h3>
-                <h6 th:text="${offers.size()}" class="mySticky bg-gray text-dark  mb-0 mt-0">{totalOffers}</h6>
+                <h6 th:text="${otherOffers.size()}" class="mySticky bg-gray text-dark  mb-0 mt-0">{totalOffers}</h6>
                 <div class="bg-dark rounded m-auto" style="height: 67vh; overflow: auto">
                     <div>
                         <div>
                             <br>
-                            <ul  th:each="o : ${offers}" th:object="${o}" class="list-group list-group-horizontal text-dark">
+                            <ul  th:each="o : ${otherOffers}" th:object="${o}" class="list-group list-group-horizontal text-dark">
                                 <li class="list-group-item">
                                     <table>
                                         <tr>

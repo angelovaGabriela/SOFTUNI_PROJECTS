@@ -52,7 +52,8 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferViewModel> findAllOffers() {
+    public List<OfferViewModel> findAllOtherOffers() {
+        // filtering only the offers from other users
         return offerRepository.findAll()
                 .stream().map(offer -> modelMapper.map(offer, OfferViewModel.class)).filter(offerViewModel -> offerViewModel.getSeller().getId() != currentUser.getId()).collect(Collectors.toList());
 
