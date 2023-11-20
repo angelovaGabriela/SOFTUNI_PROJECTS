@@ -10,6 +10,8 @@ public class OfferViewModel {
     private Long id;
 
     private User seller;
+
+    private User buyer;
     private String description;
     private Condition condition;
     private BigDecimal price;
@@ -54,5 +56,13 @@ public class OfferViewModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(User buyer) {
+        this.buyer = buyer;
     }
 }

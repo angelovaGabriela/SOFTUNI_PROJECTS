@@ -1,5 +1,6 @@
 package com.resellerapp.service.impl;
 
+import com.resellerapp.model.entity.Offer;
 import com.resellerapp.model.entity.User;
 import com.resellerapp.model.service.UserServiceModel;
 import com.resellerapp.repository.UserRepository;
@@ -41,11 +42,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        return this.userRepository.findById(id).orElse(null);
+        return this.userRepository.findById(id).orElseThrow();
     }
 
     @Override
     public void saveUser(User seller) {
         this.userRepository.save(seller);
+    }
+
+    @Override
+    public void addToBoughtOffers(Long userId, Offer offer) {
+        User user = this.findById(userId);
+
+        if (user.getBoughtOffers().stream().noneMatch(s -> s.getId().equals(offer.getId()))) {
+            user.buyThisOffer(offer);
+            this.userRepository.save(user);
+        }
     }
 }

@@ -21,6 +21,18 @@ public class Offer extends BaseEntity {
     @JoinColumn(name = "seller_id")
     private User seller;
 
+    @ManyToOne
+    @JoinColumn(name = "buyer_id")
+    private User buyer;
+
+    public User getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(User buyer) {
+        this.buyer = buyer;
+    }
+
     public User getSeller() {
         return seller;
     }

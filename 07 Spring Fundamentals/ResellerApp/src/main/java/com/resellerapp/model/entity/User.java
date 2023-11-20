@@ -19,7 +19,7 @@ public class User extends BaseEntity {
     private Set<Offer> offers;
 
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Offer> boughtOffers;
 
     public User() {}
@@ -66,6 +66,10 @@ public class User extends BaseEntity {
 
     public void offerAddedByMe(Offer offer) {
         this.getOffers().add(offer);
+    }
+
+    public void buyThisOffer(Offer offer) {
+        this.getBoughtOffers().add(offer);
     }
 
 }

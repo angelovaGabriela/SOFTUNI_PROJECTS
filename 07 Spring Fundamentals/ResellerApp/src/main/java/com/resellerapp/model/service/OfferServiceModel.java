@@ -12,6 +12,8 @@ public class OfferServiceModel {
     private ConditionNameEnum condition;
 
     private User seller;
+
+    private User buyer;
     public OfferServiceModel() {}
 
     public Long getId() {
@@ -52,5 +54,13 @@ public class OfferServiceModel {
 
     public void setSeller(User seller) {
         this.seller = seller;
+    }
+
+    public User getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(User buyer) {
+        this.buyer = buyer;
     }
 }

@@ -66,4 +66,24 @@ public class OfferServiceImpl implements OfferService {
                 .stream().map(offer -> modelMapper.map(offer, OfferViewModel.class)).filter(offerViewModel -> offerViewModel.getSeller().getId() == currentUser.getId()).collect(Collectors.toList());
 
     }
+
+    @Override
+    public Offer findById(Long offerId) {
+        return this.offerRepository.findById(offerId).orElseThrow();
+    }
+
+    @Override
+    public List<OfferViewModel> findBoughtOffers() {
+        return offerRepository.findAll()
+                .stream().map(offer -> modelMapper.map(offer, OfferViewModel.class)).filter(offerViewModel ->  offerViewModel.getBuyer().getId() == currentUser.getId()).collect(Collectors.toList());
+
+    }
+
+    @Override
+    public void addBuyerToOffer(Long offerId, User user) {
+        Offer offer = this.findById(offerId);
+
+        offer.setBuyer(user);
+        this.offerRepository.save(offer);
+    }
 }

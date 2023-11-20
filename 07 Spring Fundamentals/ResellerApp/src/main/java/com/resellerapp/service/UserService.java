@@ -1,5 +1,6 @@
 package com.resellerapp.service;
 
+import com.resellerapp.model.entity.Offer;
 import com.resellerapp.model.entity.User;
 import com.resellerapp.model.service.UserServiceModel;
 
@@ -13,4 +14,6 @@ public interface UserService {
     User findById(Long id);
 
     void saveUser(User seller);
+
+    void addToBoughtOffers(Long userId, Offer offer);
 }
