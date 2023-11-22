@@ -1,7 +1,6 @@
 package com.resellerapp.service;
 
 import com.resellerapp.model.entity.Offer;
-import com.resellerapp.model.entity.User;
 import com.resellerapp.model.service.OfferServiceModel;
 import com.resellerapp.model.view.OfferViewModel;
 
@@ -17,5 +16,4 @@ public interface OfferService {
     Offer findById(Long offerId);
 
 
-  //  void addBuyerToOffer(Long offerId, User user);
 }

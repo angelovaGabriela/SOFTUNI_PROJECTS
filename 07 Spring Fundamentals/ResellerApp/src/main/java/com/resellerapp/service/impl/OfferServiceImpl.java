@@ -78,12 +78,4 @@ public class OfferServiceImpl implements OfferService {
         return this.offerRepository.findById(offerId).orElse(null);
     }
 
-
-
-//    @Override
-//    public void addBuyerToOffer(Long offerId, User user) {
-//        Offer offer = this.findById(offerId);
-//        offer.setBuyer(user);
-//        this.offerRepository.save(offer);
-//    }
 }
