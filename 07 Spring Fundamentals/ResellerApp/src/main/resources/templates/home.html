@@ -23,7 +23,7 @@
                                      style="width: 5%" class="bg-info" >{condition}</td>
                                 <td th:text="|*{price} €|"  class="bg-primary" style="width: 15%">{price} €</td>
                                 <td th:text="*{description}">{description}</td>
-                                <td style="width: 15%"><a class="btn-danger btn" href="/">Remove</a>
+                                <td style="width: 15%"><a class="btn-danger btn" th:href="@{/offer/remove/{id}(id = ${o.getId()})}">Remove</a>
                                 </td>
                             </tr>
                         </table>

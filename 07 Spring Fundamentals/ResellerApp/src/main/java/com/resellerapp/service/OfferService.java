@@ -16,7 +16,6 @@ public interface OfferService {
 
     Offer findById(Long offerId);
 
-    List<OfferViewModel> findBoughtOffers();
 
-    void addBuyerToOffer(Long offerId, User user);
+  //  void addBuyerToOffer(Long offerId, User user);
 }

@@ -3,11 +3,15 @@ package com.resellerapp.service.impl;
 import com.resellerapp.model.entity.Offer;
 import com.resellerapp.model.entity.User;
 import com.resellerapp.model.service.UserServiceModel;
+import com.resellerapp.model.view.OfferViewModel;
 import com.resellerapp.repository.UserRepository;
 import com.resellerapp.service.UserService;
 import com.resellerapp.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -42,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        return this.userRepository.findById(id).orElseThrow();
+        return this.userRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -58,5 +62,18 @@ public class UserServiceImpl implements UserService {
             user.buyThisOffer(offer);
             this.userRepository.save(user);
         }
+    }
+
+    @Override
+    public List<OfferViewModel> findBoughtOffers(Long userID) {
+
+        User user = this.userRepository.findById(userID).orElse(null);
+        assert user != null;
+
+        return user.getBoughtOffers()
+                .stream()
+                .map(offer -> modelMapper.map(offer, OfferViewModel.class))
+                .collect(Collectors.toList());
+
     }
 }

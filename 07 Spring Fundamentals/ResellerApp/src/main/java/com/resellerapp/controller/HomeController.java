@@ -2,6 +2,7 @@ package com.resellerapp.controller;
 
 import com.resellerapp.service.HomeService;
 import com.resellerapp.service.OfferService;
+import com.resellerapp.service.UserService;
 import com.resellerapp.util.CurrentUser;
 import org.springframework.stereotype.Controller;
 
@@ -15,11 +16,14 @@ public class HomeController {
     private final CurrentUser currentUser;
     private final OfferService offerService;
 
+    private final UserService userService;
+
     private final HomeService homeService;
 
-    public HomeController(CurrentUser currentUser, OfferService offerService, HomeService homeService) {
+    public HomeController(CurrentUser currentUser, OfferService offerService, UserService userService, HomeService homeService) {
         this.currentUser = currentUser;
         this.offerService = offerService;
+        this.userService = userService;
         this.homeService = homeService;
     }
 
@@ -32,7 +36,7 @@ public class HomeController {
 
         model.addAttribute("otherOffers", offerService.findAllOtherOffers());
         model.addAttribute("myOffers", offerService.findAllMyOffers());
-        model.addAttribute("boughtOffers", offerService.findBoughtOffers());
+        model.addAttribute("boughtOffers", userService.findBoughtOffers(currentUser.getId()));
 
 
         return "home";
@@ -47,6 +51,19 @@ public class HomeController {
         }
 
         this.homeService.buyOffer(offerId, currentUser.getId());
+
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/offer/remove/{id}")
+    public String removeOffer(@PathVariable("id") Long offerId) {
+
+        if (currentUser.getId() == null) {
+            return "redirect:/login";
+        }
+
+        this.homeService.removeOffer(offerId, currentUser.getId());
 
         return "redirect:/";
     }

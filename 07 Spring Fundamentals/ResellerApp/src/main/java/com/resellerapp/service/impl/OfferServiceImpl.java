@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,35 +56,34 @@ public class OfferServiceImpl implements OfferService {
     public List<OfferViewModel> findAllOtherOffers() {
         // filtering only the offers from other users
         return offerRepository.findAll()
-                .stream().map(offer -> modelMapper.map(offer, OfferViewModel.class)).filter(offerViewModel -> offerViewModel.getSeller().getId() != currentUser.getId()).collect(Collectors.toList());
+                .stream().map(offer -> modelMapper.map(offer, OfferViewModel.class))
+                .filter(offerViewModel -> !Objects.equals(offerViewModel.getSeller().getId(), currentUser.getId()))
+                .filter(offerViewModel -> offerViewModel.getBuyer() == null).collect(Collectors.toList());
 
     }
 
     @Override
     public List<OfferViewModel> findAllMyOffers() {
-        // filtering only the offers from other users
+        // filtering only the offers from other users && only offers with NO buyer
+
         return offerRepository.findAll()
-                .stream().map(offer -> modelMapper.map(offer, OfferViewModel.class)).filter(offerViewModel -> offerViewModel.getSeller().getId() == currentUser.getId()).collect(Collectors.toList());
+                .stream().map(offer -> modelMapper.map(offer, OfferViewModel.class))
+                .filter(offerViewModel -> Objects.equals(offerViewModel.getSeller().getId(), currentUser.getId()))
+                .filter(offerViewModel -> offerViewModel.getBuyer() == null).collect(Collectors.toList());
 
     }
 
     @Override
     public Offer findById(Long offerId) {
-        return this.offerRepository.findById(offerId).orElseThrow();
+        return this.offerRepository.findById(offerId).orElse(null);
     }
 
-    @Override
-    public List<OfferViewModel> findBoughtOffers() {
-        return offerRepository.findAll()
-                .stream().map(offer -> modelMapper.map(offer, OfferViewModel.class)).filter(offerViewModel ->  offerViewModel.getBuyer().getId() == currentUser.getId()).collect(Collectors.toList());
 
-    }
 
-    @Override
-    public void addBuyerToOffer(Long offerId, User user) {
-        Offer offer = this.findById(offerId);
-
-        offer.setBuyer(user);
-        this.offerRepository.save(offer);
-    }
+//    @Override
+//    public void addBuyerToOffer(Long offerId, User user) {
+//        Offer offer = this.findById(offerId);
+//        offer.setBuyer(user);
+//        this.offerRepository.save(offer);
+//    }
 }
