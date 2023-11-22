@@ -72,4 +72,8 @@ public class User extends BaseEntity {
         this.getBoughtOffers().add(offer);
     }
 
+    public void removeOffer(Offer offer) {
+        this.getOffers().remove(offer);
+    }
+
 }
