@@ -17,4 +17,6 @@ public interface PostService {
     Post findPost(Long postId);
 
     void removePost(Post post);
+
+    void savePost(Post post);
 }

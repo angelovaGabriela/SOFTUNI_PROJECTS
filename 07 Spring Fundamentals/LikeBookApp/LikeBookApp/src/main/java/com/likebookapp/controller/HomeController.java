@@ -42,4 +42,15 @@ public class HomeController {
 
             return "redirect:/";
         }
+
+        @GetMapping("/post/like/{id}")
+        public String likePost(@PathVariable ("id") Long postId) {
+            if (currentUser.getId() == null) {
+                return "redirect:/login";
+            }
+
+            this.homeService.likePost(postId, currentUser.getId());
+
+            return "redirect:/";
+        }
 }

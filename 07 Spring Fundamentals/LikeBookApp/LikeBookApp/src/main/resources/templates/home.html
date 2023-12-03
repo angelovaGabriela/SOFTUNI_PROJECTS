@@ -47,7 +47,7 @@
                                     <tr>
                                         <td  th:text="'Mood: ' + *{mood.name.name()}" style="width: 10%">Mood: {moodNameEnum}</td>
                                         <td th:text="|*{userLikes.size()} likes|" class="text-primary">{numberOfLikes} likes</td>
-                                        <td><a class="ml-3 text-danger" href="/"><img src="/img/like.png" width="43px" height="40px"></a></td>
+                                        <td><a class="ml-3 text-danger" th:href="@{/post/like/{id}(id = ${p.getId()})}"><img src="/img/like.png" width="43px" height="40px"></a></td>
                                     </tr>
                                 </table>
                             </li>

@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "posts")
@@ -19,7 +20,7 @@ public class Post extends BaseEntity {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
-    private List<User> userLikes;
+    private Set<User> userLikes;
 
     @ManyToOne(optional = false)
     private Mood mood;
@@ -42,11 +43,11 @@ public class Post extends BaseEntity {
         this.user = user;
     }
 
-    public List<User> getUserLikes() {
+    public Set<User> getUserLikes() {
         return userLikes;
     }
 
-    public void setUserLikes(List<User> userLikes) {
+    public void setUserLikes(Set<User> userLikes) {
         this.userLikes = userLikes;
     }
 
@@ -56,5 +57,10 @@ public class Post extends BaseEntity {
 
     public void setMood(Mood mood) {
         this.mood = mood;
+    }
+
+
+    public void like(User user) {
+        this.getUserLikes().add(user);
     }
 }

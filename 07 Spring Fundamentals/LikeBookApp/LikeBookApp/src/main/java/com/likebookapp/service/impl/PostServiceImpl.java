@@ -82,5 +82,10 @@ public class PostServiceImpl implements PostService {
         this.postRepository.delete(post);
     }
 
+    @Override
+    public void savePost(Post post) {
+        this.postRepository.save(post);
+    }
+
 
 }

@@ -23,14 +23,26 @@ public class HomeServiceImpl implements HomeService {
 
     @Transactional
     @Override
-    public void removePost(Long postId, Long userID) {
-        User user = this.userService.findUser(userID);
+    public void removePost(Long postId, Long userId) {
+        User user = this.userService.findUser(userId);
         Post post = this.postService.findPost(postId);
 
         user.removePost(post);
         this.userService.saveUser(user);
 
         this.postService.removePost(post);
+
+    }
+
+    @Override
+    public void likePost(Long postId, Long userId) {
+        User user = this.userService.findUser(userId);
+        Post post = this.postService.findPost(postId);
+
+        post.like(user);
+        this.postService.savePost(post);
+
+
 
     }
 }
