@@ -3,6 +3,7 @@ package com.likebookapp.service.impl;
 import com.likebookapp.model.entity.Post;
 import com.likebookapp.model.entity.User;
 import com.likebookapp.model.service.PostServiceModel;
+import com.likebookapp.model.views.PostViewModel;
 import com.likebookapp.repository.PostRepository;
 import com.likebookapp.service.MoodService;
 import com.likebookapp.service.PostService;
@@ -10,6 +11,10 @@ import com.likebookapp.service.UserService;
 import com.likebookapp.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -44,4 +49,16 @@ public class PostServiceImpl implements PostService {
         this.userService.saveUser(user);
 
     }
+
+    @Override
+    public List<PostViewModel> findAllMyPosts() {
+
+        return postRepository.findAll()
+                .stream().map(post -> modelMapper.map(post, PostViewModel.class))
+                .filter(offerViewModel -> Objects.equals(offerViewModel.getUser().getId(), currentUser.getId()))
+                .collect(Collectors.toList());
+
+    }
+
+
 }

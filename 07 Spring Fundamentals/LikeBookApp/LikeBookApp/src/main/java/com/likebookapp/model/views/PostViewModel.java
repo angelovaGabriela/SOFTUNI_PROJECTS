@@ -1,30 +1,29 @@
-package com.likebookapp.model.entity;
+package com.likebookapp.model.views;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import com.likebookapp.model.entity.Mood;
+import com.likebookapp.model.entity.User;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.List;
 
-@Entity
-@Table(name = "posts")
-public class Post extends BaseEntity {
+public class PostViewModel {
 
+    private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne(optional = false)
+
     private User user;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany
+
     private List<User> userLikes;
 
-    @ManyToOne(optional = false)
     private Mood mood;
 
-    public Post() {}
+
+    public PostViewModel() {}
 
     public String getContent() {
         return content;
@@ -56,5 +55,13 @@ public class Post extends BaseEntity {
 
     public void setMood(Mood mood) {
         this.mood = mood;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
