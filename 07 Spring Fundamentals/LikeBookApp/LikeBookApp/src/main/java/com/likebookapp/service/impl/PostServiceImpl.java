@@ -55,9 +55,18 @@ public class PostServiceImpl implements PostService {
 
         return postRepository.findAll()
                 .stream().map(post -> modelMapper.map(post, PostViewModel.class))
-                .filter(offerViewModel -> Objects.equals(offerViewModel.getUser().getId(), currentUser.getId()))
+                .filter(postViewModel -> Objects.equals(postViewModel.getUser().getId(), currentUser.getId()))
                 .collect(Collectors.toList());
 
+    }
+
+    @Override
+    public List<PostViewModel> findAllOtherPosts() {
+
+        return this.postRepository.findAll()
+                .stream().map(post -> modelMapper.map(post, PostViewModel.class))
+                .filter(postViewModel -> !Objects.equals(postViewModel.getUser().getId(), currentUser.getId()))
+                .collect(Collectors.toList());
     }
 
 

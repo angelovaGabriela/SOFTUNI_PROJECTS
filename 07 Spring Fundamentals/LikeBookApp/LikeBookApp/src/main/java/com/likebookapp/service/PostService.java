@@ -11,4 +11,6 @@ public interface PostService {
 
 
     List<PostViewModel> findAllMyPosts();
+
+    List<PostViewModel> findAllOtherPosts();
 }

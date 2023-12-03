@@ -23,6 +23,7 @@ public class HomeController {
             }
 
         model.addAttribute("myPosts", postService.findAllMyPosts());
+        model.addAttribute("otherPosts", postService.findAllOtherPosts());
 
 
         return "home";
