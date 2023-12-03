@@ -11,6 +11,7 @@ import com.likebookapp.service.UserService;
 import com.likebookapp.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -67,6 +68,18 @@ public class PostServiceImpl implements PostService {
                 .stream().map(post -> modelMapper.map(post, PostViewModel.class))
                 .filter(postViewModel -> !Objects.equals(postViewModel.getUser().getId(), currentUser.getId()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Post findPost(Long postId) {
+
+       return this.postRepository.findById(postId).orElse(null);
+    }
+
+
+    @Override
+    public void removePost(Post post) {
+        this.postRepository.delete(post);
     }
 
 

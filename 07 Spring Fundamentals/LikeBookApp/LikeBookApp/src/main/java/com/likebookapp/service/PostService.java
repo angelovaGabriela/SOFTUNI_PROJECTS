@@ -13,4 +13,8 @@ public interface PostService {
     List<PostViewModel> findAllMyPosts();
 
     List<PostViewModel> findAllOtherPosts();
+
+    Post findPost(Long postId);
+
+    void removePost(Post post);
 }

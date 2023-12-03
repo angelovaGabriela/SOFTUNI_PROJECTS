@@ -58,4 +58,8 @@ public class User extends BaseEntity {
     public void offerAddedByMe(Post post) {
         this.getMyPosts().add(post);
     }
+
+    public void removePost(Post post) {
+        this.getMyPosts().remove(post);
+    }
 }

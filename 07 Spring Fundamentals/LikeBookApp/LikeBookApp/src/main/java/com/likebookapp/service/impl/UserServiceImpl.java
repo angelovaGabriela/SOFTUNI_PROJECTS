@@ -1,8 +1,9 @@
-package com.likebookapp.service;
+package com.likebookapp.service.impl;
 
 import com.likebookapp.model.entity.User;
 import com.likebookapp.model.service.UserServiceModel;
 import com.likebookapp.repository.UserRepository;
+import com.likebookapp.service.UserService;
 import com.likebookapp.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
