@@ -8,6 +8,7 @@ import java.util.List;
 public class UserServiceModel {
 
 
+    private Long id;
     private String username;
 
     private String password;
@@ -48,6 +49,14 @@ public class UserServiceModel {
 
     public void setMyPosts(List<Post> myPosts) {
         this.myPosts = myPosts;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
 
