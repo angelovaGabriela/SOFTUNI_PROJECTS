@@ -1,26 +1,34 @@
-package com.likebookapp.model.entity;
+package com.likebookapp.model.service;
 
-import javax.persistence.*;
+import com.likebookapp.model.entity.Mood;
+import com.likebookapp.model.entity.MoodNameEnum;
+import com.likebookapp.model.entity.User;
+
 import java.util.List;
 
-@Entity
-@Table(name = "posts")
-public class Post extends BaseEntity {
+public class PostServiceModel {
 
+    private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne(optional = false)
+
     private User user;
 
-    @ManyToMany()
+
     private List<User> userLikes;
 
-    @ManyToOne(optional = false)
-    private Mood mood;
+    private MoodNameEnum mood;
 
-    public Post() {}
+    public PostServiceModel() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getContent() {
         return content;
@@ -46,11 +54,11 @@ public class Post extends BaseEntity {
         this.userLikes = userLikes;
     }
 
-    public Mood getMood() {
+    public MoodNameEnum getMood() {
         return mood;
     }
 
-    public void setMood(Mood mood) {
+    public void setMood(MoodNameEnum mood) {
         this.mood = mood;
     }
 }

@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "moods")
 public class Mood extends BaseEntity {
 
+    @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
     private MoodNameEnum name;
 

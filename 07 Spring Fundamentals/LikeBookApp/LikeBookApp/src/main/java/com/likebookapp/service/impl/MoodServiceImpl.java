@@ -29,4 +29,12 @@ public class MoodServiceImpl implements MoodService {
         }
 
     }
+
+    @Override
+    public Mood findByMoodName(MoodNameEnum mood) {
+        return this.moodRepository.findByName(mood);
+    }
+
+
+
 }

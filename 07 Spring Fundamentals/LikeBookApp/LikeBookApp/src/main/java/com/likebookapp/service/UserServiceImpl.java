@@ -36,4 +36,14 @@ public class UserServiceImpl implements UserService {
         currentUser.setId(id);
         currentUser.setUsername(username);
     }
+
+    @Override
+    public User findUser(Long id) {
+       return this.userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void saveUser(User user) {
+        this.userRepository.save(user);
+    }
 }

@@ -54,4 +54,8 @@ public class User extends BaseEntity {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void offerAddedByMe(Post post) {
+        this.getMyPosts().add(post);
+    }
 }
