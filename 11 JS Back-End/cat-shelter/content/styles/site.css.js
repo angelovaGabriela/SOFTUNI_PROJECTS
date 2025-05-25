@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
+module.exports = `@import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
 
 * {
     margin: 0;
@@ -106,13 +106,13 @@ form button:hover {
 .cats ul {
     display: flex;
     list-style: none;
-    margin-top: 3rem;
+    margin-top: 4rem;
     flex-wrap: wrap;
     justify-content: flex-start;
 }
 
 .cats li {
-    width: 26.5%;
+    width: 35%;
     margin-left: 5rem;
     margin-bottom: 1.5rem;
     background-color: #fff;
@@ -162,7 +162,7 @@ form button:hover {
 
 .cat-form img {
     height: 250px;
-    width: 350px;
+    width: 320px;
     margin: auto;
     border-radius: 7px;
 }
@@ -219,4 +219,4 @@ body > form > label:nth-child(3) {
     text-transform: uppercase;
     background-color: lightskyblue;
     margin-bottom: 1.5rem;
-}
+}`
