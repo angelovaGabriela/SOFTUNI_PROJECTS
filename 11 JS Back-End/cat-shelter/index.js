@@ -1,9 +1,8 @@
 const {log} = require('console');
 const http = require('http');
-const indexTemplate = require('./views/home/index.html');
+const fs = require('fs/promises')
+
 const siteCss = require('./content/styles/site.css');
-const addBreedHtml = require('./views/addBreed.html');
-const addCatHtml = require('./views/addCat.html');
 const port = 5000;
 
 const cats = [
@@ -37,7 +36,34 @@ const cats = [
     }
 ];
 
-const server = http.createServer((req, res) => {
+function readFile(path) {
+    return fs.readFile(path, {encoding: 'utf-8'});    
+}
+
+
+
+async function renderCat(catData) {
+    let catHtml = await readFile('./views/cat.html');
+   
+    catHtml = catHtml.replaceAll('{{name}}', catData.name);
+    catHtml = catHtml.replaceAll('{{description}}', catData.description);
+    catHtml = catHtml.replaceAll('{{imageUrl}}', catData.imageUrl);
+    catHtml = catHtml.replaceAll('{{breed}}', catData.breed); 
+
+
+    return catHtml;
+
+}
+
+async function renderHome(cats) {
+    let indexHtml = await readFile('./views/home/index.html');
+    const catsHtmlResult = await Promise.all(cats.map(renderCat));
+    indexHtml = indexHtml.replaceAll('{{cats}}', catsHtmlResult.join('\n'));
+    
+    return indexHtml;
+}
+
+const server = http.createServer(async(req, res) => {
     if (req.url === '/styles/site.css') {
          res.writeHead(200, {
         'content-type': 'text/css'
@@ -51,14 +77,17 @@ const server = http.createServer((req, res) => {
 
     switch(req.url) {
         case '/': 
-            res.write(indexTemplate(cats));
+            const indexHtml = await renderHome(cats);
+            res.write(indexHtml);
             break;
         case '/cats/add-breed':
-            res.write(addBreedHtml)
+            const addBreedHtml = await readFile('./views/addBreed.html');
+            res.write(addBreedHtml);
             break;
         case '/cats/add-cat':
-            res.write(addCatHtml);
-        
+            const addCat = await readFile('./views/addCat.html');
+            res.write(addCat);
+       
         default:
             res.write(`<h1>Page not found!</h1>`);
             break;
