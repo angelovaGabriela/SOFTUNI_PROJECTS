@@ -1,6 +1,8 @@
 const {log} = require('console');
 const http = require('http');
 const fs = require('fs/promises')
+const querystring = require('querystring')
+const {EOL} = require('os');
 
 const siteCss = require('./content/styles/site.css');
 const port = 5000;
@@ -40,28 +42,44 @@ function readFile(path) {
     return fs.readFile(path, {encoding: 'utf-8'});    
 }
 
+function render(html, data) {
+const resultHtml = Object
+.keys(data)
+.reduce((result, key) => result.replaceAll(`{{${key}}}`, data[key]), html);
+
+return resultHtml;
+}
+
 
 
 async function renderCat(catData) {
     let catHtml = await readFile('./views/cat.html');
    
-    catHtml = catHtml.replaceAll('{{name}}', catData.name);
-    catHtml = catHtml.replaceAll('{{description}}', catData.description);
-    catHtml = catHtml.replaceAll('{{imageUrl}}', catData.imageUrl);
-    catHtml = catHtml.replaceAll('{{breed}}', catData.breed); 
-
-
-    return catHtml;
+    return render(catHtml,catData);
 
 }
 
 async function renderHome(cats) {
     let indexHtml = await readFile('./views/home/index.html');
+   
     const catsHtmlResult = await Promise.all(cats.map(renderCat));
-    indexHtml = indexHtml.replaceAll('{{cats}}', catsHtmlResult.join('\n'));
-    
-    return indexHtml;
+
+    return render(indexHtml, {cats: catsHtmlResult.join('\n')});
 }
+
+// function parseFile(part) {
+//    const namePattern = new RegExp(`name="[^"]+"`, 'm');
+//    const valuePattern = new RegExp(`${EOL}${EOL}(.*)`, '');
+
+//    const nameMatch = part.match(namePattern);
+//    const valueMatch = part.match(valuePattern);
+
+//    const name = nameMatch[1];
+//    const value = part.slice(valueMatch.index).trim();
+
+//    return [name, value];
+
+// }
 
 const server = http.createServer(async(req, res) => {
     if (req.url === '/styles/site.css') {
@@ -79,21 +97,83 @@ const server = http.createServer(async(req, res) => {
         case '/': 
             const indexHtml = await renderHome(cats);
             res.write(indexHtml);
-            break;
+            return res.end();
         case '/cats/add-breed':
             const addBreedHtml = await readFile('./views/addBreed.html');
             res.write(addBreedHtml);
-            break;
+            return res.end();
         case '/cats/add-cat':
-            const addCat = await readFile('./views/addCat.html');
-            res.write(addCat);
-       
+            if (req.method === 'GET') {
+                   const addCat = await readFile('./views/addCat.html');
+                   res.write(addCat); 
+            // } else if (req.method === 'POST') {
+            //     let body = '';
+
+            //     req.on('data', (chunk) => {
+            //       body += chunk;
+            //     });
+
+            //     req.on('end', async() => {
+
+            //       const boundary = req.headers['content-type'].split('boundary=').at(1);
+            //       const parts = body.split(`--${boundary}`).filter(part => !!part).slice(0, -1);
+                  
+            //       const [name, value] = parseFile(parts[2]);
+            //       console.log(name);
+            //       console.log(value);
+
+            //       await fs.writeFile(`./uploads/image.jpg`, value);
+
+            //         res.end();
+            //     });
+            // }
+
+} else if (req.method === 'POST') {
+    const chunks = [];
+
+    req.on('data', chunk => {
+        chunks.push(chunk);
+    });
+
+    req.on('end', async () => {
+        const buffer = Buffer.concat(chunks);
+
+        const boundary = '--' + req.headers['content-type'].split('boundary=')[1];
+        const parts = buffer.toString('latin1').split(boundary).slice(1, -1); // skip preamble and final boundary
+
+        for (const part of parts) {
+            const [rawHeaders, rawBody] = part.split('\r\n\r\n');
+
+            if (!rawHeaders || !rawBody) continue;
+
+            const isFile = rawHeaders.includes('filename=');
+            if (!isFile) continue;
+
+            const filenameMatch = rawHeaders.match(/filename="(.+?)"/);
+            const filename = filenameMatch ? filenameMatch[1] : 'upload.bin';
+
+            // Find the real body start index in the full buffer
+            const partBuffer = Buffer.from(part, 'latin1'); // preserve raw bytes
+            const bodyStartIndex = partBuffer.indexOf('\r\n\r\n') + 4;
+            const bodyEndIndex = partBuffer.length - 2; // strip trailing \r\n
+
+            const fileBuffer = partBuffer.slice(bodyStartIndex, bodyEndIndex);
+
+            await fs.writeFile(`./uploads/${filename}`, fileBuffer);
+            console.log(`File saved: uploads/${filename}`);
+        }
+
+     //   res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end('<h2>Upload completed</h2>');
+    });
+}
+         
+            break;
         default:
             res.write(`<h1>Page not found!</h1>`);
-            break;
+            return res.end();
     }
    
-    res.end();
 });
 
 
