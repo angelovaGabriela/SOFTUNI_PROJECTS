@@ -1,29 +1,35 @@
 {
- "movies": [
-    
+  "movies": [
     {
-        "id": 1,
-        "title": "Jungle Cuise",
-        "imageUrl": "/img/jungle-cruise.jpeg",
-        "genre": "Adventure",
-        "description": "Dreaming about saving countless lives and having another adventure, the feisty English feminist and doctor of botany, Dr Lily Houghton"
+      "id": 1,
+      "title": "Jungle Cuise",
+      "imageUrl": "/img/jungle-cruise.jpeg",
+      "genre": "Adventure",
+      "description": "Dreaming about saving countless lives and having another adventure, the feisty English feminist and doctor of botany, Dr Lily Houghton"
     },
-    
     {
-        "id": 2,
-        "title": "The Little Mermaid",
-        "imageUrl": "/img/the-little-mermaid.jpg",
-        "genre": "Fantasy",
-        "description": "The youngest of King Triton's daughters, Ariel is a beautiful and spirited young mermaid"
+      "id": 2,
+      "title": "The Little Mermaid",
+      "imageUrl": "/img/the-little-mermaid.jpg",
+      "genre": "Fantasy",
+      "description": "The youngest of King Triton's daughters, Ariel is a beautiful and spirited young mermaid"
     },
-
-     {
-        "id": 3,
-        "title": "Home Alone",
-        "imageUrl": "/img/home-alone.jpeg",
-        "genre": "Comedy",
-        "description": "It is Christmas time and the McCallister family is preparing for a vacation in Paris"
+    {
+      "id": 3,
+      "title": "Home Alone",
+      "imageUrl": "/img/home-alone.jpeg",
+      "genre": "Comedy",
+      "description": "It is Christmas time and the McCallister family is preparing for a vacation in Paris"
+    },
+    {
+      "title": "Man of Steel",
+      "genre": "Superhero",
+      "director": " Zack Snyder ",
+      "year": "2013",
+      "imageUrl": "https://c7.alamy.com/comp/2S652E1/man-of-steel-2013-directed-by-zack-snyder-and-starring-henry-cavill-amy-adams-michael-shannon-an-alien-child-raised-on-earth-must-embrace-his-extraordinary-powers-to-protect-his-adopted-world-from-invasion-photograph-of-an-original-2013-us-advance-poster-editorial-use-only-credit-bfa-warner-bros-2S652E1.jpg",
+      "rating": "10",
+      "description": "In the film, Clark Kent learns that he is a superpowered alien from the planet Krypton and assumes the role of mankind's protector as Superman...",
+      "id": "ogolu4rcmdnahh79"
     }
-
-]
+  ]
 }
