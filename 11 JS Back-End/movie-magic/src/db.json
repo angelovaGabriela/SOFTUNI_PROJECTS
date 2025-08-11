@@ -1,7 +1,7 @@
 {
   "movies": [
     {
-      "id": "okolu4renvhfhh79",
+      "_id": "okolu4renvhfhh79",
       "title": "Jungle Cuise",
       "imageUrl": "/img/jungle-cruise.jpeg",
       "rating": 5,
@@ -9,7 +9,7 @@
       "description": "Dreaming about saving countless lives and having another adventure, the feisty English feminist and doctor of botany, Dr Lily Houghton"
     },
     {
-      "id": "ovegbrnebghchh79",
+      "_id": "ovegbrnebghchh79",
       "title": "The Little Mermaid",
       "imageUrl": "/img/the-little-mermaid.jpg",
       "rating": 8,
@@ -17,7 +17,7 @@
       "description": "The youngest of King Triton's daughters, Ariel is a beautiful and spirited young mermaid"
     },
     {
-      "id": "ogolu4rebghchh79",
+      "_id": "ogolu4rebghchh79",
       "title": "Home Alone",
       "imageUrl": "/img/home-alone.jpeg",
       "rating": 3,
@@ -25,24 +25,25 @@
       "description": "It is Christmas time and the McCallister family is preparing for a vacation in Paris"
     },
     {
+      "_id": "ogolu4rcmdnahh79",
       "title": "Man of Steel",
       "genre": "Superhero",
       "director": " Zack Snyder ",
       "year": "2013",
       "imageUrl": "https://c7.alamy.com/comp/2S652E1/man-of-steel-2013-directed-by-zack-snyder-and-starring-henry-cavill-amy-adams-michael-shannon-an-alien-child-raised-on-earth-must-embrace-his-extraordinary-powers-to-protect-his-adopted-world-from-invasion-photograph-of-an-original-2013-us-advance-poster-editorial-use-only-credit-bfa-warner-bros-2S652E1.jpg",
       "rating": 10,
-      "description": "In the film, Clark Kent learns that he is a superpowered alien from the planet Krypton and assumes the role of mankind's protector as Superman...",
-      "id": "ogolu4rcmdnahh79"
+      "description": "In the film, Clark Kent learns that he is a superpowered alien from the planet Krypton and assumes the role of mankind's protector as Superman..."
     },
     {
+      "_id": "ogolua60mdngre1q",
       "title": "The Shawshank Redemption",
       "genre": "Drama",
       "director": "Frank Darabont",
       "year": "1994",
       "imageUrl": "https://image.tmdb.org/t/p/original/oBZ36R1z6Ner9TYmZeSWPhHwF7r.jpg",
       "rating": 5,
-      "description": "A banker convicted of uxoricide forms a friendship over a quarter century with a hardened convict, while maintaining his innocence and trying to remain hopeful through simple compassion.",
-      "id": "ogolua60mdngre1q"
+      "description": "A banker convicted of uxoricide forms a friendship over a quarter century with a hardened convict, while maintaining his innocence and trying to remain hopeful through simple compassion."
+     
     }
   ]
 }

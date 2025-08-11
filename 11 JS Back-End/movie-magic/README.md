@@ -1,6 +1,6 @@
-## Developing Steps
+## Developing Steps - workshop 1
 
-## Start project
+## Start project 
 `npm run dev` - for developing
 
 1. Initial Project Architecture
@@ -15,3 +15,10 @@
 10. Add Create page
 11. Add Details page
 12. Add Search page
+
+
+## Developing Steps - workshop 2 
+1. Extract init files
+2. Setup Mongoose
+3. Add movie model
+4. Convert file based storage to db storage
