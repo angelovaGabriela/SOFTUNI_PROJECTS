@@ -2,6 +2,7 @@ import { Router } from 'express';
 import movieService from '../services/movie-service.js';
 const router = Router();
 
+//temporary definition
 function toArray(documents) {
     return documents.map(document => document.toObject());
 }
