@@ -1,10 +1,9 @@
 export interface Theme {
-    _id: string,
-    themeName: string,
-    createdAt: string,
+    _id: string;
+    themeName: string;
+    created_at: string;
     userId: {
-        username: string
-    },
-    subscribers: string[],
-
+        username: string;
+    };
+    subscribers: string[];
 }

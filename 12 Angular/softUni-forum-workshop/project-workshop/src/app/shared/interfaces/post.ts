@@ -1,11 +1,11 @@
 export interface Post {
-    _id: string,
-    text: string,
+    _id: string;
+    text: string;
     userId: {
         username: string;
-    },
-     themeId: {
+    };
+    themeId: {
         themeName: string;
-    },
+    };
     created_at: string;
 }
