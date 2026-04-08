@@ -1,0 +1,30 @@
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
+
+@Component({
+  selector: 'app-new-theme',
+  imports: [FormsModule],
+  templateUrl: './new-theme.component.html',
+  styleUrl: './new-theme.component.css',
+})
+export class NewThemeComponent {
+
+  themeName = '';
+  postText = '';
+
+
+  private router = inject(Router);
+
+  onSubmit(): void {
+    console.log('Theme Name:', this.themeName);
+    console.log('Post Text:', this.postText);
+
+    this.router.navigate(['/themes']);
+  }
+
+  onCancel(): void {
+    this.router.navigate(['/home']);
+  }
+}
