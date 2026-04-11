@@ -4,9 +4,9 @@
     Hover over for surprise!
 </p>
 
-    <div class="mission-grid">
+    <div class="mission-grid" >
         @for (mission of missions; track mission.id) {
-        <div class="mission-card" appHighlights="#1e3a5f">
+        <div class="mission-card" appHighlights [status]="mission.status" >
             <div class="mission-status status-{{ mission.status }}">
               <span [appStatusStyle]="mission.status">{{ mission.status }}</span>  
             </div>

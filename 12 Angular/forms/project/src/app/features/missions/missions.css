@@ -48,6 +48,25 @@
 
 .details-btn {
   display: inline-block;
+  background: #3b82f6;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.details-btn:hover {
+  background: #2563eb;
+}
+
+/* Hover text color override for better UX */
+.mission-card.hovered h3,
+.mission-card.hovered p,
+.mission-card.hovered a {
+  color: white !important;
+}
   margin-top: 12px;
   padding: 8px 16px;
   background: #334155;

@@ -38,17 +38,21 @@ export class StatusStyleDirective implements OnChanges {
     private updateStyles(): void {
         switch (this.appStatusStyle) {
             case 'planned':
-                this.backgroundColor = '#1e3a5f';
+                this.backgroundColor = '#3b82f6';
+                this.textColor = 'white';
                 break;
             case 'active':
-                this.backgroundColor = '#14532d';
+                this.backgroundColor = '#22c55e';
+                this.textColor = 'white';
                 break;
             case 'completed':
-                this.backgroundColor = '#3f3f46';
+                this.backgroundColor = '#64748b';
+                this.textColor = 'white';
                 break;
             default:
                 this.backgroundColor = 'transparent';
                 this.textColor = 'inherit';
+                break;
         }
     }
 }
