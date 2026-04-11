@@ -8,7 +8,7 @@ import { CommandCenter } from './features/command-center/command-center';
 import { authGuard } from './guardes/auth.guard';
 import { NotFound } from './features/not-found/not-found';
 import { CrewRegister } from './features/crew-register/crew-register';
-
+import { MissionForm } from './features/mission-form/mission-form';
 
 export const routes: Routes = [
 
@@ -17,6 +17,7 @@ export const routes: Routes = [
     { path: 'missions/:id', component: MissionDetails, resolve: { mission: missionResolver } },
     { path: 'countDown', component: CountDown },
     { path: 'crew-register', component: CrewRegister },
+    { path: 'new-mission', component: MissionForm },
     { path: 'commandCenter', component: CommandCenter, canActivate: [authGuard] },
     { path: 'login', component: Login },
     { path: '**', component: NotFound }, // wildcard route for 404 page
