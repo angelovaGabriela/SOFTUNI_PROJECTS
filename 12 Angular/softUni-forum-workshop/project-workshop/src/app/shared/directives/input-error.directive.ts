@@ -10,7 +10,7 @@ export class InputErrorDirective implements OnInit {
 
  private control = inject(NgControl, {optional:true});
 
- @HostBinding('class-input-error') get hasError(): boolean {
+ @HostBinding('class.input-error') get hasError(): boolean {
   return (this.control?.invalid && this.control?.touched) || false;
  }
 

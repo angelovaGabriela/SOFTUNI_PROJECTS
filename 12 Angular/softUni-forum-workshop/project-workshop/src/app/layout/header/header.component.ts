@@ -17,7 +17,16 @@ export class HeaderComponent {
   username = computed(() => this.authservice.currentUser()?.username ?? '');
 
   onLogout(): void {
-    this.authservice.logout();
-    this.router.navigate(['/home']);
+    this.authservice.logout().subscribe({
+      next: () => {
+        this.authservice.clearSession();
+        this.router.navigate(['/home']);
+      },
+      error: () => {
+        this.authservice.clearSession();
+        this.router.navigate(['/home']);
+      }
+    });
+   
   }
 }
