@@ -3,21 +3,39 @@
         <div class="header-background">
             <span>New Theme</span>
         </div>
-        <form (ngSubmit)="onSubmit()">
+        <form #themeForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="new-theme-title">
                 <label for="themeName">Title <span class="red">*</span></label>
-                <input type="text" name="themeName" id="themeName" [(ngModel)]="themeName" class="width">
+                <input appInputError type="text" name="themeName" id="themeName" [(ngModel)]="themeName" required
+                    minlength="5" #themeNameCtrl="ngModel" class="width"
+                    [class.input-error]="themeNameCtrl.invalid && themeNameCtrl.touched">
 
             </div>
+            @if (themeNameCtrl.touched && themeNameCtrl.errors?.['required']) {
+            <p class="error">Theme name is required.</p>
+            }
+            @if (themeNameCtrl.touched && themeNameCtrl.errors?.['minlength']) {
+            <p class="error">Theme name must be at least 5 characters long.</p>
+            }
             <div class="new-theme-content">
                 <label for="postText">Post <span class="red">*</span></label>
-                <textarea type="text" name="postText" id="postText" [(ngModel)]="postText" rows="8"
-                    class="height"></textarea>
-
+                <textarea appInputError type="text" name="postText" rows="8" class="height" id="postText"
+                    [(ngModel)]="postText" required minlength="10" #postTextCtrl="ngModel"
+                    [class.input-error]="postTextCtrl.invalid && postTextCtrl.touched"></textarea>
+                @if (postTextCtrl.touched && postTextCtrl.errors?.['required']) {
+                <p class="error">The field with your post is required.</p>
+                }
+                @if (postTextCtrl.touched && postTextCtrl.errors?.['minlength']) {
+                <p class="error">Post must be at least 10 characters long.</p>
+                }
             </div>
             <div class="new-theme-buttons">
-                <button type="button" class="cancel" (click)="onCancel()">Cancel</button>
-                <button class="public" type="submit">Post</button>
+                <button type="button" class="cancel" (click)="onCancel()" [disabled]="isLoading">
+                    Cancel
+                </button>
+                <button class="public" [disabled]="themeForm.invalid || isLoading" type="submit">
+                    {{ isLoading ? 'Posting...' : 'Post' }}
+                </button>
             </div>
 
         </form>
