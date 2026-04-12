@@ -6,4 +6,4 @@ This repo holds the full experience I've gained during my education at @ SoftUni
 - homeworks
 - exams
 - exercises
-- projects 
+- projects from workshops
