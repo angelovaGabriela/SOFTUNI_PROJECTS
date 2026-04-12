@@ -1,30 +1,26 @@
-/* theme content */
+/* ── Theme Content ───────────────────────────────────────── */
 
 .theme-content {
     display: flex;
     flex-direction: column;
-    width: 80%;
-    margin: auto;
-    padding: 1em;
-    background-color: #e4e3e3;
-    border-radius: 0.5em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 1rem;
+    width: 90%;
+    margin: 1.5rem auto 0;
+    padding: 0;
 }
 
-/* theme title */
-
+/* Theme title banner */
 .theme-name-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5em;
-    border: 1px solid #999;
-    border-radius: 0.5em;
-    font-size: 0.9em;
-    margin-top: 1em;
-    background-color: #ff9d00d7;
-    color: #234465;
-    text-shadow: 1px 1px rgb(0, 0, 0);
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--color-primary-dk) 0%, var(--color-primary) 100%);
+    color: #fff;
+    box-shadow: var(--shadow-md);
+    border-left: none;
 }
 
 .theme-title {
@@ -32,190 +28,248 @@
 }
 
 .theme-name {
-    width: 100%;
-    color: white;
+    flex: 1;
+    margin-right: 1rem;
 }
 
-.columns {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.7rem;
+.theme-name h2 {
+    color: #fff;
+    font-size: 1.3rem;
+    padding: 0;
+    margin: 0 0 0.35rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+.theme-name p,
+.theme-name-wrapper p {
+    margin: 0;
+    padding: 0 !important;
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-size: 0.82rem;
+    border-radius: 0 !important;
+    text-shadow: none;
 }
 
 .subscribers {
     text-align: right;
-    flex-basis: 25%;
+    flex-shrink: 0;
+}
+
+.subscribers p {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0;
 }
 
 .subscribers button {
-    padding: 0.3rem 0.7rem;
+    padding: 0.3rem 0.8rem;
     border: none;
-    border-radius: 0.5rem;
-    color: white;
+    border-radius: var(--radius-full);
+    color: #fff;
     cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 600;
     width: 100%;
+    margin-top: 0.4rem;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.subscribe {
-    background-color: green;
+.subscribers button:hover {
+    transform: translateY(-1px);
 }
 
-.unsubscribe {
-    background-color: red;
-}
+.subscribe   { background-color: var(--color-success); }
+.unsubscribe { background-color: var(--color-danger);  }
 
-.theme-name-wrapper .subscribers p {
-    text-align: right;
-}
-
-.theme-name {
-    margin-right: 1em;
-}
-
-.theme-name h2 {
-    padding-top: 0;
-}
-
-/* comment */
-
+/* ── Comment cards ─────────────────────────────────────── */
 .comment {
-    margin-top: 1em;
-    border: 1px solid #999;
-    border-radius: 0.5em;
-    width: 100%;
-    padding: 1em;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s ease;
 }
 
-.comment header p {
-    padding: 0.5em;
+.comment:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.comment header.header {
+    background: rgba(35, 68, 101, 0.06);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.comment header.header p {
+    padding: 0.6em 1em !important;
     text-align: center;
-    background-color: #234465;
-    border-bottom: 1px dashed #999;
-    color: white;
+    color: var(--color-text-muted) !important;
+    font-size: 0.82rem;
+    margin: 0;
+    background: transparent !important;
+}
+
+.comment header.header p span {
+    color: var(--color-primary);
+    font-weight: 700;
 }
 
 .comment-main {
-    margin: 1em;
+    padding: 1rem 1.25rem;
     display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
 }
 
 .userdetails {
     display: flex;
     flex-direction: column;
-    text-align: center;
-}
-
-.userdetails p {
-    padding-left: 0;
-    text-align: left;
-    color: #234465;
-}
-
-.post-content p {
-    padding-left: 1.5em;
-    color: white;
-}
-
-.userdetails div {
-    border: 1px solid #999;
-    display: flex;
-    justify-content: center;
-    border-radius: 0.5em;
-    background-color: #e4e3e3;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .userdetails img {
-    padding: 0;
-    align-self: center;
-    margin: 1em 0;
-    width: 5em;
-    height: 5em;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
-    border: 1px solid #999;
+    border: 2px solid var(--color-border);
+    object-fit: cover;
+    box-shadow: var(--shadow-sm);
+}
+
+.post-content {
+    flex: 1;
+}
+
+.post-content p {
+    color: var(--color-text) !important;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0 !important;
+    background: transparent !important;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .footer {
-    font-size: 1.2em;
-    border-top: 1px dashed #999;
+    font-size: 0.85rem;
+    border-top: 1px solid var(--color-border);
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: #234465;
-    padding-top: 0.5em;
-}
-
-.footer i {
-    background-color: #ffffff;
-    border: none;
-    cursor: pointer;
+    gap: 0.5rem;
+    padding: 0.5em 1.25em;
+    color: var(--color-text-muted);
+    background-color: rgba(238, 242, 247, 0.4);
 }
 
 .footer p {
-    padding-left: 0.5em;
-}
-
-.footer .fas.fa-thumbs-up {
-    color: green;
-}
-
-.footer .fas.fa-thumbs-down {
-    color: red;
-}
-
-/* answer-comment */
-
-.answer-comment {
-    width: 100%;
-    margin-top: 1em;
+    padding: 0 !important;
+    margin: 0;
+    background: transparent !important;
+    color: var(--color-text-muted) !important;
+    font-size: 0.82rem;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
 }
 
-.answer-comment p {
-    flex-basis: 15%;
-    padding-bottom: 0.3em;
+.footer p span {
+    color: var(--color-primary);
+    font-weight: 700;
 }
 
-.answer-comment p span {
-    color: #234465;
-    font-size: 1.2em;
+.footer i {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.2em;
+    border-radius: var(--radius-sm);
+    transition: color 0.2s, transform 0.2s;
+}
+
+.footer .fas.fa-thumbs-up:hover  { color: var(--color-success); transform: scale(1.15); }
+.footer .fas.fa-thumbs-down:hover{ color: var(--color-danger);  transform: scale(1.15); }
+
+/* ── Answer / Post Comment ─────────────────────────────── */
+.answer-comment {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.answer-comment > p {
+    padding: 0.75em 1.25em !important;
+    background: rgba(35, 68, 101, 0.06) !important;
+    border-bottom: 1px solid var(--color-border);
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted) !important;
+}
+
+.answer-comment > p span {
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1em;
 }
 
 .answer {
-    border: 1px solid white;
-    border-radius: 0.5em;
-    flex-basis: 85%;
-    text-align: center;
-    background-color: #e4e3e3;
-    padding: 0.5em;
+    padding: 1.25rem;
+    background-color: var(--color-surface);
+}
+
+.answer form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .answer textarea {
-    width: 90%;
-    margin-top: 1rem;
-    border-radius: 0.5rem;
-    padding: 0.5em;
-    border: 1px solid #999;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border-radius: var(--radius-sm);
+    padding: 0.75em;
+    border: 1px solid var(--color-border);
+    font-size: 0.92rem;
+    color: var(--color-text);
+    background: #fafcff;
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+    line-height: 1.6;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    margin: 0;
+}
+
+.answer textarea:focus {
+    border-color: var(--color-sky);
+    box-shadow: 0 0 0 3px rgba(78, 188, 237, 0.18);
 }
 
 .answer button {
-    background-color: #234465;
-    color: white;
-    margin: 0.5em 1em;
-    padding: 0.4em 1.2em;
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-lt) 100%);
+    color: #fff;
     border: none;
-    border-radius: 0.5em;
+    border-radius: var(--radius-full);
+    padding: 0.55em 1.8em;
+    font-weight: 700;
+    font-size: 0.9rem;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    margin: 0;
+    box-shadow: 0 3px 10px rgba(35, 68, 101, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .answer button:hover {
-    transform: scale(1.05);
-}
-
-.comment-area {
-    min-width: 100%;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(35, 68, 101, 0.3);
 }

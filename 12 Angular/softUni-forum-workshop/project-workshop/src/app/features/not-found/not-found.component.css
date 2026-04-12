@@ -1,51 +1,74 @@
+/* ── 404 Not Found ───────────────────────────────────────── */
+
 .mainbox {
-  margin: auto;
-  height: 550px;
-  width: 550px;
-  position: relative;
+    margin: 4rem auto 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1rem;
+    user-select: none;
+    gap: 0.25rem;
 }
 
-  .err {
-    color: #234465;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 11rem;
-    position:absolute;
-    left: 20%;
-    top: 8%;
-  }
+.err,
+.err2 {
+    font-family: 'Nunito Sans', 'Segoe UI', sans-serif;
+    font-size: clamp(5rem, 12vw, 9rem);
+    font-weight: 900;
+    color: var(--color-primary);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+}
 
 .far {
-  position: absolute;
-  font-size: 8.5rem;
-  left: 42%;
-  top: 15%;
-  color: #234465;
+    font-size: clamp(3.5rem, 9vw, 6.5rem);
+    color: var(--color-accent);
+    display: block;
+    margin: 0 0.15em;
+    flex-shrink: 0;
+    animation: wobble 3s ease-in-out infinite;
 }
 
- .err2 {
-    color: #234465;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 11rem;
-    position:absolute;
-    left: 68%;
-    top: 8%;
-  }
+@keyframes wobble {
+    0%,  100% { transform: rotate(0deg); }
+    20%        { transform: rotate(12deg); }
+    40%        { transform: rotate(-10deg); }
+    60%        { transform: rotate(7deg); }
+    80%        { transform: rotate(-5deg); }
+}
 
 .msg {
-    text-align: center;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 1.6rem;
-    position:absolute;
-    left: 16%;
-    top: 45%;
-    width: 75%;
-  }
-
-a {
-  text-decoration: none;
-  color: #234465;
+    width: 100%;
+    font-family: 'Nunito Sans', 'Segoe UI', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-top: 1.25rem;
+    letter-spacing: 0.01em;
 }
 
-a:hover {
-  text-decoration: underline;
+.msg p {
+    margin-top: 0.5rem;
+    font-size: 0.82em;
+    color: var(--color-text-muted);
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+.msg a {
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.msg a:hover {
+    color: var(--color-accent-dk);
+    border-bottom-color: var(--color-accent-dk);
 }
