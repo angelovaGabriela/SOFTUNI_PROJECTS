@@ -1,0 +1,24 @@
+div {
+    padding: 20px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+}
+
+.fixed {
+    width: 300px;
+}
+
+.percentage {
+    width: 50%;
+    /* 50% from the width of the parent element*/
+}
+
+.viewport {
+    width: 50vw;
+    /* 50% from the with of the screen view */
+}
+
+.min-max {
+    min-width: 100px;
+    max-width: 300px;
+}

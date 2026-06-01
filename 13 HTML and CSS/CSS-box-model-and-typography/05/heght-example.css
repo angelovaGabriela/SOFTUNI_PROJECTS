@@ -1,0 +1,18 @@
+.fixed {
+    height: 200px;
+}
+
+.percentage {
+    height: 50%;
+    /*works only if the parent has precisely defined heigth
+    it doesn't work like for the width because for the heigth the default value is auto*/
+}
+
+.viewport {
+    height: 50vh;
+}
+
+.min-max {
+    min-height: 100px;
+    max-height: 300px;
+}
