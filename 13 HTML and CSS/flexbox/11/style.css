@@ -1,0 +1,54 @@
+body {
+    background-color: #eee;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.journal-entry {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgb(178, 176, 176);
+    width: 800px;
+    padding: 20px;
+    margin: auto;
+    display: flex;
+    gap: 20px;
+
+}
+
+.journal-entry h2 {
+    font-size: 1.2em;
+    color:rgb(178, 176, 176);
+    margin: 0;
+}
+
+.journal-entry h3 {
+    font-size: 1.7em;
+    margin: 0;   
+}
+
+.journal-entry main {
+    font-size: 0.8em;
+    color: lightslategray;
+    line-height: 1.5em;
+    
+}
+
+.image-container {
+    width: 300px;
+    height: 100%;
+    background-color: #eee;
+    border-radius: 5px;
+    border: 1px solid rgb(108, 105, 105);
+}
+
+.journal-entry .button-primary {
+    background-color: #663399;
+    color:white;
+}
+
+.journal-entry button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: darkgray;
+}
