@@ -16,8 +16,19 @@ async function writeDb(db) {
     const content = JSON.stringify(db, null, 2);
      await fs.writeFile('./src/db.json', content, { encoding: 'utf-8' });
 }
-async function getAll() {
-    const movies = await readDb('movies');
+async function getAll(filter = {}) {
+    let movies = await readDb('movies');
+//partial case insensitive search
+    if (filter.search) {
+        movies = movies.filter(m => m.title.toLowerCase().includes(filter.search.toLowerCase()));
+    }
+    if (filter.year) {
+        movies = movies.filter(m => m.year === filter.year);
+    }
+    if (filter.genre) {
+        movies = movies.filter(m => m.genre.toLowerCase() === filter.genre.toLowerCase());
+    }
+
     return movies;
 }
 
