@@ -9,11 +9,11 @@ movieController.get('/search', async (req, res) => {
 
     const movies = await movieService.getAll(filter);
 
-    res.render('movies/search', { movies, filter });
+    res.render('movies/search', { movies, filter, pageTitle: 'Search Movie'});
 })
 
 movieController.get('/create', (req, res) => {
-    res.render('movies/create');
+    res.render('movies/create', { pageTitle: 'Create Movie'});
 })
 
 movieController.post('/create', async (req, res) => {
@@ -30,7 +30,11 @@ movieController.get('/:movieId', async (req, res) => {
 
     const movie =  await movieService.getById(movieId);
 
-    res.render('movies/details', { movie });
+    //prepare view data - rating stars | quick and dirty
+
+    const ratingStars = '&#x2605;'.repeat(Math.floor(movie.rating));
+
+    res.render('movies/details', { movie, pageTitile: 'Details', ratingStars});
 })
 
 export default movieController;
