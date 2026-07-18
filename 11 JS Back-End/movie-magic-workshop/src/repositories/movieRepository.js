@@ -13,6 +13,7 @@ if (collection && !db.hasOwnProperty(collection)) {
 
 async function getAll() {
     const movies = await readDb('movies');
+    return movies;
 }
 
 const movieRepository = {
